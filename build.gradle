@@ -17,6 +17,7 @@ dependencies {
             'commons-logging:commons-logging:1.2',
             'commons-codec:commons-codec:1.9',
             'dom4j:dom4j:1.6.1',
+            'ch.qos.logback:logback-classic:1.1.8',
             'org.springframework:spring-aop:4.2.4.RELEASE',
             'org.springframework:spring-beans:4.2.4.RELEASE',
             'org.springframework:spring-context:4.2.4.RELEASE',
