@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<substitutionProperty name="log.base" value="../logs/wechat/log" />
+	<jmxConfigurator />
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="webChat" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<charset>UTF-8</charset>
+		</encoder>
+		<!-- 设置打印级别 -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level value="DEBUG" />
+		</filter>
+		<File>${log.base}_action.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}.%d{yyyy-MM-dd}_action.log
+			</FileNamePattern>
+			<MaxHistory>30</MaxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>15MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="com.krakentouch.weChat" addtivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="webChat" />
+	</logger>
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="stdout" />
+	</root>
+</configuration> 
