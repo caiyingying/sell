@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    providedCompile "javax:javaee-api:7.0"
     compile(
             'commons-logging:commons-logging:1.2',
             'org.springframework:spring-aop:4.2.4.RELEASE',
