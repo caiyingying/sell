@@ -1,18 +1,13 @@
 package com.daoliuhe.sell.filter;
 
+
+import com.daoliuhe.sell.util.PropertyHandler;
+import com.daoliuhe.sell.util.Utils;
+
+import javax.servlet.*;
 import java.io.IOException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
-import com.krakentouch.weChat.tools.PropertyHandler;
-import com.krakentouch.weChat.tools.Utils;
-
-public class WechatFilter implements Filter {
+public class WeChatFilter implements Filter {
 	
 	//private FilterConfig filterConfig;
 	
