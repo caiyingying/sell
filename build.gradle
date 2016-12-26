@@ -46,6 +46,9 @@ dependencies {
             "org.springframework:spring-expression:$springVersion",
             "org.springframework:spring-web:$springVersion",
             "org.springframework:spring-webmvc:$springVersion",
+            "org.springframework:spring-jdbc:$springVersion",
+            "org.springframework:spring-tx:$springVersion",
+            "org.springframework:spring-jms:$springVersion",
 
             // spring @responseBody json support
              "org.codehaus.jackson:jackson-mapper-asl:1.8.0",
@@ -67,6 +70,7 @@ dependencies {
 
             // 配置文件加密
             "org.jasypt:jasypt:1.9.2",
+            "org.jasypt:jasypt-spring3:1.9.2",
             "com.mchange:c3p0:0.9.5.2",
             "redis.clients:jedis:2.8.1",
             "org.quartz-scheduler:quartz:2.1.7",

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
-	<substitutionProperty name="log.base" value="/var/log/dts/log" />
+	<substitutionProperty name="log.base" value="/var/log/sell/log" />
 	<jmxConfigurator />
 	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
