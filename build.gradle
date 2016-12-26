@@ -8,33 +8,76 @@ sourceCompatibility = 1.7
 
 repositories {
     jcenter()
-    mavenCentral()
+
+    // 先从url中下载jar若没有找到，则在artifactUrls中寻找
+    maven {
+        url "http://maven.oschina.net/content/groups/public/"
+        artifactUrls "http://central.maven.org/maven2/"
+        mavenCentral()
+
+    }
 }
 
 dependencies {
     providedCompile "javax:javaee-api:7.0"
+    def shiroVersion = "1.2.4"
+    def springVersion = "4.0.5.RELEASE"
     compile(
-            'commons-io:commons-io:2.5',
-            'org.apache.commons:commons-lang3:3.5',
-            'commons-logging:commons-logging:1.2',
-            'commons-beanutils:commons-beanutils:1.9.3',
-            'commons-lang:commons-lang:2.6',
-            'commons-codec:commons-codec:1.9',
-            'org.apache.httpcomponents:httpclient:4.5.2',
-            'dom4j:dom4j:1.6.1',
-            'mysql:mysql-connector-java:5.1.40',
-            'org.slf4j:slf4j-jdk14:1.7.22',
-            'org.slf4j:slf4j-api:1.7.22',
-            'ch.qos.logback:logback-access:1.1.8',
-            'ch.qos.logback:logback-core:1.1.8',
-            'ch.qos.logback:logback-classic:1.1.8',
-            'org.springframework:spring-aop:4.2.4.RELEASE',
-            'org.springframework:spring-beans:4.2.4.RELEASE',
-            'org.springframework:spring-context:4.2.4.RELEASE',
-            'org.springframework:spring-core:4.2.4.RELEASE',
-            'org.springframework:spring-expression:4.2.4.RELEASE',
-            'org.springframework:spring-web:4.2.4.RELEASE',
-            'org.springframework:spring-webmvc:4.2.4.RELEASE'
+            "commons-io:commons-io:2.5",
+            "org.apache.commons:commons-lang3:3.5",
+            "commons-logging:commons-logging:1.2",
+            "commons-beanutils:commons-beanutils:1.9.3",
+            "commons-lang:commons-lang:2.6",
+            "commons-codec:commons-codec:1.9",
+            "org.apache.httpcomponents:httpclient:4.5.2",
+            "dom4j:dom4j:1.6.1",
+            "mysql:mysql-connector-java:5.1.40",
+            "org.slf4j:slf4j-jdk14:1.7.22",
+            "org.slf4j:slf4j-api:1.7.22",
+            "ch.qos.logback:logback-access:1.1.8",
+            "ch.qos.logback:logback-core:1.1.8",
+            "ch.qos.logback:logback-classic:1.1.8",
+
+            // spring
+            "org.springframework:spring-aop:$springVersion",
+            "org.springframework:spring-beans:$springVersion",
+            "org.springframework:spring-context:$springVersion",
+            "org.springframework:spring-core:$springVersion",
+            "org.springframework:spring-expression:$springVersion",
+            "org.springframework:spring-web:$springVersion",
+            "org.springframework:spring-webmvc:$springVersion",
+
+            // spring @responseBody json support
+             "org.codehaus.jackson:jackson-mapper-asl:1.8.0",
+             "org.codehaus.jackson:jackson-core-asl:1.8.0",
+
+            // shiro
+            "org.apache.shiro:shiro-core:$shiroVersion",
+            "org.apache.shiro:shiro-web:$shiroVersion",
+            "org.apache.shiro:shiro-spring:$shiroVersion",
+            "org.apache.shiro:shiro-ehcache:$shiroVersion",
+            "org.apache.shiro:shiro-quartz:$shiroVersion",
+            "org.apache.shiro:shiro-aspectj:$shiroVersion",
+
+            // mybatis
+            "org.mybatis:mybatis:3.2.7",
+            "org.mybatis:mybatis-spring:1.3.0",
+            "org.mybatis.generator:mybatis-generator-core:1.3.2",
+            "commons-collections:commons-collections:3.2.1",
+
+            // 配置文件加密
+            "org.jasypt:jasypt:1.9.2",
+            "com.mchange:c3p0:0.9.5.2",
+            "redis.clients:jedis:2.8.1",
+            "org.quartz-scheduler:quartz:2.1.7",
+            "org.apache.velocity:velocity:1.7",
+
+            "org.aspectj:aspectjweaver:1.5.3",
+            //"com.oracle:ojdbc14:10.2.0.4.0",
+            "javax.servlet.jsp.jstl:jstl:1.2"
     )
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile(
+            "org.springframework:spring-test:$springVersion",
+            "junit:junit:4.12"
+    )
 }
