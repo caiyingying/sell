@@ -61,9 +61,12 @@
 	
 	 <!-- 缓存管理器 使用Ehcache实现 -->
     <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
-<!--         <property name="cacheManager" ref="defaultCacheManager"/> -->
+        <!--
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+		-->
+        <property name="cacheManager" ref="defaultCacheManager"/>
     </bean>
+
 	<!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 	
@@ -81,7 +84,7 @@
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
          -->
-        <property name="sessionDAO" ref="redisSessionDAO"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
 	</bean>
@@ -100,7 +103,7 @@
     </bean>
 
 	<!-- 凭证匹配器 -->
-	<bean id="credentialsMatcher" class="com.dahuatech.dts.core.RetryLimitHashedCredentialsMatcher">
+	<bean id="credentialsMatcher" class="com.daoliuhe.sell.core.RetryLimitHashedCredentialsMatcher">
 		<constructor-arg ref="ehCacheManager"/>
 		<property name="hashAlgorithmName" value="md5"/>
 		<property name="hashIterations" value="2"/>
@@ -108,7 +111,7 @@
 	</bean>
 
 	<!--DB 密码验证-->
-	<bean id="shiroDbRealm" class="com.dahuatech.dts.core.ShiroDbRealm">
+	<bean id="shiroDbRealm" class="com.daoliuhe.sell.core.UserRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher"/>
 		<property name="cachingEnabled" value="true"/>
 	</bean>
@@ -118,8 +121,7 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
  	    <property name="realm" ref="shiroDbRealm"/>
 	    <property name="sessionManager" ref="sessionManager"/>
-<!-- 	    <property name="cacheManager" ref="ehCacheManager"/> -->
-	    <property name="cacheManager" ref="redisCacheManager"/>
+ 	    <property name="cacheManager" ref="ehCacheManager"/>
 	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
