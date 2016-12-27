@@ -1,27 +1,14 @@
 package com.daoliuhe.sell.core;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.zh.base.model.bean.Authorities;
-import com.zh.base.model.bean.Role;
-import com.zh.base.model.bean.User;
-import com.zh.base.service.AuthoritiesService;
-import com.zh.base.service.RoleService;
-import com.zh.base.service.UserInfoService;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -30,14 +17,14 @@ import com.zh.base.service.UserInfoService;
  */
 public class UserRealm extends AuthorizingRealm {
 	
-	@Autowired
-    private UserInfoService userInfoService;
-    
-	@Autowired
-    private RoleService roleService;
-    
-	@Autowired
-    private AuthoritiesService authoritiesService;
+//	@Autowired
+//    private UserInfoService userInfoService;
+//
+//	@Autowired
+//    private RoleService roleService;
+//
+//	@Autowired
+//    private AuthoritiesService authoritiesService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -46,10 +33,10 @@ public class UserRealm extends AuthorizingRealm {
         Set<String> roles = new HashSet<String>();
         //权限集合
         Set<String> stringPermissions = new HashSet<String>();
-        
+        /*
         User user = new User();
         user.setLoginName(username);
-        
+
         user = userInfoService.query(user);
         String roleId = user.getRoleId();
         if(null != roleId && !roleId.isEmpty()){
@@ -70,13 +57,15 @@ public class UserRealm extends AuthorizingRealm {
         authorizationInfo.setRoles(roles);
         authorizationInfo.setStringPermissions(stringPermissions);
         return authorizationInfo;
+        */
+        return  null;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
         String username = (String)token.getPrincipal();
-        
+        /*
         User user = new User();
         user.setLoginName(username);
         user = userInfoService.query(user);
@@ -96,7 +85,10 @@ public class UserRealm extends AuthorizingRealm {
                 //ByteSource.Util.bytes(user.getId()),//salt=username+salt
                 getName()  //realm name
         );
+
         return authenticationInfo;
+        */
+        return null;
     }
 
     @Override
@@ -127,28 +119,28 @@ public class UserRealm extends AuthorizingRealm {
         clearAllCachedAuthorizationInfo();
     }
 
-	public UserInfoService getUserInfoService() {
-		return userInfoService;
-	}
-
-	public void setUserInfoService(UserInfoService userInfoService) {
-		this.userInfoService = userInfoService;
-	}
-
-	public RoleService getRoleService() {
-		return roleService;
-	}
-
-	public void setRoleService(RoleService roleService) {
-		this.roleService = roleService;
-	}
-
-	public AuthoritiesService getAuthoritiesService() {
-		return authoritiesService;
-	}
-
-	public void setAuthoritiesService(AuthoritiesService authoritiesService) {
-		this.authoritiesService = authoritiesService;
-	}
+//	public UserInfoService getUserInfoService() {
+//		return userInfoService;
+//	}
+//
+//	public void setUserInfoService(UserInfoService userInfoService) {
+//		this.userInfoService = userInfoService;
+//	}
+//
+//	public RoleService getRoleService() {
+//		return roleService;
+//	}
+//
+//	public void setRoleService(RoleService roleService) {
+//		this.roleService = roleService;
+//	}
+//
+//	public AuthoritiesService getAuthoritiesService() {
+//		return authoritiesService;
+//	}
+//
+//	public void setAuthoritiesService(AuthoritiesService authoritiesService) {
+//		this.authoritiesService = authoritiesService;
+//	}
 
 }
