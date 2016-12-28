@@ -50,7 +50,6 @@
 	            # more URL-to-FilterChain definitions here
 	            # anon：不需要身份验证, authc:需要身份验证, filter有先后顺序区别
 	            /statics/** = anon
-	            /console/** = anon
 	            /login/** = anon
 	            /rest/** = anon
 				/favicon.ico = anon
@@ -61,10 +60,8 @@
 	
 	 <!-- 缓存管理器 使用Ehcache实现 -->
     <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <!--
 		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
-		-->
-        <property name="cacheManager" ref="defaultCacheManager"/>
+        <!--<property name="cacheManager" ref="defaultCacheManager"/>-->
     </bean>
 
 	<!-- 会话ID生成器 -->
