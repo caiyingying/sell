@@ -21,7 +21,6 @@
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <property name="loginUrl" value="/login"/>
-        <property name="rememberMeParam" value="rememberMe"/>  
     </bean>
     
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -49,11 +48,9 @@
 	            # /** = authc
 	            # more URL-to-FilterChain definitions here
 	            # anon：不需要身份验证, authc:需要身份验证, filter有先后顺序区别
-	            /statics/** = anon
+	            /static/** = anon
 	            /login/** = anon
-	            /rest/** = anon
-				/favicon.ico = anon
-	            /** = forceLogout,authc
+	            /** = authc
 	        </value>
 	    </property>
 	</bean>
@@ -112,8 +109,6 @@
 		<property name="credentialsMatcher" ref="credentialsMatcher"/>
 		<property name="cachingEnabled" value="true"/>
 	</bean>
-    
-
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
  	    <property name="realm" ref="shiroDbRealm"/>
@@ -122,7 +117,6 @@
 	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-	
 	<!-- Enable Shiro Annotations for Spring-configured beans.  Only run after -->
 	<!-- the lifecycleBeanProcessor has run: -->
 	<!-- 如@RequiresRoles，@RequiresPermissions -->

@@ -14,7 +14,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 </head>
 <body>
-    <form action="/login/doLogin" method="post">
+    <form action="login/doLogin" method="post">
+        <label>登录名</label><input type="text" name="loginId"/>
+        <label>密码</label><input type="password" name="userPassword"/>
     </form>
 </body>
 </html>
