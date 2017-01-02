@@ -8,7 +8,7 @@ public class PropertyHandler {
 	private static String token = null;
 	
 	static{
-		 prb = (PropertyResourceBundle) PropertyResourceBundle.getBundle("wechat");
+		 prb = (PropertyResourceBundle) PropertyResourceBundle.getBundle("config");
 		 token = prb.getString("Token");
 	}
 

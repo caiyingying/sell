@@ -23,7 +23,7 @@ public class LoginController {
     @RequestMapping("doLogin")
     public ModelAndView doLogin() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("main");
+        mav.setViewName("redirect:/main");
         return mav;
     }
 }

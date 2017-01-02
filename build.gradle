@@ -24,13 +24,15 @@ repositories {
     }
 }
 
+[compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+
 dependencies {
     providedCompile "javax:javaee-api:7.0"
     def shiroVersion = "1.2.4"
     def springVersion = "4.0.5.RELEASE"
 
     //导入本地的依赖包
-    compile fileTree(dir: 'src/main/webapp/WEB-INF/lib', include: ['*.jar'])
+    providedCompile fileTree(dir: 'src/main/webapp/WEB-INF/lib', include: ['*.jar'])
 
     compile(
            //"commons-io:commons-io:2.5",

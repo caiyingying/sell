@@ -15,8 +15,16 @@
 </head>
 <body>
     <form action="login/doLogin" method="post">
-        <label>登录名</label><input type="text" name="loginId"/>
-        <label>密码</label><input type="password" name="userPassword"/>
+        <div>
+            <label>登录名</label><input type="text" name="loginId"/>
+        </div>
+        <div>
+            <label>密码</label><input type="password" name="userPassword"/>
+        </div>
+        <div>
+            <input type="submit" name="登录">
+            <input type="reset" name="重置">
+        </div>
     </form>
 </body>
 </html>
