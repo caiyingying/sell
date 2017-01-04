@@ -9,21 +9,32 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>分销商管理</title>
+    <title>缺陷管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
+    <script type="text/javascript">
+        function clearInput() {
+            $("input[name='loginId']").val('');
+            $("input[name='userPassword']").val('');
+        }
+    </script>
 </head>
 <body>
     <form action="login/doLogin" method="post">
-        <div>
-            <label>登录名</label><input type="text" name="loginId"/>
+        <div style="margin: 120px 20px 20px 20px; text-align: center;">
+            <span style="color: red">${status}</span>
         </div>
-        <div>
-            <label>密码</label><input type="password" name="userPassword"/>
+        <div style="margin: 20px 20px 20px 20px; text-align: center;">
+            <label> 用户：<input type="text" name="loginId"/>
+            </label>
         </div>
-        <div>
-            <input type="submit" name="登录">
-            <input type="reset" name="重置">
+        <div style="margin: 20px; text-align: center;">
+            <label> 密码：<input type="password" name="userPassword"/>
+            </label>
+        </div>
+        <div style="margin: 20px; text-align: center;">
+            <input type="submit" value="登录" style="margin: 10px"/>
+            <input type="reset" value="清空" style="margin: 10px"/>
         </div>
     </form>
 </body>

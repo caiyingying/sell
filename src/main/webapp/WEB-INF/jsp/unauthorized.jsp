@@ -9,7 +9,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>分销商管理</title>
+    <title>缺陷管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
 </head>
