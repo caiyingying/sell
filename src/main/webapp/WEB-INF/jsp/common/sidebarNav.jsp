@@ -18,17 +18,13 @@ ul.easyui-tree li {
 %>
 <div data-options="region:'west'" style="width: 260px;">
 	<div id="accordion" class="easyui-accordion" data-options="fit:true,border:false,animate:false">
-		<div title="统计分析" style="padding: 10px">
+		<div title="我的工作台" style="padding: 10px">
 			<ul class="easyui-tree">
-				<li>销售统计分析</li>
-			</ul>
-		</div>
-		<div title="系统管理" style="padding: 10px">
-			<ul class="easyui-tree" id="systemConfig">
 				<li><a href="user/list">用户管理</a></li>
 				<li><a href="">分销商管理</a></li>
 				<li><a href="">客户管理</a></li>
 				<li><a href="">产品管理</a></li>
+				<li><a href="">销售统计分析</a></li>
 			</ul>
 		</div>
 	</div>

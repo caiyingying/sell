@@ -2,13 +2,13 @@
 <%
 	String pathTitle = request.getContextPath();
 %>
-<div data-options="region:'north'" style="height: 60px">
+<div data-options="region:'north'" style="height: 80px">
 	<div style="float: left;">
 		<h1 style="margin-left: 40px">
 			<div>缺陷管理系统</div>
 		</h1>
 	</div>
-	<div style="float: right; margin: 30px 20px 10px 20px;"><span style="margin-right: 20px">当前登录人员：${sessionScope.userInfo.userName}(${sessionScope.userInfo.loginId})</span><a style="text-decoration:none" onclick="logout()" href="javascript:void();">登出</a></div>
+	<div style="float: right; margin: 30px 20px 10px 20px;"><span style="margin-right: 20px">当前用户：${sessionScope.userInfo.userName}(${sessionScope.userInfo.loginId})</span><a style="text-decoration:none" onclick="logout()" href="javascript:void();">登出</a></div>
 </div>
 <script type="text/javascript">
 	function logout(){
