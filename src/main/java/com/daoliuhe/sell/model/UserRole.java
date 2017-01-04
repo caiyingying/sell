@@ -1,6 +1,6 @@
 package com.daoliuhe.sell.model;
 
-public class UserRole {
+public class UserRole  extends BasePage{
     private Integer id;
 
     private Integer userId;

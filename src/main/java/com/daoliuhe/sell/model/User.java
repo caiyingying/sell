@@ -1,6 +1,6 @@
 package com.daoliuhe.sell.model;
 
-public class User {
+public class User extends BasePage {
     private Integer id;
 
     private String loginName;

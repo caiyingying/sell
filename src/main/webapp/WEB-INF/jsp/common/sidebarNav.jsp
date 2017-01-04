@@ -21,10 +21,10 @@ ul.easyui-tree li {
 		<div title="我的工作台" style="padding: 10px">
 			<ul class="easyui-tree">
 				<li><a href="user/list">用户管理</a></li>
-				<li><a href="">分销商管理</a></li>
-				<li><a href="">客户管理</a></li>
-				<li><a href="">产品管理</a></li>
-				<li><a href="">销售统计分析</a></li>
+				<li>分销商管理</li>
+				<li>客户管理</li>
+				<li>产品管理</li>
+				<li data-options="checked : 'true'">销售统计分析</li>
 			</ul>
 		</div>
 	</div>
