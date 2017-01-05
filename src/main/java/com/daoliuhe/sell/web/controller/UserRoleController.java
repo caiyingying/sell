@@ -55,4 +55,17 @@ public class UserRoleController {
 		logger.info("deleteForUser,userId:{},roleIds:{}",userId,roleIds);
 		return userRoleService.deleteForUser(userId, roleIds);
 	}
+
+	/**
+	 * 根据用户批量添加角色
+	 * @param userId
+	 * @param roleIds
+	 * @return
+	 */
+	@RequestMapping("/saveBatchRole")
+	@ResponseBody
+	public Object saveBatchRole(String userId, String roleIds) {
+		logger.info("saveBatchRole,userId:{},roleIds:{}",userId,roleIds);
+		return userRoleService.saveBatchRole(userId, roleIds);
+	}
 }

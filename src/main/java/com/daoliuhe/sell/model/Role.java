@@ -1,6 +1,6 @@
 package com.daoliuhe.sell.model;
 
-public class Role {
+public class Role extends  BasePage{
     private Integer id;
 
     private String name;

@@ -64,17 +64,17 @@
                 <div title="用户角色" style="padding:10px">
                     <table class="easyui-datagrid" id="dg"
                            data-options="
-		method:'post',
-		url:'userRole/roleData?userId=${user.id}',
-		noheader:true,
-		fit:true,
-		rownumbers:true,
-		border:false,
-		toolbar:'#tb',
-		pagination:true,
-		pageSize:10,
-		loadMsg:'请稍后...'
-		">
+                                        method:'post',
+                                        url:'userRole/roleData?userId=${user.id}',
+                                        noheader:true,
+                                        fit:true,
+                                        rownumbers:true,
+                                        border:false,
+                                        toolbar:'#tb',
+                                        pagination:true,
+                                        pageSize:10,
+                                        loadMsg:'请稍后...'
+                                        ">
                         <thead>
                         <tr>
                             <th data-options="field:'ck',checkbox:true"></th>
@@ -94,7 +94,7 @@
                     </div>
 
                     <div id="w-search-role" class="easyui-window" title="角色查询"
-                         data-options="iconCls:'icon-save',closed:true" style="width:500px;height:360px;padding:5px;">
+                         data-options="iconCls:'icon-save',closed:true" style="width:600px;height:360px;padding:5px;">
                         <table id="dg-query-role"
                                data-options="
                                     method:'post',
@@ -227,7 +227,7 @@
             }
             $.ajax({
                 type: 'post',
-                url: 'userRoleRelation/saveBatchRole',
+                url: 'userRole/saveBatchRole',
                 data: {userId: '${user.id}', roleIds: ids},
                 success: function (data) {
                     if (!data.success) {
@@ -254,7 +254,7 @@
             if (data) {
                 $.ajax({
                     type: 'post',
-                    url: 'userRoleRelation/deleteForUser',
+                    url: 'userRole/deleteForUser',
                     data: {userId: '${user.id}', roleIds: ids},
                     success: function (data) {
                         if (!data.success) {

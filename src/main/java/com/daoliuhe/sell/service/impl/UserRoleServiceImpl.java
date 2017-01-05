@@ -83,4 +83,29 @@ public class UserRoleServiceImpl implements UserRoleService {
         json.put("reason", reason);
         return json;
     }
+
+    @Override
+    public Object saveBatchRole(String userId, String roleIds) {
+        logger.info("saveBatchRole,userId:{},roleIds:{}",userId,roleIds);
+        Map<String, Object> json = new HashMap<String, Object>();
+        boolean success = false;
+        String reason = "";
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)) {
+            reason = "参数错误!";
+        } else {
+            List<String> roleList = new ArrayList<String>(Arrays.asList(roleIds.split(";")));
+            for (String roleId : roleList) {
+                UserRole relation = new UserRole();
+                relation.setUserId(Integer.parseInt(userId));
+                relation.setRoleId(Integer.parseInt(roleId));
+                if (userRoleMapper.select(relation).isEmpty()) {
+                    userRoleMapper.insert(relation);
+                }
+            }
+            success = true;
+        }
+        json.put("success", success);
+        json.put("reason", reason);
+        return json;
+    }
 }

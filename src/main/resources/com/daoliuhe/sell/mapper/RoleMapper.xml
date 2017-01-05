@@ -16,6 +16,36 @@
     from sys_role
     where ID = #{id,jdbcType=INTEGER}
   </select>
+
+  <sql id="queryData">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_ROLE
+    <where>
+      <if test="name != null and name != ''">
+        and NAME = LIKE concat(concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="description != null and description != ''">
+        and DESCRIPTION LIKE concat(concat('%',#{description,jdbcType=VARCHAR}),'%')
+      </if>
+      <if test="enabled != null and enabled != ''">
+        and ENABLED = #{enabled,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+
+  <select id="getPageData" resultMap="BaseResultMap" parameterType="Role">
+    select * from (
+    <include refid="queryData" />
+    ) t limit #{beginIndex},#{rows}
+  </select>
+
+  <select id="getPageCount" resultType="int" parameterType="Role">
+    select count(*) count from (
+    <include refid="queryData" />
+    ) t
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_role
     where ID = #{id,jdbcType=INTEGER}

@@ -27,5 +27,13 @@ public interface UserRoleService {
 	 * @return
 	 */
 	Object deleteForUser(String userId, String roleIds);
+
+	/**
+	 * 根据多个角色id和单个用户id保存到关系表中
+	 * @param userId
+	 * @param roleIds
+	 * @return
+	 */
+	Object saveBatchRole(String userId, String roleIds);
 	
 }
