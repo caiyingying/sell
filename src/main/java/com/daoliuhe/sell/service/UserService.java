@@ -34,5 +34,5 @@ public interface UserService {
      * @param id 用户id
      * @return 是否可用
      */
-    boolean isExistLoginName(String loginName, String id);
+    boolean verifyLoginName(String loginName, String id);
 }

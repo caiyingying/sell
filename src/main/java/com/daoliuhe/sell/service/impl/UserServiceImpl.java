@@ -61,15 +61,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isExistLoginName(String loginName, String id) {
-        logger.info("isExistLoginName,loginName:{}, id:{}", loginName, id);
-        boolean ret = false;
+    public boolean verifyLoginName(String loginName, String id) {
+        logger.info("verifyLoginName,loginName:{}, id:{}", loginName, id);
+        boolean ret;
         User retUser = userMapper.selectByLoginName(loginName);
         if (StringUtils.hasText(id)) {
-            if (id.equals(retUser)) {
+            if (null == retUser) {
                 ret = true;
             } else {
-                ret = false;
+                if (id.equals(String.valueOf(retUser.getId()))) {
+                    ret = true;
+                } else {
+                    ret = false;
+                }
             }
         } else {
             ret = null == retUser;

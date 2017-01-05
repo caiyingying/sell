@@ -61,9 +61,9 @@ public class UserController {
 
     @RequestMapping("/vLoginId")
     @ResponseBody
-    public Object queryExist(String loginName, String id) {
+    public Object verifyLoginName(String loginName, String id) {
         logger.info("data,loginId:{},id:{}",loginName,id);
-        return userService.isExistLoginName(loginName, id);
+        return userService.verifyLoginName(loginName, id);
     }
 
 
