@@ -1,6 +1,10 @@
 package com.daoliuhe.sell.service.impl;
 
+import com.daoliuhe.sell.mapper.RoleAuthoritiesMapper;
 import com.daoliuhe.sell.mapper.UserMapper;
+import com.daoliuhe.sell.mapper.UserRoleMapper;
+import com.daoliuhe.sell.model.Authorities;
+import com.daoliuhe.sell.model.Role;
 import com.daoliuhe.sell.model.User;
 import com.daoliuhe.sell.service.UserService;
 import com.daoliuhe.sell.util.BCrypt;
@@ -11,8 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by CYY on 2016/12/25.
@@ -24,6 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    UserRoleMapper userRoleMapper;
+
+    @Autowired
+    RoleAuthoritiesMapper roleAuthoritiesMapper;
 
     @Override
     public Map<String, Object> getPageData(User user) {
@@ -44,6 +53,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Integer id) {
         return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public User selectByLoginName(String loginName) {
+        return userMapper.selectByLoginName(loginName);
     }
 
     @Override
@@ -79,5 +93,27 @@ public class UserServiceImpl implements UserService {
             ret = null == retUser;
         }
         return ret;
+    }
+
+    @Override
+    public Set<String> selectRolesByLoginName(String loginName) {
+        logger.info("selectRolesByLoginName,loginName:{}", loginName);
+        Set<String> roleSet = new HashSet<String>();
+        List<Role> roleList = userRoleMapper.getRolesByLoginName(loginName);
+        for (Role role : roleList) {
+            roleSet.add(role.getName());
+        }
+        return roleSet;
+    }
+
+    @Override
+    public Set<String> selectPermissionsByLoginName(String loginName) {
+        logger.info("selectPermissionsByLoginName,loginName:{}", loginName);
+        Set<String> permissionSet = new HashSet<String>();
+        List<Authorities> list = roleAuthoritiesMapper.getAuthByLoginId(loginName);
+        for (Authorities auth : list) {
+            permissionSet.add(auth.getPermission());
+        }
+        return permissionSet;
     }
 }

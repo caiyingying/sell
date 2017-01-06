@@ -751,7 +751,7 @@ public class BCrypt {
 	}
 	
 	public static void main(String[] args) {
-		String bcryptPassword = BCrypt.hashpw("cyy@21829", BCrypt.gensalt(12));
+		String bcryptPassword = BCrypt.hashpw("0", BCrypt.gensalt(12));
 		System.out.println(bcryptPassword);
 	}
 }

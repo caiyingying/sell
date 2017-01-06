@@ -50,7 +50,7 @@
 	            # anon：不需要身份验证, authc:需要身份验证, filter有先后顺序区别
 	            /static/** = anon
 	            /login/** = anon
-	            /** = anon
+	            /** = authc
 	        </value>
 	    </property>
 	</bean>

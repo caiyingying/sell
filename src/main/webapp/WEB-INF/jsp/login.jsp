@@ -25,7 +25,7 @@
             <span style="color: red">${status}</span>
         </div>
         <div style="margin: 20px 20px 20px 20px; text-align: center;">
-            <label> 用户：<input type="text" name="loginId"/>
+            <label> 用户：<input type="text" name="loginName"/>
             </label>
         </div>
         <div style="margin: 20px; text-align: center;">

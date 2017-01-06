@@ -47,7 +47,6 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         if(null != tokenPw && infoPw != null && BCrypt.checkpw(tokenPw , infoPw.toString())){
         	matches = true;
         }
-
         //boolean matches = super.doCredentialsMatch(token, info);
         if(matches) {
             //clear retry count

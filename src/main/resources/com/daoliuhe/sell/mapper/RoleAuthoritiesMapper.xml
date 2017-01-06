@@ -15,6 +15,23 @@
     from sys_role_authorities
     where ID = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getAuthByLoginId" resultType="Authorities" parameterType="String">
+    select u.id, u.NAME, u.DESCRIPTION, u.PERMISSION, u.ENABLED
+    from SYS_AUTHORITIES u
+    left join SYS_ROLE_AUTHORITIES ra
+    on ra.auth_id = u.id
+    left join sys_role r
+    on r.id = ra.role_id
+    left join sys_user_role ur
+    on r.id = ur.role_id
+    left join sys_user us
+    on ur.user_id = us.id
+    where us.LOGIN_NAME = #{loginName, jdbcType=VARCHAR}
+    and u.enabled = 1
+    and r.enabled = 1
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_role_authorities
     where ID = #{id,jdbcType=INTEGER}

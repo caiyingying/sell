@@ -28,7 +28,7 @@ public interface UserRoleMapper {
      * @param loginName
      * @return
      */
-    List<Role> getRolesByUserloginName(@Param("loginName")String loginName);
+    List<Role> getRolesByLoginName(@Param("loginName")String loginName);
 
     List<UserRole> select(UserRole record);
 

@@ -1,6 +1,8 @@
 package com.daoliuhe.sell.model;
 
-public class User extends BasePage {
+import java.io.Serializable;
+
+public class User extends BasePage implements Serializable{
     private Integer id;
 
     private String loginName;

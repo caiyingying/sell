@@ -8,15 +8,13 @@
 			<div>缺陷管理系统</div>
 		</h1>
 	</div>
-	<div style="float: right; margin: 30px 20px 10px 20px;"><span style="margin-right: 20px">当前用户：${sessionScope.userInfo.userName}(${sessionScope.userInfo.loginId})</span><a style="text-decoration:none" onclick="logout()" href="javascript:void();">登出</a></div>
+	<div style="float: right; margin: 30px 20px 10px 20px;"><span style="margin-right: 20px">当前用户：${sessionScope.userInfo.userName}(${sessionScope.userInfo.loginName})</span><a style="text-decoration:none" onclick="logout()" href="javascript:void();">登出</a></div>
+	<input type="hidden" id="path" value="<%=basePath%>"/>
 </div>
 <script type="text/javascript">
 	function logout(){
-		var localObj = window.location;
-		var contextPath = localObj.pathname.split("/")[1];
-		var basePath = localObj.protocol+"//"+localObj.host+"/"+contextPath;
 		//跳转到登录页面
-		window.location.href = basePath + "/login/logout";
+		window.location.href = $("#path").val() + "login/logout";
 	}
 </script>
 

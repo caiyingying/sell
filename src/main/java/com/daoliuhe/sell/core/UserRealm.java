@@ -1,12 +1,16 @@
 package com.daoliuhe.sell.core;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
+import com.daoliuhe.sell.model.User;
+import com.daoliuhe.sell.service.UserService;
+import com.daoliuhe.sell.util.Constants;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,72 +18,47 @@ import java.util.Set;
 
 /**
  * @author 21829
- * 
  */
 public class UserRealm extends AuthorizingRealm {
-	
-//	@Autowired
-//    private UserInfoService userInfoService;
-//
-//	@Autowired
-//    private RoleService roleService;
-//
-//	@Autowired
-//    private AuthoritiesService authoritiesService;
+
+    private static final Logger logger = LoggerFactory.getLogger(UserRealm.class);
+
+    @Autowired
+    private UserService userService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = (String)principals.getPrimaryPrincipal();
+        String username = (String) principals.getPrimaryPrincipal();
         //角色集合
         Set<String> roles = new HashSet<String>();
         //权限集合
-        Set<String> stringPermissions = new HashSet<String>();
-        /*
-        User user = new User();
-        user.setLoginName(username);
+        Set<String> permissions = new HashSet<String>();
+        //角色集合
+        roles.addAll(userService.selectRolesByLoginName(username));
+        logger.debug("doGetAuthorizationInfo, rolse:{}", roles.toString());
+        //权限集合
+        permissions.addAll(userService.selectPermissionsByLoginName(username));
+        logger.debug("doGetAuthorizationInfo, permissions:{}", permissions.toString());
 
-        user = userInfoService.query(user);
-        String roleId = user.getRoleId();
-        if(null != roleId && !roleId.isEmpty()){
-        	Role role = new Role();
-        	role.setId(Long.valueOf(roleId));
-        	role = roleService.query(role);
-        	String roleName = role.getName();
-        	if(roleName != null && !roleName.isEmpty()){
-        		roles.add(roleName);
-        	}
-        	//权限集合
-        	List<Authorities> authList = authoritiesService.queryListById(Long.parseLong(roleId));
-        	for(Authorities auth : authList){
-        		stringPermissions.add(auth.getPermission());
-        	}
-        }
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setRoles(roles);
-        authorizationInfo.setStringPermissions(stringPermissions);
+        authorizationInfo.setStringPermissions(permissions);
         return authorizationInfo;
-        */
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        return  authorizationInfo;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-        String username = (String)token.getPrincipal();
-        /*
-        User user = new User();
-        user.setLoginName(username);
-        user = userInfoService.query(user);
+        String loginName = (String) token.getPrincipal();
+        User user = userService.selectByLoginName(loginName);
 
-        if(user == null) {
+        if(null == user) {
             throw new UnknownAccountException();//没找到帐号
         }
 
-        if("1".equals(user.getEnabled())) {
+        if(Constants.DISABLE.equals(user.getEnabled())) {
             throw new LockedAccountException(); //帐号没有激活
         }
-
         //交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getLoginName(), //用户名
@@ -87,10 +66,7 @@ public class UserRealm extends AuthorizingRealm {
                 //ByteSource.Util.bytes(user.getId()),//salt=username+salt
                 getName()  //realm name
         );
-
         return authenticationInfo;
-        */
-        return null;
     }
 
     @Override
@@ -120,29 +96,4 @@ public class UserRealm extends AuthorizingRealm {
         clearAllCachedAuthenticationInfo();
         clearAllCachedAuthorizationInfo();
     }
-
-//	public UserInfoService getUserInfoService() {
-//		return userInfoService;
-//	}
-//
-//	public void setUserInfoService(UserInfoService userInfoService) {
-//		this.userInfoService = userInfoService;
-//	}
-//
-//	public RoleService getRoleService() {
-//		return roleService;
-//	}
-//
-//	public void setRoleService(RoleService roleService) {
-//		this.roleService = roleService;
-//	}
-//
-//	public AuthoritiesService getAuthoritiesService() {
-//		return authoritiesService;
-//	}
-//
-//	public void setAuthoritiesService(AuthoritiesService authoritiesService) {
-//		this.authoritiesService = authoritiesService;
-//	}
-
 }

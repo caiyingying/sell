@@ -17,7 +17,7 @@ public class EncryptUtil {
 	static BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
 	
 	static {
-		textEncryptor.setPassword("dts");
+		textEncryptor.setPassword("sell@123");
 	}
 	
 	/**
