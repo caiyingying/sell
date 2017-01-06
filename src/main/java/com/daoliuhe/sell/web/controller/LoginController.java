@@ -109,6 +109,7 @@ public class LoginController {
             logger.info("doLogin(),status:{}", status);
             mav.setViewName("login");
             mav.addObject("status", status);
+            mav.addObject("user", user);
         }
         return mav;
     }

@@ -116,4 +116,10 @@ public class UserServiceImpl implements UserService {
         }
         return permissionSet;
     }
+
+    @Override
+    public void updateUser(User user) {
+        logger.info("updateUser,user:{}", user);
+        userMapper.updateByPrimaryKeySelective(user);
+    }
 }

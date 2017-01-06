@@ -2,7 +2,7 @@ package com.daoliuhe.sell.model;
 
 import java.io.Serializable;
 
-public class User extends BasePage implements Serializable{
+public class User extends BasePage implements Serializable {
     private Integer id;
 
     private String loginName;
@@ -71,5 +71,18 @@ public class User extends BasePage implements Serializable{
 
     public void setWechat(String wechat) {
         this.wechat = wechat;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", loginName='" + loginName + '\'' +
+                ", userPassword=' ***** " + '\'' +
+                ", userName='" + userName + '\'' +
+                ", enabled='" + enabled + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", wechat='" + wechat + '\'' +
+                '}';
     }
 }

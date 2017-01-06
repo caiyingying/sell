@@ -57,4 +57,10 @@ public interface UserService {
      * @return
      */
     Set<String> selectPermissionsByLoginName(String loginName);
+
+    /**
+     * 更新用户
+     * @param user
+     */
+    void updateUser(User user);
 }
