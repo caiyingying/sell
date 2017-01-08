@@ -21,6 +21,12 @@
 </head>
 <body>
 <script type="text/javascript">
+    //选中菜单
+    $(function(){
+        var node = $('#navTree').tree('find', 'user');
+        $('#navTree').tree('select', node.target);
+    });
+
     function query() {
         $('#dg').datagrid({
             queryParams: {
