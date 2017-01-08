@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
     public Set<String> selectPermissionsByLoginName(String loginName) {
         logger.info("selectPermissionsByLoginName,loginName:{}", loginName);
         Set<String> permissionSet = new HashSet<String>();
-        List<Authorities> list = roleAuthoritiesMapper.getAuthByLoginId(loginName);
+        List<Authorities> list = roleAuthoritiesMapper.getAuthByLoginName(loginName);
         for (Authorities auth : list) {
             permissionSet.add(auth.getPermission());
         }

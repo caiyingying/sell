@@ -16,7 +16,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="getAuthByLoginId" resultType="Authorities" parameterType="String">
+  <select id="getAuthByLoginName" resultType="Authorities" parameterType="String">
     select u.id, u.NAME, u.DESCRIPTION, u.PERMISSION, u.ENABLED
     from SYS_AUTHORITIES u
     left join SYS_ROLE_AUTHORITIES ra

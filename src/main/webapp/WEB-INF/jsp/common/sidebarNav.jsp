@@ -20,10 +20,18 @@ ul.easyui-tree li {
 	<div id="accordion" class="easyui-accordion" data-options="fit:true,border:false,animate:false">
 		<div title="我的工作台" style="padding: 10px">
 			<ul class="easyui-tree">
+				<shiro:hasPermission name="user:nav">
 				<li><a href="user/list">用户管理</a></li>
+				</shiro:hasPermission>
+				<shiro:hasPermission name="dealers:nav">
 				<li>分销商管理</li>
+				</shiro:hasPermission>
+				<shiro:hasPermission name="customer:nav">
 				<li>客户管理</li>
+				</shiro:hasPermission>
+				<shiro:hasPermission name="product:nav">
 				<li>产品管理</li>
+				</shiro:hasPermission>
 				<li data-options="checked : 'true'">销售统计分析</li>
 			</ul>
 		</div>

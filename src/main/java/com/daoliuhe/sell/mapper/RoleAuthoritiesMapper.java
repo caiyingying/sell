@@ -21,8 +21,8 @@ public interface RoleAuthoritiesMapper {
 
     /**
      * 根据工号查询权限
-     * @param loginId
+     * @param loginName
      * @return
      */
-    List<Authorities> getAuthByLoginId(@Param("loginId")String loginId);
+    List<Authorities> getAuthByLoginName(@Param("loginName")String loginName);
 }

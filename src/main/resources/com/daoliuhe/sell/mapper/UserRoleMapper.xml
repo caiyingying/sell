@@ -56,7 +56,7 @@
     ) t limit #{beginIndex},#{rows}
   </select>
 
-  <select id="getRolesByUserName" resultType="Role" parameterType="String">
+  <select id="getRolesByLoginName" resultType="Role" parameterType="String">
     select r.id, r.name, r.description, r.enabled
     from  SYS_USER_ROLE ur
     left join SYS_USER u
