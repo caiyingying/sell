@@ -1,13 +1,15 @@
 package com.daoliuhe.sell.model;
 
-public class Dealers {
+public class Dealers extends BasePage {
     private Integer id;
 
     private String name;
 
     private String description;
 
-    private String code;
+    private Integer code;
+
+    private String codeUrl;
 
     private String enabled;
 
@@ -39,11 +41,11 @@ public class Dealers {
         this.description = description;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -69,5 +71,13 @@ public class Dealers {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getCodeUrl() {
+        return codeUrl;
+    }
+
+    public void setCodeUrl(String codeUrl) {
+        this.codeUrl = codeUrl;
     }
 }

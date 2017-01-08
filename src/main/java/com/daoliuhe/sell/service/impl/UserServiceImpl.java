@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
             user.setUserPassword(password);
         }
         if (!StringUtils.isEmpty(user.getId())) {
-            userMapper.updateByPrimaryKey(user);
+            userMapper.updateByPrimaryKeySelective(user);
         } else {
             userMapper.insert(user);
         }

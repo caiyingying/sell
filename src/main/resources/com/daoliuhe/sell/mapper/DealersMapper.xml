@@ -5,13 +5,14 @@
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
-    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="INTEGER" />
+    <result column="CODE_URL" property="codeUrl" jdbcType="VARCHAR" />
     <result column="ENABLED" property="enabled" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, NAME, DESCRIPTION, CODE, ENABLED, PHONE, ADDRESS
+    ID, NAME, DESCRIPTION, CODE, CODE_URL, ENABLED, PHONE, ADDRESS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -19,17 +20,63 @@
     from dealers
     where ID = #{id,jdbcType=INTEGER}
   </select>
+
+  <sql id="queryData">
+    select
+    <include refid="Base_Column_List" />
+    from dealers
+    <where>
+      <if test="name != null and name != ''">
+        and NAME = LIKE concat(concat('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="description != null and description != ''">
+        and DESCRIPTION LIKE concat(concat('%',#{description,jdbcType=VARCHAR}),'%')
+      </if>
+      <if test="enabled != null and enabled != ''">
+        and ENABLED = #{enabled,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by id asc
+  </sql>
+
+  <select id="getPageData" resultMap="BaseResultMap" parameterType="Dealers">
+    select * from (
+    <include refid="queryData" />
+    ) t limit #{beginIndex},#{rows}
+  </select>
+
+  <select id="getPageCount" resultType="int" parameterType="Dealers">
+    select count(*) count from (
+    <include refid="queryData" />
+    ) t
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dealers
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.daoliuhe.sell.model.Dealers" >
-    insert into dealers (ID, NAME, DESCRIPTION, 
-      CODE, ENABLED, PHONE, 
-      ADDRESS)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{code,jdbcType=VARCHAR}, #{enabled,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR})
+    insert into dealers (
+      ID,
+      NAME,
+      DESCRIPTION,
+      CODE,
+      CODE_URL,
+      ENABLED,
+      PHONE,
+      ADDRESS
+      )
+    values
+    (
+      #{id,jdbcType=INTEGER},
+      #{name,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR},
+      #{code,jdbcType=INTEGER},
+      #{codeUrl,jdbcType=VARCHAR},
+      #{enabled,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR},
+      #{address,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.daoliuhe.sell.model.Dealers" >
     insert into dealers
@@ -45,6 +92,9 @@
       </if>
       <if test="code != null" >
         CODE,
+      </if>
+      <if test="codeUrl != null" >
+        CODE_URL,
       </if>
       <if test="enabled != null" >
         ENABLED,
@@ -67,7 +117,10 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="codeUrl != null" >
+        #{codeUrl,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null" >
         #{enabled,jdbcType=VARCHAR},
@@ -90,7 +143,10 @@
         DESCRIPTION = #{description,jdbcType=VARCHAR},
       </if>
       <if test="code != null" >
-        CODE = #{code,jdbcType=VARCHAR},
+        CODE = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="codeUrl != null" >
+        CODE_URL = #{codeUrl,jdbcType=VARCHAR},
       </if>
       <if test="enabled != null" >
         ENABLED = #{enabled,jdbcType=VARCHAR},
@@ -108,7 +164,8 @@
     update dealers
     set NAME = #{name,jdbcType=VARCHAR},
       DESCRIPTION = #{description,jdbcType=VARCHAR},
-      CODE = #{code,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=INTEGER},
+      CODE_URL = #{codeUrl,jdbcType=VARCHAR},
       ENABLED = #{enabled,jdbcType=VARCHAR},
       PHONE = #{phone,jdbcType=VARCHAR},
       ADDRESS = #{address,jdbcType=VARCHAR}
