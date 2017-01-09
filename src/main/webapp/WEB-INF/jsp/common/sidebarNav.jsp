@@ -30,7 +30,7 @@ ul.easyui-tree li {
 				<li id="customer"><a href="customer/list">客户管理</a></li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="product:nav">
-				<li id="product">产品管理</li>
+				<li id="product"><a href="product/list">产品管理</a></li>
 				</shiro:hasPermission>
 				<li data-options="checked : 'true'">销售统计分析</li>
 			</ul>
