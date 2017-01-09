@@ -27,7 +27,7 @@ ul.easyui-tree li {
 					<li id="dealers"><a href="dealers/list">分销商管理</a></li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="customer:nav">
-				<li id="customer">客户管理</li>
+				<li id="customer"><a href="customer/list">客户管理</a></li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="product:nav">
 				<li id="product">产品管理</li>

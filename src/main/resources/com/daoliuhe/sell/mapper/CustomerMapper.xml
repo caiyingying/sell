@@ -1,78 +1,112 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.daoliuhe.sell.mapper.CustomerMapper" >
-  <resultMap id="BaseResultMap" type="com.daoliuhe.sell.model.Customer" >
-    <id column="ID" property="id" jdbcType="INTEGER" />
-    <result column="WECHAT" property="wechat" jdbcType="VARCHAR" />
-    <result column="NICK" property="nick" jdbcType="VARCHAR" />
-    <result column="BUSINESS_ID" property="businessId" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.daoliuhe.sell.mapper.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.daoliuhe.sell.model.Customer">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="WECHAT" property="wechat" jdbcType="VARCHAR"/>
+        <result column="NICK" property="nick" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_ID" property="businessId" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     ID, WECHAT, NICK, BUSINESS_ID
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from customer
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from customer
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <sql id="queryData">
+        select
+        c.ID,
+        c.WECHAT,
+        c.NICK,
+        c.BUSINESS_ID,
+        d.NAME as BUSINESS_NAME
+        from CUSTOMER c, DEALERS d
+        <where>
+            c.BUSINESS_ID = d.ID
+            <if test="nick != null and nick != ''">
+                and NICK = LIKE concat(concat('%',#{nick,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="businessName != null and businessName != ''">
+                and BUSINESS_NAME = LIKE concat(concat('%',#{businessName,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        order by nick asc
+    </sql>
+
+    <select id="getPageData" resultMap="BaseResultMap" parameterType="Customer">
+        select * from (
+        <include refid="queryData"/>
+        ) t limit #{beginIndex},#{rows}
+    </select>
+
+    <select id="getPageCount" resultType="int" parameterType="Customer">
+        select count(*) count from (
+        <include refid="queryData"/>
+        ) t
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from customer
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.daoliuhe.sell.model.Customer" >
+    <insert id="insert" parameterType="com.daoliuhe.sell.model.Customer">
     insert into customer (ID, WECHAT, NICK, 
       BUSINESS_ID)
     values (#{id,jdbcType=INTEGER}, #{wechat,jdbcType=VARCHAR}, #{nick,jdbcType=VARCHAR}, 
       #{businessId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.daoliuhe.sell.model.Customer" >
-    insert into customer
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="wechat != null" >
-        WECHAT,
-      </if>
-      <if test="nick != null" >
-        NICK,
-      </if>
-      <if test="businessId != null" >
-        BUSINESS_ID,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="wechat != null" >
-        #{wechat,jdbcType=VARCHAR},
-      </if>
-      <if test="nick != null" >
-        #{nick,jdbcType=VARCHAR},
-      </if>
-      <if test="businessId != null" >
-        #{businessId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.daoliuhe.sell.model.Customer" >
-    update customer
-    <set >
-      <if test="wechat != null" >
-        WECHAT = #{wechat,jdbcType=VARCHAR},
-      </if>
-      <if test="nick != null" >
-        NICK = #{nick,jdbcType=VARCHAR},
-      </if>
-      <if test="businessId != null" >
-        BUSINESS_ID = #{businessId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.daoliuhe.sell.model.Customer" >
+    <insert id="insertSelective" parameterType="com.daoliuhe.sell.model.Customer">
+        insert into customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="wechat != null">
+                WECHAT,
+            </if>
+            <if test="nick != null">
+                NICK,
+            </if>
+            <if test="businessId != null">
+                BUSINESS_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="wechat != null">
+                #{wechat,jdbcType=VARCHAR},
+            </if>
+            <if test="nick != null">
+                #{nick,jdbcType=VARCHAR},
+            </if>
+            <if test="businessId != null">
+                #{businessId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.daoliuhe.sell.model.Customer">
+        update customer
+        <set>
+            <if test="wechat != null">
+                WECHAT = #{wechat,jdbcType=VARCHAR},
+            </if>
+            <if test="nick != null">
+                NICK = #{nick,jdbcType=VARCHAR},
+            </if>
+            <if test="businessId != null">
+                BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.daoliuhe.sell.model.Customer">
     update customer
     set WECHAT = #{wechat,jdbcType=VARCHAR},
       NICK = #{nick,jdbcType=VARCHAR},

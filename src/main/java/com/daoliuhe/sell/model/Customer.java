@@ -1,6 +1,6 @@
 package com.daoliuhe.sell.model;
 
-public class Customer {
+public class Customer extends BasePage {
     private Integer id;
 
     private String wechat;
@@ -8,6 +8,8 @@ public class Customer {
     private String nick;
 
     private Integer businessId;
+
+    private String businessName;
 
     public Integer getId() {
         return id;
@@ -37,7 +39,16 @@ public class Customer {
         return businessId;
     }
 
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
     public void setBusinessId(Integer businessId) {
         this.businessId = businessId;
     }
+
 }

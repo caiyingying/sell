@@ -22,44 +22,19 @@
 <body>
 <script type="text/javascript">
     //选中菜单
-    $(function(){
-        var node = $('#navTree').tree('find', 'dealers');
+    $(function () {
+        var node = $('#navTree').tree('find', 'customer');
         $('#navTree').tree('select', node.target);
     });
 
     function query() {
         $('#dg').datagrid({
             queryParams: {
-                name: $('#name').val(),
-                description: $('#description').val(),
-                enabled: $('#enabled').val()
+                nick: $('#nick').val(),
+                businessName: $('#businessName').val()
             }
         });
     }
-    function edit() {
-        var checked = $('#dg').datagrid('getChecked');
-        var l = checked.length;
-        if (l == 0) {
-            $.messager.alert('警告', '请选择一条数据!', 'warning');
-        } else if (l > 1) {
-            $.messager.alert('警告', '只能同时编辑一条数据!', 'warning');
-        } else {
-            $('#queryForm').attr('action', 'dealers/edit');
-            $('#queryForm input[name=id]').val(checked[0].id);
-            $('#queryForm').submit();
-        }
-    }
-
-    function fEnabled(value, row, index) {
-        var val = "";
-        if (value == 0) {
-            val = "禁用";
-        } else if (value == 1) {
-            val = "启用";
-        }
-        return val;
-    }
-
 </script>
 <div class="easyui-layout" data-options="fit:true">
     <%@ include file="/WEB-INF/jsp/common/titleNav.jsp" %>
@@ -68,7 +43,7 @@
         <table class="easyui-datagrid" id="dg"
                data-options="
 		method:'post',
-		url:'dealers/data',
+		url:'customer/data',
 		noheader:true,
 		fit:true,
 		rownumbers:true,
@@ -82,39 +57,25 @@
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th data-options="field:'id',hidden:'true'"/>
-                <th data-options="field:'name',width:100">名称</th>
-                <th data-options="field:'description',width:150">描述</th>
-                <th data-options="field:'phone',width:150">电话</th>
-                <th data-options="field:'address',width:150">地址</th>
-                <th data-options="field:'enabled',width:80,formatter:fEnabled">是否启用</th>
+                <th data-options="field:'nick',width:100">微信昵称</th>
+                <th data-options="field:'businessName',width:150">分销商</th>
             </tr>
             </thead>
         </table>
 
         <div id="tb">
             <div style="margin-bottom:5px">
-                <a href="dealers/edit" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
-                   onclick="edit()">编辑</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true"
                    onclick="query()">查询</a>
             </div>
-            <form action="dealers/list" method="post" id="queryForm">
+            <form action="customer/list" method="post" id="queryForm">
                 <input type="hidden" name="id" value=""/>
                 <table>
                     <tr>
-                        <td>名称:</td>
-                        <td><input type="text" id="name"></td>
-                        <td>描述:</td>
-                        <td><input type="text" id="description"></td>
-                        <td>是否启用:</td>
-                        <td>
-                            <select id="enabled">
-                                <option value=""></option>
-                                <option value="0">禁用</option>
-                                <option value="1">启用</option>
-                            </select>
-                        </td>
+                        <td>昵称:</td>
+                        <td><input type="text" id="nick"/></td>
+                        <td>分销商:</td>
+                        <td><input type="text" id="businessName"/></td>
                     </tr>
                 </table>
             </form>

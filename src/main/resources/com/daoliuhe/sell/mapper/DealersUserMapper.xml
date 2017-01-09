@@ -50,7 +50,7 @@
         ) t
     </select>
 
-    <select id="getUserPageData" resultType="com.daoliuhe.sell.model.User" parameterType="DealersUser">
+    <select id="getUserPageData" resultType="User" parameterType="DealersUser">
         select * from (
         <include refid="queryUserData"/>
         ) t limit #{beginIndex},#{rows}
