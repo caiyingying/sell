@@ -1,6 +1,6 @@
 package com.daoliuhe.sell.model;
 
-public class DealersUser {
+public class DealersUser extends BasePage{
     private Integer id;
 
     private Integer dealersId;

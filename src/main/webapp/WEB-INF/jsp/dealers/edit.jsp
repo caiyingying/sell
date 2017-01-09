@@ -60,12 +60,12 @@
                     </table>
                 </form>
             </div>
-            <c:if test="${!empty user.id}">
+            <c:if test="${!empty dealers.id}">
                 <div title="权限用户" style="padding:10px">
                     <table class="easyui-datagrid" id="dg"
                            data-options="
                                         method:'post',
-                                        url:'dealersUser/roleData?userId=${user.id}',
+                                        url:'dealers/userData?dealersId=${dealers.id}',
                                         noheader:true,
                                         fit:true,
                                         rownumbers:true,
@@ -79,8 +79,8 @@
                         <tr>
                             <th data-options="field:'ck',checkbox:true"></th>
                             <th data-options="field:'id',hidden:'true'"/>
-                            <th data-options="field:'name',width:280">角色名称</th>
-                            <th data-options="field:'description',width:420">角色描述</th>
+                            <th data-options="field:'loginName',width:280">登录账号</th>
+                            <th data-options="field:'userName',width:420">姓名</th>
                             <th data-options="field:'enabled',width:80,formatter:fEnabled">状态</th>
                         </tr>
                         </thead>
@@ -113,8 +113,8 @@
                             <tr>
                                 <th data-options="field:'ck',checkbox:true"></th>
                                 <th data-options="field:'id',hidden:'true'"/>
-                                <th data-options="field:'name',width:140">角色名称</th>
-                                <th data-options="field:'description',width:140">角色描述</th>
+                                <th data-options="field:'loginName',width:140">登录账号</th>
+                                <th data-options="field:'userName',width:140">姓名</th>
                                 <th data-options="field:'enabled',width:100,formatter:fEnabled">状态</th>
                             </tr>
                             </thead>
@@ -184,18 +184,44 @@
     }
 
     function append() {
-        $('#w-search-role').window('open');
-        $('#dg-query-role').datagrid();
+        $('#w-search-user').window('open');
+        $('#dg-query-user').datagrid();
     }
 
     function queryUser() {
-        $('#dg-query-role').datagrid({
+        $('#dg-query-user').datagrid({
             queryParams: {
                 loginName: $('div#tb-Query-user #loginName').val(),
                 userName: $('div#tb-Query-user #userName').val(),
                 enabled: $('div#tb-Query-user #enabled').val()
             }
         });
+    }
+    function batchAdd() {
+        var checked = $('#dg-query-user').datagrid('getChecked');
+        var l = checked.length;
+        if (l == 0) {
+            $.messager.alert('警告', '请选择数据!', 'warning');
+        } else {
+            var ids = "";
+            for (var i = 0; i < l; i++) {
+                var row = checked[i];
+                ids += row.id + ";";
+            }
+            $.ajax({
+                type: 'post',
+                url: 'dealers/saveBatchUser',
+                data: {dealersId: '${dealers.id}', userIds: ids},
+                success: function (data) {
+                    if (!data.success) {
+                        $.messager.alert('警告', data.reason, 'ERROR');
+                    } else {
+                        $.messager.alert('提示', "添加成功!");
+                        $('#dg').datagrid('reload');
+                    }
+                }
+            });
+        }
     }
 
     function rm() {
@@ -212,8 +238,8 @@
             if (data) {
                 $.ajax({
                     type: 'post',
-                    url: 'dealersUser/deleteForUser',
-                    data: {userId: '${user.id}', roleIds: ids},
+                    url: 'dealers/deleteUsers',
+                    data: {dealersId: '${dealers.id}', userIds: ids},
                     success: function (data) {
                         if (!data.success) {
                             $.messager.alert('警告', data.reason, 'ERROR');
@@ -231,8 +257,8 @@
     function clickSearchRow(index, row) {
         $.ajax({
             type: 'post',
-            url: 'dealersUser/save',
-            data: {userId: '${user.id}', roleId: row.id},
+            url: 'dealers/saveRelUser',
+            data: {dealersId: '${dealers.id}', userId: row.id},
             success: function (data) {
                 if (!data.success) {
                     $.messager.alert('警告', data.reason, 'ERROR');

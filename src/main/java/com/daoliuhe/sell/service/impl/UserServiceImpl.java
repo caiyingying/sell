@@ -8,7 +8,6 @@ import com.daoliuhe.sell.model.Role;
 import com.daoliuhe.sell.model.User;
 import com.daoliuhe.sell.service.UserService;
 import com.daoliuhe.sell.util.BCrypt;
-import com.daoliuhe.sell.util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
