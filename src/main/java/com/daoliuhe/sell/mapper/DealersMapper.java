@@ -23,7 +23,7 @@ public interface DealersMapper {
      * @param dealers
      * @return
      */
-    List<User> getPageData(Dealers dealers);
+    List<Dealers> getPageData(Dealers dealers);
 
     /**
      * 用户数量集合

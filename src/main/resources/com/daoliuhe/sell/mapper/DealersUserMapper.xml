@@ -34,7 +34,7 @@
     </select>
 
     <sql id="queryUserData">
-    select u.ID, u.LOGIN_NAME, u.USER_NAME, u.ENABLED
+    select u.ID, u.LOGIN_NAME as loginName, u.USER_NAME as userName, u.ENABLED
     from DEALERS_USER du
     left join SYS_USER u
     on du.USER_ID = u.ID
