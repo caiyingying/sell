@@ -34,4 +34,5 @@ public interface ProductService {
      * @param product
      */
     void updateProduct(Product product);
+
 }

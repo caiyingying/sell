@@ -78,7 +78,6 @@
 
         <div id="tb">
             <div style="margin-bottom:5px">
-                <a href="product/edit" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
                    onclick="edit()">编辑</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true"

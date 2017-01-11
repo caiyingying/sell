@@ -57,4 +57,10 @@ public class ProductController {
         productService.saveOrUpdate(product);
         return "redirect:/product/list";
     }
+
+    @RequestMapping("/update")
+    public String update(Product product) {
+        productService.updateProduct(product);
+        return "redirect:/product/list";
+    }
 }
