@@ -27,10 +27,10 @@
     from dealers
     <where>
       <if test="name != null and name != ''">
-        and NAME = LIKE concat(concat('%',#{name,jdbcType=VARCHAR},'%')
+        and NAME LIKE concat('%',#{name,jdbcType=VARCHAR},'%')
       </if>
       <if test="description != null and description != ''">
-        and DESCRIPTION LIKE concat(concat('%',#{description,jdbcType=VARCHAR}),'%')
+        and DESCRIPTION LIKE concat('%',#{description,jdbcType=VARCHAR},'%')
       </if>
       <if test="enabled != null and enabled != ''">
         and ENABLED = #{enabled,jdbcType=VARCHAR}

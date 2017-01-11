@@ -24,7 +24,7 @@
     from product
     <where>
       <if test="productName != null and productName != ''">
-        and PRODUCT_NAME = LIKE concat(concat('%',#{productName,jdbcType=VARCHAR},'%')
+        and PRODUCT_NAME LIKE concat('%',#{productName,jdbcType=VARCHAR},'%')
       </if>
     </where>
     order by ID asc

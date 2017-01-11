@@ -29,10 +29,10 @@
         <where>
             c.BUSINESS_ID = d.ID
             <if test="nick != null and nick != ''">
-                and NICK = LIKE concat(concat('%',#{nick,jdbcType=VARCHAR},'%')
+                and NICK LIKE concat('%',#{nick,jdbcType=VARCHAR},'%')
             </if>
             <if test="businessName != null and businessName != ''">
-                and BUSINESS_NAME = LIKE concat(concat('%',#{businessName,jdbcType=VARCHAR},'%')
+                and BUSINESS_NAME LIKE concat('%',#{businessName,jdbcType=VARCHAR},'%')
             </if>
         </where>
         order by nick asc
