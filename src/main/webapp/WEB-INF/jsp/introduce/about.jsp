@@ -55,19 +55,19 @@
     </div>
 
     <div class="col-md-12">
-        <ul id="myTab" class="nav nav-tabs">
+        <ul id="myTab" class="nav nav-tabs" style="border: 0;">
             <li class="col-xs-4 active base">
-                <a href="#hair" data-toggle="tab" style="text-align: center; font-size: 40px;">
+                <a href="#hair" data-toggle="tab" style="text-align: center; font-size: 40px; border:0;">
                     头发
                 </a>
             </li>
             <li class="col-xs-4 base">
-                <a href="#body" data-toggle="tab" style="text-align: center; font-size: 40px;">
+                <a href="#body" data-toggle="tab" style="text-align: center; font-size: 40px; border:0;">
                     身体
                 </a>
             </li>
             <li class="col-xs-4 base">
-                <a href="#living" data-toggle="tab" style="text-align: center; font-size: 40px;">
+                <a href="#living" data-toggle="tab" style="text-align: center; font-size: 40px; border:0;">
                     居家
                 </a>
             </li>
@@ -77,7 +77,7 @@
             <!--头部-->
             <div class="tab-pane active" id="hair">
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -110,7 +110,7 @@
             <!--身体-->
             <div class="tab-pane" id="body">
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -119,7 +119,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -142,7 +142,7 @@
             <!--居家-->
             <div class="tab-pane" id="living">
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -151,7 +151,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
