@@ -30,11 +30,8 @@
     function query() {
         $('#dg').datagrid({
             queryParams: {
-                loginId: $('#loginId').val(),
+                loginName: $('#loginName').val(),
                 userName: $('#userName').val(),
-                deptNumber: $('#deptNumber').val(),
-                deptName: $('#deptName').val(),
-                loginType: $('#loginType').val(),
                 enabled: $('#enabled').val()
             }
         });

@@ -21,29 +21,36 @@ ul.easyui-tree li {
 		<div title="我的工作台" style="padding: 10px">
 			<ul class="easyui-tree" id="navTree">
 				<shiro:hasPermission name="user:nav">
-				<li id="user"><a href="user/list">用户管理</a></li>
+				<li id="user">用户管理</li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="dealers:nav">
-					<li id="dealers"><a href="dealers/list">分销商管理</a></li>
+					<li id="dealers">分销商管理</li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="customer:nav">
-				<li id="customer"><a href="customer/list">客户管理</a></li>
+				<li id="customer">客户管理</li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="product:nav">
-				<li id="product"><a href="product/list">产品管理</a></li>
+				<li id="product">产品管理</li>
 				</shiro:hasPermission>
-				<li data-options="checked : 'true'">销售统计分析</li>
+				<li id="stats">销售统计分析</li>
 			</ul>
 		</div>
 	</div>
 	<form action="" method="post" id="navForm">
-	
 	</form>
 	<script type="text/javascript">
-	$('#systemConfig').tree({
+	$('#navTree').tree({
 		onClick: function(node){
-			//alert(node.text);  // alert node text property when clicked
-			//$("#navForm").attr("action","project/list?accordionTitle=系统管理").submit();
+			if("user" == node.id){
+				$("#navForm").attr("action","user/list").submit();
+			}else if("dealers" == node.id){
+				$("#navForm").attr("action","dealers/list").submit();
+			}else if("customer" == node.id){
+				$("#navForm").attr("action","customer/list").submit();
+			}else if("product" == node.id){
+				$("#navForm").attr("action","product/list").submit();
+			}
+			//$("#navForm").attr("action","project/list").submit();
 		}
 	});
 	</script>
