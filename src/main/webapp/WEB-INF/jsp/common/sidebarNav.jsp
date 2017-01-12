@@ -18,7 +18,7 @@ ul.easyui-tree li {
 %>
 <div data-options="region:'west'" style="width: 260px;">
 	<div id="accordion" class="easyui-accordion" data-options="fit:true,border:false,animate:false">
-		<div title="我的工作台" style="padding: 10px">
+		<div title="我的工作台">
 			<ul class="easyui-tree" id="navTree">
 				<shiro:hasPermission name="user:nav">
 				<li id="user">用户管理</li>
