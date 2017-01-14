@@ -1,4 +1,5 @@
-create database sell;
+CREATE DATABASE sell DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE sell DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 DROP TABLE IF EXISTS sys_user;
 DROP TABLE IF EXISTS sys_role;

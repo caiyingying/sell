@@ -1,5 +1,9 @@
 --用户
 insert into sys_user (ID, LOGIN_NAME, USER_PASSWORD, USER_NAME) values (1, 'admin', '$2a$12$cbYHFk8hJ17GuhIEOmuNku4iVyFRdOJejM98oxAYGcYzJSimR4tyC','admin');
+
+--用户角色
+insert into  sys_user_role (ID, USER_ID, ROLE_ID) values (1, 1, 1);
+
 --管理员角色
 INSERT INTO sys_role (ID, NAME, DESCRIPTION, ENABLED) VALUES ( 1, 'admin', '管理员角色',1 );
 --权限
