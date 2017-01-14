@@ -19,7 +19,7 @@
   <select id="getAuthByLoginName" resultType="Authorities" parameterType="String">
     select u.id, u.NAME, u.DESCRIPTION, u.PERMISSION, u.ENABLED
     from SYS_AUTHORITIES u
-    left join SYS_ROLE_AUTHORITIES ra
+    left join sys_role_authorities ra
     on ra.auth_id = u.id
     left join sys_role r
     on r.id = ra.role_id

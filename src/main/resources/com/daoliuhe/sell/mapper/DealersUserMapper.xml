@@ -35,10 +35,10 @@
 
     <sql id="queryUserData">
     select u.ID, u.LOGIN_NAME as loginName, u.USER_NAME as userName, u.ENABLED
-    from DEALERS_USER du
-    left join SYS_USER u
+    from dealers_user du
+    left join sys_user u
     on du.USER_ID = u.ID
-    left join DEALERS d
+    left join dealers d
     on du.DEALERS_ID = d.ID
     where d.ID = #{dealersId,jdbcType=VARCHAR}
     order by du.ID desc

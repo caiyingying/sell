@@ -25,7 +25,7 @@
         c.NICK,
         c.BUSINESS_ID,
         d.NAME as BUSINESS_NAME
-        from CUSTOMER c, DEALERS d
+        from customer c, dealers d
         <where>
             c.BUSINESS_ID = d.ID
             <if test="nick != null and nick != ''">

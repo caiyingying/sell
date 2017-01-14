@@ -30,7 +30,7 @@
   <sql id="queryData">
     select
     <include refid="Base_Column_List" />
-    from SYS_USER
+    from sys_user
     <where>
       <if test="loginName != null and loginName != ''">
         and LOGIN_NAME LIKE concat('%',#{loginName,jdbcType=VARCHAR},'%')

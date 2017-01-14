@@ -20,7 +20,7 @@
   <sql id="queryData">
     select
     <include refid="Base_Column_List" />
-    from SYS_ROLE
+    from sys_role
     <where>
       <if test="name != null and name != ''">
         and NAME LIKE concat('%',#{name,jdbcType=VARCHAR},'%')
