@@ -7,12 +7,13 @@
     <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
     <result column="CODE" property="code" jdbcType="INTEGER" />
     <result column="CODE_URL" property="codeUrl" jdbcType="VARCHAR" />
+    <result column="TICKET" property="ticket" jdbcType="VARCHAR" />
     <result column="ENABLED" property="enabled" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, NAME, DESCRIPTION, CODE, CODE_URL, ENABLED, PHONE, ADDRESS
+    ID, NAME, DESCRIPTION, CODE, TICKET, CODE_URL, ENABLED, PHONE, ADDRESS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -51,6 +52,10 @@
     ) t
   </select>
 
+  <select id="getMaxCode" resultType="int">
+    select IFNULL(max(t.`CODE`),0) maxCode from dealers t
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dealers
     where ID = #{id,jdbcType=INTEGER}
@@ -61,6 +66,7 @@
       NAME,
       DESCRIPTION,
       CODE,
+      TICKET,
       CODE_URL,
       ENABLED,
       PHONE,
@@ -72,6 +78,7 @@
       #{name,jdbcType=VARCHAR},
       #{description,jdbcType=VARCHAR},
       #{code,jdbcType=INTEGER},
+      #{ticket,jdbcType=VARCHAR},
       #{codeUrl,jdbcType=VARCHAR},
       #{enabled,jdbcType=VARCHAR},
       #{phone,jdbcType=VARCHAR},
@@ -92,6 +99,9 @@
       </if>
       <if test="code != null" >
         CODE,
+      </if>
+      <if test="ticket != null" >
+        TICKET,
       </if>
       <if test="codeUrl != null" >
         CODE_URL,
@@ -119,6 +129,9 @@
       <if test="code != null" >
         #{code,jdbcType=INTEGER},
       </if>
+      <if test="ticket != null" >
+        #{ticket,jdbcType=VARCHAR},
+      </if>
       <if test="codeUrl != null" >
         #{codeUrl,jdbcType=VARCHAR},
       </if>
@@ -145,6 +158,9 @@
       <if test="code != null" >
         CODE = #{code,jdbcType=INTEGER},
       </if>
+      <if test="ticket != null" >
+        TICKET = #{ticket,jdbcType=VARCHAR},
+      </if>
       <if test="codeUrl != null" >
         CODE_URL = #{codeUrl,jdbcType=VARCHAR},
       </if>
@@ -165,6 +181,7 @@
     set NAME = #{name,jdbcType=VARCHAR},
       DESCRIPTION = #{description,jdbcType=VARCHAR},
       CODE = #{code,jdbcType=INTEGER},
+      TICKET = #{ticket,jdbcType=VARCHAR},
       CODE_URL = #{codeUrl,jdbcType=VARCHAR},
       ENABLED = #{enabled,jdbcType=VARCHAR},
       PHONE = #{phone,jdbcType=VARCHAR},

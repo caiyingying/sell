@@ -31,4 +31,10 @@ public interface DealersMapper {
      * @return
      */
     int getPageCount(Dealers dealers);
+
+    /**
+     * 获取分销商二维码的最大code
+     * @return
+     */
+    int getMaxCode();
 }

@@ -7,6 +7,13 @@ import com.daoliuhe.sell.model.DealersUser;
 import com.daoliuhe.sell.model.UserRole;
 import com.daoliuhe.sell.service.DealersService;
 import com.daoliuhe.sell.util.BCrypt;
+import com.daoliuhe.sell.util.WeChatConstants;
+import com.daoliuhe.sell.weChat.HttpKit;
+import com.daoliuhe.sell.weChat.TokenHandler;
+import com.daoliuhe.sell.weChat.bean.Action;
+import com.daoliuhe.sell.weChat.bean.ActionInfo;
+import com.daoliuhe.sell.weChat.bean.ActionReturn;
+import com.daoliuhe.sell.weChat.bean.Scene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +35,9 @@ public class DealersServiceImpl implements DealersService {
 
     @Autowired
     DealersUserMapper dealersUserMapper;
+
+    @Autowired
+    TokenHandler tokenHandler;
 
     @Override
     public Map<String, Object> getPageData(Dealers dealers) {
@@ -67,6 +77,18 @@ public class DealersServiceImpl implements DealersService {
         if (!StringUtils.isEmpty(dealers.getId())) {
             dealersMapper.updateByPrimaryKey(dealers);
         } else {
+            int curCode = dealersMapper.getMaxCode();
+            Action action = new Action();
+            Scene scene = new Scene();
+            scene.setScene_id(curCode + 1);
+            ActionInfo actionInfo = new ActionInfo();
+            actionInfo.setScene(scene);
+            action.setAction_info(actionInfo);
+            action.setAction_name(WeChatConstants.QR_LIMIT_SCENE);
+            ActionReturn actionReturn = HttpKit.getQRCode(tokenHandler.getToke(),action);
+            dealers.setCode(curCode + 1);
+            dealers.setCodeUrl(actionReturn.getUrl());
+            dealers.setTicket(actionReturn.getTicket());
             //获取二维码
             dealersMapper.insert(dealers);
         }

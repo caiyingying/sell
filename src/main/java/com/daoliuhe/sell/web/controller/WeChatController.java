@@ -1,18 +1,24 @@
 package com.daoliuhe.sell.web.controller;
 
 import com.daoliuhe.sell.bean.WeChat;
+import com.daoliuhe.sell.service.WeChatService;
 import com.daoliuhe.sell.util.PropertyHandler;
 import com.daoliuhe.sell.util.Utils;
+import com.daoliuhe.sell.weChat.TokenHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 
 /**
  * Created by CYY on 2016/12/25.
@@ -22,6 +28,15 @@ import java.io.PrintWriter;
 public class WeChatController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeChatController.class);
+
+    /**
+     * access_token
+     */
+    @Autowired
+    private TokenHandler tokenHandler;
+
+    @Resource
+    WeChatService weChatService;
 
     /**
      * 校验信息是否是从微信服务器发过来的。
@@ -63,8 +78,26 @@ public class WeChatController {
         response.setCharacterEncoding("UTF-8");
 
         // 调用核心业务类接收消息、处理消息
-        //String respMessage = CoreService.processRequest(request);
+        ServletInputStream in = request.getInputStream();
+        String xmlMsg = Utils.inputStream2String(in);
+        logger.info("输入消息:[" + xmlMsg + "]");
+
+        String accessToken = tokenHandler.getToke();
+        logger.info("accessToken:{}", accessToken);
+
         String respMessage = "";
+        StringBuffer message = new StringBuffer();
+        Calendar calendar = Calendar.getInstance();
+        long endTime = calendar.getTimeInMillis();
+        message.append("<xml>")
+                .append("<ToUserName><![CDATA[o3swquEwkgq-SPvMUB-ctFUYUsR8]]></ToUserName>")
+                //.append("<ToUserName><![CDATA[o3swquAupwYguV-d8qPf_yW7BQ_g]]></ToUserName>")
+                .append("<FromUserName><![CDATA[gh_b7da08268238]]></FromUserName>")
+                .append("<CreateTime>" + endTime + "</CreateTime>")
+                .append("<MsgType><![CDATA[text]]></MsgType>")
+                .append("<Content><![CDATA[你好]]></Content>")
+                .append("</xml>");
+        respMessage = message.toString();
         logger.info(respMessage);
         // 响应消息
         PrintWriter out = response.getWriter();
