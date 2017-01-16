@@ -18,6 +18,7 @@
     <script type="text/javascript" src="static/plugin/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="static/plugin/jquery-validate/jquery.validate.min-1.14.js"></script>
     <script type="text/javascript" src="static/plugin/easyui/local/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="static/js/jquery.qrcode.min.js"></script>
 </head>
 <body>
 <div class="easyui-layout" data-options="fit:true">
@@ -55,6 +56,12 @@
                                     <option value="1" ${dealers.enabled == 1 or empty dealers.enabled ? "selected" : ""}>启用
                                     </option>
                                 </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>二维码:</td>
+                            <td>
+                                <div id="qrcode" style="margin: 20px 0px;"></div>
                             </td>
                         </tr>
                     </table>
@@ -159,6 +166,9 @@
     $(function(){
         var node = $('#navTree').tree('find', 'dealers');
         $('#navTree').tree('select', node.target);
+
+        //生成URL
+        $('#qrcode').qrcode("${dealers.codeUrl}");
     });
 
     function add() {
