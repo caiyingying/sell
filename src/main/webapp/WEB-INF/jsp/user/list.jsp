@@ -18,13 +18,27 @@
     <script type="text/javascript" src="static/plugin/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="static/plugin/easyui/local/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="static/plugin/jquery-form/jquery.form.js"></script>
+    <script type="text/javascript" src="static/plugin/jquery-validate/jquery.validate.min-1.14.js"></script>
 </head>
 <body>
 <script type="text/javascript">
     //选中菜单
-    $(function(){
+    $(function () {
         var node = $('#navTree').tree('find', 'user');
         $('#navTree').tree('select', node.target);
+
+        //检查输入的两次密码是否一致
+        $.validator.addMethod('checkPwd', function(value, element) {
+            var newPassword = $("#newPassword").val();
+            var newPasswordRepeat = $("#newPasswordRepeat").val();
+            if (null != newPassword && "" != $.trim(newPassword)
+                    && null != newPasswordRepeat && "" != $.trim(newPasswordRepeat)
+                    && newPassword == newPasswordRepeat) {
+                return true;
+            } else {
+                return false;
+            }
+        });
     });
 
     function query() {
@@ -48,6 +62,75 @@
             $('#queryForm input[name=id]').val(checked[0].id);
             $('#queryForm').submit();
             //location.href = '<%=basePath%>user/edit?id=' + checked[0].id;
+        }
+    }
+    /**
+     * 重置密码
+     */
+    function resetPassword() {
+        var checked = $('#dg').datagrid('getChecked');
+        var l = checked.length;
+        if (l == 0) {
+            $.messager.alert('警告', '请选择一个用户!', 'warning');
+        } else if (l > 1) {
+            $.messager.alert('警告', '一次只能重置一个用户数据!', 'warning');
+        } else {
+            $('#dlg_password').dialog('open');
+        }
+    }
+    /**
+     * 重置密码
+     */
+    function doResetPwd() {
+        var checked = $('#dg').datagrid('getChecked');
+        var l = checked.length;
+        if (l == 0) {
+            $.messager.alert('警告', '请选择一个用户!', 'warning');
+        } else if (l > 1) {
+            $.messager.alert('警告', '一次只能重置一个用户数据!', 'warning');
+        } else {
+            var validate = $('#updatePasswordForm').validate({
+                rules: {
+                    userPassword: {required:true, maxlength:10},
+                    userPasswordRepeat: {required:true, maxlength:10, checkPwd:true},
+                },
+                messages: {
+                    userPassword: {required:"必填字段!", maxlength:"最多10个字符"},
+                    userPasswordRepeat: {required:"必填字段!", maxlength:"最多10个字符", checkPwd:"两次密码不一致"}
+                },
+                highlight: function (element) {
+// 				$(element).parent('td').find('label').before('<br>');
+                },
+                success: function (element) {
+                }
+            });
+
+            if (validate.form()) {
+                var arr = $('#updatePasswordForm').serializeArray();
+                var param = {};
+                for (var i = 0; i < arr.length; i++) {
+                    param[arr[i].name]=arr[i].value;
+                }
+                var userId = checked[0].id;
+                param['id'] = userId;
+                $.ajax({
+                    type:"post",  //提交方式
+                    dataType:"json", //数据类型
+                    data:param,
+                    async : false,
+                    url:"user/updatePassword", //请求url
+                    success:function(data){ //提交成功的回调函数
+                        if (data) {
+                            $('#dlg_password').dialog('close');
+                            $("#newPassword").val("");
+                            $("#newPasswordRepeat").val("");
+                            $.messager.alert('警告', '重置成功!', 'warning');
+                        } else {
+                            $.messager.alert('警告', '重置失败!', 'warning');
+                        }
+                    }
+                });
+            }
         }
     }
 
@@ -97,11 +180,13 @@
                 <a href="user/edit" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
                    onclick="edit()">编辑</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" plain="true"
+                   onclick="resetPassword()">重置密码</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true"
                    onclick="query()">查询</a>
             </div>
             <form action="user/list" method="post" id="queryForm">
-                <input type="hidden" name="id" value=""/>
+                <input type="hidden" name="id" value="" id="checkUserId"/>
                 <table>
                     <tr>
                         <td>登录账号:</td>
@@ -121,6 +206,32 @@
             </form>
         </div>
     </div>
+</div>
+
+<div id="dlg_password" class="easyui-dialog" title="重置密码" style="width:400px;height:150px;padding:10px;"
+     data-options="
+				iconCls: 'icon-save',
+				buttons: '#dlg-buttons',
+				closed:true
+			">
+    <form id="updatePasswordForm" action="user/updatePassword" method="post">
+        <input type="hidden" name="id">
+        <table>
+            <tr>
+                <td>新密码:</td>
+                <td><input type="password" name="userPassword" id="newPassword"></td>
+            </tr>
+            <tr>
+                <td>再输入一次:</td>
+                <td><input type="password" name="userPasswordRepeat" id="newPasswordRepeat"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="doResetPwd()">重置</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"
+       onclick="javascript:$('#dlg_password').dialog('close')">取消</a>
 </div>
 </body>
 </html>

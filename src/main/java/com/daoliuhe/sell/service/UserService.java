@@ -62,5 +62,5 @@ public interface UserService {
      * 更新用户
      * @param user
      */
-    void updateUser(User user);
+    boolean updateUser(User user);
 }

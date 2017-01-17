@@ -117,8 +117,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
         logger.info("updateUser,user:{}", user);
-        userMapper.updateByPrimaryKeySelective(user);
+       boolean ret = false;
+        try {
+            if (StringUtils.hasText(user.getUserPassword())) {
+                String bcryptPassword = BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt(12));
+                user.setUserPassword(bcryptPassword);
+            }
+            userMapper.updateByPrimaryKeySelective(user);
+            ret = true;
+        } catch (Exception e){
+            logger.error("updateUser,Exception, message:{}, cause:{}",e.getLocalizedMessage(),e.getCause());
+        }
+        return ret;
     }
 }

@@ -58,6 +58,12 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    @RequestMapping("/updatePassword")
+    @ResponseBody
+    public Object updatePassword(User user) {
+        return userService.updateUser(user);
+    }
+
 
     @RequestMapping("/vLoginId")
     @ResponseBody
