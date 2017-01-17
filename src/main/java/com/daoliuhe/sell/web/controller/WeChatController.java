@@ -81,7 +81,8 @@ public class WeChatController {
         ServletInputStream in = request.getInputStream();
         String xmlMsg = Utils.inputStream2String(in);
         logger.info("输入消息:[" + xmlMsg + "]");
-
+        weChatService.dispose(xmlMsg);
+        /*
         String accessToken = tokenHandler.getToke();
         logger.info("accessToken:{}", accessToken);
 
@@ -103,5 +104,6 @@ public class WeChatController {
         PrintWriter out = response.getWriter();
         out.print(respMessage);
         out.close();
+        */
     }
 }

@@ -67,7 +67,7 @@ public class Utils {
 	 * @return 包含命令的map
 	 * @throws DocumentException 
 	 */
-	public static Map<String,String> parseCommand(String commandStr) throws DocumentException{
+	public static Map<String,String> parseCommand(String commandStr) {
 		//LOG.debug("parseCommand(String commandStr) " + commandStr);
 		Map<String,String> retMap = new HashMap<String,String>();
 		Document doc = null;
@@ -104,7 +104,6 @@ public class Utils {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 			//LOG.error(e.getMessage());
-			throw e;
 		}
 		return retMap;
 	}

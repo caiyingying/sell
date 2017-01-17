@@ -18,4 +18,11 @@ public interface WeChatService {
      * @return
      */
     ActionReturn createQRLimitScene();
+
+    /**
+     * 事件消息分发
+     * @param xmlMsg
+     */
+    void dispose(String xmlMsg);
+
 }
