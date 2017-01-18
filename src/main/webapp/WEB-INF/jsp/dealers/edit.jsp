@@ -167,8 +167,11 @@
         var node = $('#navTree').tree('find', 'dealers');
         $('#navTree').tree('select', node.target);
 
-        //生成URL
-        $('#qrcode').qrcode("${dealers.codeUrl}");
+        var codeUrl = "${dealers.codeUrl}";
+        if("" != codeUrl){
+            //生成URL
+            $('#qrcode').qrcode(codeUrl);
+        }
     });
 
     function add() {
