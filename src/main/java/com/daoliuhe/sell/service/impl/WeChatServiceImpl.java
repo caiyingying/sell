@@ -75,10 +75,11 @@ public class WeChatServiceImpl implements WeChatService {
                 String fromUserName = msMap.get("FromUserName");
                 String accessToken = tokenHandler.getToke();
                 String userInfo = HttpKit.getUserInfo(accessToken, fromUserName, "zh_CN");
-                logger.info("userinfo: {}", userInfo);
+                logger.info("userInfo: {}", userInfo);
                 JSONObject userInfoJSON = JSONObject.fromObject(userInfo);
                 String userName = userInfoJSON.getString("nickname");
-                //保存关系
+                //TODO 保存关系
+
             } else {
 
             }
