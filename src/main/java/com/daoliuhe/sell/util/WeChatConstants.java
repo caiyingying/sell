@@ -45,6 +45,29 @@ public class WeChatConstants {
      */
     public final static String merchant_getbystatus = "https://api.weixin.qq.com/merchant/getbystatus?";
 
+    /***
+     * 根据订单状态/创建时间获取订单详情
+     *
+     * http请求方式	GET
+     * 请求Url	https://api.weixin.qq.com/merchant/order/getbyfilter?access_token=ACCESS_TOKEN
+     * POST数据格式	json
+     * { "status": 2, "begintime": 1397130460, "endtime": 1397130470 }
+     * status	 订单状态(不带该字段-全部状态, 2-待发货, 3-已发货, 5-已完成, 8-维权中, )
+     * begintime 订单创建时间起始时间(不带该字段则不按照时间做筛选)
+     * endtime	 订单创建时间终止时间(不带该字段则不按照时间做筛选)
+     */
+    public final static String merchant_order_getbyfilter = "https://api.weixin.qq.com/merchant/order/getbyfilter?";
+
+    /***
+     * 6.2	根据订单ID获取订单详情
+     * http请求方式	POST
+     * 请求Url	https://api.weixin.qq.com/merchant/order/getbyid?access_token=ACCESS_TOKEN
+     * {
+     * "order_id": "7197417460812584720"   订单ID
+     * }
+     */
+    public final static String merchant_order_getbyid = "https://api.weixin.qq.com/merchant/order/getbyid?";
+
     /**
      * 缓存的token名字
      */

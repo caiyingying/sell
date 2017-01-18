@@ -4,6 +4,7 @@ import com.daoliuhe.sell.util.JsonPluginsUtil;
 import com.daoliuhe.sell.util.WeChatConstants;
 import com.daoliuhe.sell.weChat.bean.Action;
 import com.daoliuhe.sell.weChat.bean.ActionReturn;
+import com.daoliuhe.sell.weChat.bean.OrderRet;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -172,6 +173,46 @@ public class HttpKit {
         return actionReturn;
     }
 
+    /**
+     * 根据订单id,查询订单详情
+     * @param access_token 访问的token
+     * @param orderId 订单id
+     * @return 订单详情
+     */
+    public static OrderRet getOrderInfo(String access_token, String orderId) {
+        OrderRet orderRet = null;
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        StringBuffer urlBuffer = new StringBuffer();
+        urlBuffer.append(WeChatConstants.merchant_order_getbyid).append("access_token=").append(access_token);
+
+        String url = urlBuffer.toString();
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.addHeader("Content-type", "application/json; charset=utf-8");
+        httpPost.setHeader("Accept", "application/json");
+        CloseableHttpResponse response = null;
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("order_id", orderId);
+            httpPost.setEntity(new StringEntity(jsonObject.toString()));
+            response = httpclient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            String charset = "UTF-8";
+            orderRet = JsonPluginsUtil.jsonToBean(EntityUtils.toString(entity, charset), OrderRet.class);
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != response) {
+                try {
+                    response.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return orderRet;
+    }
 
     public static void main(String[] args) {
         System.out.println(getAccessToken("client_credential", "wx7b255430c452b80f", "ce56c3b2bdfe9eecbcc9ce8a29ea5db5"));
