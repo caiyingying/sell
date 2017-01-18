@@ -54,6 +54,13 @@
     delete from customer
     where ID = #{id,jdbcType=INTEGER}
   </delete>
+
+    <delete id="deleteByWechat" parameterType="java.lang.String">
+    delete from customer
+    where wechat = #{wechat,jdbcType=VARCHAR}
+  </delete>
+
+
     <insert id="insert" parameterType="com.daoliuhe.sell.model.Customer">
     insert into customer (ID, WECHAT, NICK, 
       BUSINESS_ID)

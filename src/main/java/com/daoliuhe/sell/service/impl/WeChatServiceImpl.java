@@ -90,6 +90,9 @@ public class WeChatServiceImpl implements WeChatService {
                 customer.setBusinessId(businessId);
                 customer.setNick(nickname);
                 customer.setWechat(fromUserName);
+                //删除之前的关联
+                customerMapper.deleteByWechat(fromUserName);
+                //新增关联关系
                 customerMapper.insertSelective(customer);
             } else {
                 logger.info("不是event");

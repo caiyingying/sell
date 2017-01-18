@@ -31,6 +31,9 @@
                     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true"
                        onclick="add()">保存</a>
                     <input type="hidden" name="id" value="${dealers.id}" id="entityId"/>
+                    <input type="hidden" name="code" value="${dealers.code}"/>
+                    <input type="hidden" name="ticket" value="${dealers.ticket}"/>
+                    <input type="hidden" name="codeUrl" value="${dealers.codeUrl}"/>
                     <table width="100%">
                         <tr>
                             <td width="100">名称:</td>

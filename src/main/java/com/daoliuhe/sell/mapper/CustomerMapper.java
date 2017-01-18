@@ -8,6 +8,8 @@ import java.util.List;
 public interface CustomerMapper {
     int deleteByPrimaryKey(Integer id);
 
+    int deleteByWechat(String wechat);
+
     int insert(Customer record);
 
     int insertSelective(Customer record);
