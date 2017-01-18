@@ -27,7 +27,7 @@
         d.NAME as BUSINESS_NAME
         from customer c, dealers d
         <where>
-            c.BUSINESS_ID = d.ID
+            c.BUSINESS_ID = d.CODE
             <if test="nick != null and nick != ''">
                 and NICK LIKE concat('%',#{nick,jdbcType=VARCHAR},'%')
             </if>
