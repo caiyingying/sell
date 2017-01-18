@@ -23,6 +23,28 @@ public class WeChatConstants {
      */
     public final static String qrcode = "https://api.weixin.qq.com/cgi-bin/qrcode/create?";
 
+    /***
+     * 查询商品
+     * http请求方式 POST
+     * https://api.weixin.qq.com/merchant/get?access_token=ACCESS_TOKEN
+     * access_token	是	调用接口凭证
+     * POST数据	是	商品信息
+     * {"product_id": "pDF3iYwktviE3BzU3BKiSWWi9Nkw"}
+     * product_id	商品ID
+     */
+    public final static String merchant_get = "https://api.weixin.qq.com/merchant/get?";
+
+    /***
+     * 获取指定状态的所有商品
+     * http请求方式	POST
+     * 请求Url	https://api.weixin.qq.com/merchant/getbystatus?access_token=ACCESS_TOKEN
+     * access_token	是	调用接口凭证
+     * POST数据	是	商品详情信息
+     * {"status": 0 }
+     *  status	商品状态(0-全部, 1-上架, 2-下架)
+     */
+    public final static String merchant_getbystatus = "https://api.weixin.qq.com/merchant/getbystatus?";
+
     /**
      * 缓存的token名字
      */
