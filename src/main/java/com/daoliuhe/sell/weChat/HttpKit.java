@@ -81,6 +81,58 @@ public class HttpKit {
         return retStr;
     }
 
+    /**
+     * 获取微店的access_token
+     * @param grant_type
+     * @param appkey
+     * @param secret
+     * @return
+     */
+    public static String getWeiDianAccessToken(String grant_type, String appkey,
+                                        String secret) {
+        String retStr = "";
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        StringBuffer urlBuffer = new StringBuffer();
+
+        urlBuffer.append(WeChatConstants.wei_dian_access_token_url)
+                .append("grant_type=").append(grant_type)
+                .append("&appkey=").append(appkey)
+                .append("&secret=").append(secret);
+
+        String url = urlBuffer.toString();
+
+        HttpGet httpget = new HttpGet(url);
+
+        CloseableHttpResponse response = null;
+        ;
+        try {
+            response = httpclient.execute(httpget);
+
+            HttpEntity entity = response.getEntity();
+            String charset = "UTF-8";
+            String responseStr = EntityUtils.toString(entity, charset);
+            JSONObject jsonObj = JSONObject.fromObject(responseStr);
+
+            retStr = jsonObj.getJSONObject("result").getString("access_token");
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != response) {
+                try {
+                    response.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return retStr;
+    }
+
     /***
      * 返回用户基本信息
      * @param access_token 调用接口凭证

@@ -51,6 +51,7 @@
 	            /static/** = anon
 	            /login/** = anon
 	            /weChat/** = anon
+	            /weiDianPush/** = anon
 	            /introduce/** = anon
 				/favicon.ico = anon
 	            /** = authc
