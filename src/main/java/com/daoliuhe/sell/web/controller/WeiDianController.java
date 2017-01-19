@@ -2,6 +2,7 @@ package com.daoliuhe.sell.web.controller;
 
 import com.daoliuhe.sell.bean.WeChat;
 import com.daoliuhe.sell.service.WeChatService;
+import com.daoliuhe.sell.service.WeiDianService;
 import com.daoliuhe.sell.util.PropertyHandler;
 import com.daoliuhe.sell.util.Utils;
 import com.daoliuhe.sell.weChat.TokenHandler;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,11 +33,8 @@ public class WeiDianController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeiDianController.class);
 
-    /**
-     * access_token
-     */
-    @Autowired
-    private WeiDianTokenHandler tokenHandler;
+    @Resource
+    WeiDianService weiDianService;
     /**
      * @param request
      * @param response
