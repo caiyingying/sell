@@ -8,6 +8,11 @@ public class WeChatConstants {
     public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?";
 
     /**
+     * 获取微店的access_token
+     */
+    public final static String wei_dian_access_token_url = "https://api.vdian.com/token?";
+
+    /**
      * 通过OpenID来获取用户基本信息
      * https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
      */
@@ -72,6 +77,11 @@ public class WeChatConstants {
      * 缓存的token名字
      */
     public final static String accessToken = "accessToken";
+
+    /**
+     * 缓存的微店的token名字
+     */
+    public final static String weiDianAccessToken = "weiDianAccessToken";
 
     /**
      * 二维码类型，QR_SCENE为临时,QR_LIMIT_SCENE为永久,QR_LIMIT_STR_SCENE为永久的字符串参数值
