@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS business;
 DROP TABLE IF EXISTS business_user;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS dealers;
 
 CREATE TABLE sys_user
 (
