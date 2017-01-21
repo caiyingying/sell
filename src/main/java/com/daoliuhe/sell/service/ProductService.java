@@ -35,4 +35,9 @@ public interface ProductService {
      */
     void updateProduct(Product product);
 
+    /**
+     * 同步产品
+     */
+    Map<String, Object> doSync();
+
 }

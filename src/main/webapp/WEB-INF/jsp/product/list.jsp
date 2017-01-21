@@ -34,6 +34,25 @@
             }
         });
     }
+
+    /**
+     * 同步产品
+     */
+    function sync() {
+        $.ajax({
+            type: 'post',
+            url: 'product/sync',
+            success: function (data) {
+                if (!data.success) {
+                    $.messager.alert('警告', data.reason, 'ERROR');
+                } else {
+                    $.messager.alert('提示', "同步产品成功!");
+                    $('#dg').datagrid('reload');
+                }
+            }
+        });
+    }
+
     function edit() {
         var checked = $('#dg').datagrid('getChecked');
         var l = checked.length;
@@ -78,6 +97,8 @@
 
         <div id="tb">
             <div style="margin-bottom:5px">
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" plain="true"
+                   onclick="sync()">同步产品</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
                    onclick="edit()">编辑</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true"

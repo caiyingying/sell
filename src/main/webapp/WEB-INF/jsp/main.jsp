@@ -23,7 +23,6 @@
     <div data-options="region:'center'">
 
     </div>
-
 </div>
 </body>
 </html>

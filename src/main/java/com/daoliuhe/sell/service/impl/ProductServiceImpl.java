@@ -1,8 +1,20 @@
 package com.daoliuhe.sell.service.impl;
 
+import com.daoliuhe.sell.Weidian.DefaultWeidianClient;
+import com.daoliuhe.sell.Weidian.http.Param;
+import com.daoliuhe.sell.bean.weidian.entity.Item;
+import com.daoliuhe.sell.bean.weidian.response.Status;
+import com.daoliuhe.sell.bean.weidian.response.product.VdianItemListGetResponse;
 import com.daoliuhe.sell.mapper.ProductMapper;
 import com.daoliuhe.sell.model.Product;
 import com.daoliuhe.sell.service.ProductService;
+import com.daoliuhe.sell.util.Config;
+import com.daoliuhe.sell.util.JsonPluginsUtil;
+import com.daoliuhe.sell.util.JsonUtils;
+import com.daoliuhe.sell.weChat.HttpKit;
+import com.daoliuhe.sell.weChat.WeiDianTokenHandler;
+import net.sf.json.util.JSONUtils;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +34,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     ProductMapper productMapper;
+
+    @Autowired
+    WeiDianTokenHandler weiDianTokenHandler;
 
     @Override
     public Map<String, Object> getPageData(Product product) {
@@ -58,5 +73,84 @@ public class ProductServiceImpl implements ProductService {
     public void updateProduct(Product product) {
         logger.info("updateProduct,product:{}", product);
         productMapper.updateByPrimaryKeySelective(product);
+    }
+
+    @Override
+    public Map<String, Object> doSync() {
+        logger.info("doSync");
+        Map<String, Object> json = new HashMap<String, Object>();
+        boolean success = false;
+        String reason = "";
+        int pageNum = 1;
+        int pageSize = 30;
+        int total = 0;
+        int itemNum = 0;
+        try {
+            String token = weiDianTokenHandler.getToken();
+            Map<String, Object> method = new HashMap<String, Object>();
+            method.put("method", "vdian.item.list.get");
+            method.put("access_token", token);
+            method.put("version", "1.0");
+            method.put("format", "json");
+
+            do {
+                Map<String, Object> param = new HashMap<String, Object>();
+                param.put("page_num", pageNum);
+                param.put("page_size", pageSize);
+                param.put("status", 4);
+
+                String vdianItemListGet = DefaultWeidianClient.getInstance().executePostForString(Config.API_URL_FOR_POST,
+                        new Param(Config.PUBLIC_PARAM, JsonUtils.toJson(method)),
+                        new Param(Config.BIZ_PARAM, JsonUtils.toJson(param)));
+                //查询所有的商品
+                //VdianItemListGetResponse itemList = itemList = JsonPluginsUtil.jsonToBean(vdianItemListGet, VdianItemListGetResponse.class);
+                VdianItemListGetResponse itemList = JsonUtils.toObject(vdianItemListGet, VdianItemListGetResponse.class);
+                if (null != itemList) {
+                    Status status = itemList.getStatus();
+                    if (null != status && status.getStatusCode() == 0) {
+                        VdianItemListGetResponse.VdianItemListGetResult itemListRet = itemList.getResult();
+                        if (null != itemListRet) {
+                            itemNum = itemListRet.getItemNum();
+                            Item[] items = itemListRet.getItems();
+                            if (items.length == 0) {
+                                success = false;
+                                reason = "没有查询到商品.";
+                            } else {
+                                for (Item item : items) {
+                                    Product product = new Product();
+                                    product.setProductId(item.getItemId());
+                                    product.setProductName(item.getItemName());
+                                    product.setProductPrice(Double.parseDouble(item.getPrice()));
+                                    int count = productMapper.getPageCount(product);
+                                    //存在就更新，不存在就添加
+                                    if (count == 0) {
+                                        productMapper.insertSelective(product);
+                                    } else {
+                                        productMapper.updateByProductIdSelective(product);
+                                    }
+                                }
+                            }
+
+                        } else {
+                            success = false;
+                            reason = "没有查询到商品.";
+                        }
+                        success = true;
+                        pageNum = pageNum + pageSize;
+                    } else {
+                        success = false;
+                        reason = status.getStatusReason();
+                    }
+                }
+            } while (itemNum == pageSize && success);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("doSync, message:{}", e.getMessage());
+            success = false;
+            reason = "报错了，请联系管理员.";
+        }
+        json.put("success", success);
+        json.put("reason", reason);
+        return json;
     }
 }

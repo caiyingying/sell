@@ -35,16 +35,16 @@ public class WeiDianTokenHandler {
 		Cache cache = manager.getCache("weiDianTokenCache");
 		String grant_type = "client_credential";
 		//从微店服务器获取token
-		//String accessToken = HttpKit.getWeiDianAccessToken(grant_type, appkey, secret);
-		//Element tokenElement = new  Element(WeChatConstants.weiDianAccessToken, accessToken);
-		//cache.put(tokenElement);
+		String accessToken = HttpKit.getWeiDianAccessToken(grant_type, appkey, secret);
+		Element tokenElement = new  Element(WeChatConstants.weiDianAccessToken, accessToken);
+		cache.put(tokenElement);
 	}
 	
 	/***
 	 * 从缓存中获取accessToken
 	 * @return
 	 */
-	public String getToke(){
+	public String getToken(){
 		CacheManager manager = CacheManager.create();
         Cache cache = manager.getCache("weiDianTokenCache");
         Element element = cache.get(WeChatConstants.weiDianAccessToken);

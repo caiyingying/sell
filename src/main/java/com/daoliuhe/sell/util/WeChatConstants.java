@@ -13,6 +13,11 @@ public class WeChatConstants {
     public final static String wei_dian_access_token_url = "https://api.vdian.com/token?";
 
     /**
+     * 微店接口的baseUrl
+     */
+    public final static String wei_dian_base_url = "https://api.vdian.com/api?";
+
+    /**
      * 通过OpenID来获取用户基本信息
      * https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
      */

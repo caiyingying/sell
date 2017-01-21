@@ -1,10 +1,14 @@
 package com.daoliuhe.sell.weChat;
 
+import com.daoliuhe.sell.bean.weidian.response.product.VdianItemListGetResponse;
+import com.daoliuhe.sell.exception.OpenException;
 import com.daoliuhe.sell.util.JsonPluginsUtil;
+import com.daoliuhe.sell.util.JsonUtils;
 import com.daoliuhe.sell.util.WeChatConstants;
 import com.daoliuhe.sell.weChat.bean.Action;
 import com.daoliuhe.sell.weChat.bean.ActionReturn;
 import com.daoliuhe.sell.weChat.bean.OrderRet;
+import net.sf.json.util.JSONUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -17,6 +21,9 @@ import org.apache.http.util.EntityUtils;
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HttpKit {
     /***
@@ -264,6 +271,62 @@ public class HttpKit {
             }
         }
         return orderRet;
+    }
+
+    /**
+     * 查询产品
+     * @param pageNum 返回页码，从1开始
+     * @param pageSize 单页条数，默认值30，最大100条
+     * @param status status=1或不传为在架商品，status=2为下架商品,4表示下架和在架商品
+     * @return 微店里的商品
+     */
+    public static VdianItemListGetResponse getWeiDianItemList(String access_token, int pageNum, int pageSize, int status) throws OpenException {
+        VdianItemListGetResponse itemList = new VdianItemListGetResponse();
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        StringBuffer urlBuffer = new StringBuffer();
+        urlBuffer.append(WeChatConstants.wei_dian_base_url);
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("page_num", pageNum);
+        param.put("page_size", pageSize);
+        param.put("status", status);
+
+        Map<String, Object> method = new HashMap<String, Object>();
+        method.put("method", "vdian.item.list.get");
+        method.put("access_token", access_token);
+        method.put("version", "1.0");
+        method.put("format", "json");
+
+        String url = urlBuffer.toString();
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.addHeader("Content-type", "application/json; charset=utf-8");
+        httpPost.setHeader("Accept", "application/json");
+        CloseableHttpResponse response = null;
+        try {
+            JSONObject paramJsonObject = new JSONObject();
+            paramJsonObject.put("param", JsonUtils.toJson(param));
+            httpPost.setEntity(new StringEntity(paramJsonObject.toString()));
+            JSONObject methodJsonObject = new JSONObject();
+            methodJsonObject.put("public", JsonUtils.toJson(param));
+            httpPost.setEntity(new StringEntity(methodJsonObject.toString()));
+            response = httpclient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            String charset = "UTF-8";
+            itemList = JsonPluginsUtil.jsonToBean(EntityUtils.toString(entity, charset), VdianItemListGetResponse.class);
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != response) {
+                try {
+                    response.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return itemList;
     }
 
     public static void main(String[] args) {

@@ -63,4 +63,11 @@ public class ProductController {
         productService.updateProduct(product);
         return "redirect:/product/list";
     }
+
+    @RequestMapping("/sync")
+    @ResponseBody
+    public Object syncProduct() {
+        logger.info("syncProduct");
+        return productService.doSync();
+    }
 }
