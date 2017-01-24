@@ -32,7 +32,7 @@ ul.easyui-tree li {
 				<shiro:hasPermission name="product:nav">
 				<li id="product">产品管理</li>
 				</shiro:hasPermission>
-				<li id="stats">销售统计分析</li>
+				<li id="order">订单统计</li>
 			</ul>
 		</div>
 	</div>
@@ -48,8 +48,10 @@ ul.easyui-tree li {
 			}else if("customer" == node.id){
 				$("#navForm").attr("action","customer/list").submit();
 			}else if("product" == node.id){
-				$("#navForm").attr("action","product/list").submit();
-			}
+                $("#navForm").attr("action","product/list").submit();
+            }else if("order" == node.id){
+                $("#navForm").attr("action","order/list").submit();
+            }
 			//$("#navForm").attr("action","project/list").submit();
 		}
 	});
