@@ -31,6 +31,10 @@ public class OrderProduct extends BasePage{
 
     private Double totalPrice;
 
+    private Double discountPrice;
+
+    private Double discountTotalPrice;
+
     private Double rebate;
 
     public Integer getId() {
@@ -151,5 +155,21 @@ public class OrderProduct extends BasePage{
 
     public void setRebate(Double rebate) {
         this.rebate = rebate;
+    }
+
+    public Double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public Double getDiscountTotalPrice() {
+        return discountTotalPrice;
+    }
+
+    public void setDiscountTotalPrice(Double discountTotalPrice) {
+        this.discountTotalPrice = discountTotalPrice;
     }
 }

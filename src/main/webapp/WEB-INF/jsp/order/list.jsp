@@ -12,8 +12,8 @@
     <title>优达生物科技分销商管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
-    <link rel="stylesheet" type="text/css" href="static/plugin/easyui/themes/bootstrap/easyui.css">
     <link rel="stylesheet" type="text/css" href="static/plugin/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="static/plugin/easyui/themes/bootstrap/easyui.css">
     <script type="text/javascript" src="static/js/jquery.min-1.11.3.js"></script>
     <script type="text/javascript" src="static/plugin/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="static/plugin/easyui/local/easyui-lang-zh_CN.js"></script>
@@ -63,6 +63,20 @@
         return val;
     }
 
+    function formatDatebox(value) {
+        if (value == null || value == '') {
+            return '';
+        }
+        var dt;
+        if (value instanceof Date) {
+            dt = value;
+        } else {
+            dt = new Date(value);
+        }
+
+        return dt.format("yyyy-MM-dd"); //扩展的Date的format方法(上述插件实现)
+    }
+
 </script>
 <div class="easyui-layout" data-options="fit:true">
     <%@ include file="/WEB-INF/jsp/common/titleNav.jsp" %>
@@ -78,7 +92,7 @@
 		border:false,
 		toolbar:'#tb',
 		pagination:true,
-		pageSize:10,
+		pageSize:50,
 		loadMsg:'请稍后...'
 		">
             <thead>
@@ -86,16 +100,16 @@
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th data-options="field:'id',hidden:'true'"/>
                 <th data-options="field:'userPhone',width:100">沙龙账号</th>
-                <th data-options="field:'itemName',width:150">产品</th>
-                <th data-options="field:'price',width:150">单价</th>
-                <th data-options="field:'quantity',width:100">数量</th>
-                <th data-options="field:'totalPrice',width:100">总金额</th>
-                <th data-options="field:'totalPrice',width:100">折扣单价</th>
-                <th data-options="field:'totalPrice',width:100">折扣金额</th>
-                <th data-options="field:'totalPrice',width:100">返现金额</th>
-                <th data-options="field:'comfirm',width:80">是否返现</th>
-                <th data-options="field:'comfirmDate',width:100">返现时间</th>
-                <th data-options="field:'orderId',width:100">订单编号</th>
+                <th data-options="field:'itemName',width:100">产品名称</th>
+                <th data-options="field:'price',width:50">单价</th>
+                <th data-options="field:'quantity',width:50">数量</th>
+                <th data-options="field:'totalPrice',width:60">总金额</th>
+                <th data-options="field:'discountPrice',width:80">折扣单价</th>
+                <th data-options="field:'discountTotalPrice',width:80">折扣金额</th>
+                <th data-options="field:'rebate',width:80">返现金额</th>
+                <th data-options="field:'comfirm',width:80,formatter: fEnabled">是否返现</th>
+                <th data-options="field:'comfirmDate',width:100,formatter: formatDatebox">返现时间</th>
+                <th data-options="field:'orderId'">订单编号</th>
             </tr>
             </thead>
         </table>
