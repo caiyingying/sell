@@ -1,6 +1,7 @@
 package com.daoliuhe.sell.web.controller;
 
 import com.daoliuhe.sell.model.OrderProduct;
+import com.daoliuhe.sell.model.Product;
 import com.daoliuhe.sell.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,16 @@ public class OrderController {
     public ModelAndView list(OrderProduct orderProduct) throws UnsupportedEncodingException {
         logger.info("list,orderProduct:{}", orderProduct);
         ModelAndView mav = new ModelAndView("order/list");
+        mav.addAllObjects(orderService.getPageData(orderProduct));
+        mav.addObject("entity", orderProduct);
         return mav;
+    }
+
+    @RequestMapping("/data")
+    @ResponseBody
+    public Object data(OrderProduct orderProduct) {
+        logger.info("data,orderProduct:{}",orderProduct);
+        return orderService.getPageData(orderProduct);
     }
 
     @RequestMapping("/sync")

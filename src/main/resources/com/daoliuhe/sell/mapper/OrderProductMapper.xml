@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.daoliuhe.sell.model.OrderProduct" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
-    <result column="ORDER_TOTAL_PRICE" property="" jdbcType="DOUBLE" />
+    <result column="ORDER_TOTAL_PRICE" property="orderTotalPrice" jdbcType="DOUBLE" />
     <result column="PAY_TIME" property="payTime" jdbcType="VARCHAR" />
     <result column="USER_PHONE" property="userPhone" jdbcType="VARCHAR" />
     <result column="DEALERS_ID" property="dealersId" jdbcType="INTEGER" />

@@ -2,7 +2,7 @@ package com.daoliuhe.sell.model;
 
 import java.util.Date;
 
-public class OrderProduct {
+public class OrderProduct extends BasePage{
     private Integer id;
 
     private String orderId;

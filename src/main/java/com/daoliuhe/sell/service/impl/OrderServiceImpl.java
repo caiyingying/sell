@@ -2,10 +2,8 @@ package com.daoliuhe.sell.service.impl;
 
 import com.daoliuhe.sell.Weidian.DefaultWeidianClient;
 import com.daoliuhe.sell.Weidian.http.Param;
-import com.daoliuhe.sell.bean.weidian.entity.Item;
 import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderGetResponse;
 import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderIdsGetResponse;
-import com.daoliuhe.sell.bean.weidian.response.product.VdianItemListGetResponse;
 import com.daoliuhe.sell.exception.OpenException;
 import com.daoliuhe.sell.mapper.OrderProductMapper;
 import com.daoliuhe.sell.model.OrderProduct;
@@ -13,8 +11,6 @@ import com.daoliuhe.sell.service.OrderService;
 import com.daoliuhe.sell.util.Config;
 import com.daoliuhe.sell.util.JsonUtils;
 import com.daoliuhe.sell.weChat.WeiDianTokenHandler;
-import net.sf.json.JSONObject;
-import net.sf.json.util.JSONUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +111,22 @@ public class OrderServiceImpl implements OrderService {
         json.put("success", success);
         json.put("reason", reason);
         return json;
+    }
+
+    @Override
+    public Map<String, Object> getPageData(OrderProduct orderProduct) {
+        logger.info("getPageData,orderProduct:{}", orderProduct);
+        Map<String, Object> map = new HashMap<String, Object>();
+        int total = orderProductMapper.getPageCount(orderProduct);
+        map.put("total", total);
+        int curPage = orderProduct.getPage();
+        int rows = orderProduct.getRows();
+        int maxPage = (total + rows - 1) / rows;
+        if (curPage > maxPage && maxPage > 0) {
+            orderProduct.setPage(maxPage);
+        }
+        map.put("rows", orderProductMapper.getPageData(orderProduct));
+        return map;
     }
 
     /**

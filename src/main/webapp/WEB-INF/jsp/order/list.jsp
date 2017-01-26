@@ -45,9 +45,10 @@
     function query() {
         $('#dg').datagrid({
             queryParams: {
-                name: $('#name').val(),
-                description: $('#description').val(),
-                enabled: $('#enabled').val()
+                userPhone: $('#userPhone').val(),
+                itemName: $('#itemName').val(),
+                comfirm: $('#comfirm').val(),
+                orderId: $('#orderId').val()
             }
         });
     }
@@ -70,7 +71,7 @@
         <table class="easyui-datagrid" id="dg"
                data-options="
 		method:'post',
-		url:'dealers/data',
+		url:'order/data',
 		noheader:true,
 		fit:true,
 		rownumbers:true,
@@ -84,11 +85,17 @@
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th data-options="field:'id',hidden:'true'"/>
-                <th data-options="field:'name',width:100">名称</th>
-                <th data-options="field:'description',width:150">描述</th>
-                <th data-options="field:'phone',width:150">电话</th>
-                <th data-options="field:'address',width:150">地址</th>
-                <th data-options="field:'enabled',width:80,formatter:fEnabled">是否启用</th>
+                <th data-options="field:'userPhone',width:100">沙龙账号</th>
+                <th data-options="field:'itemName',width:150">产品</th>
+                <th data-options="field:'price',width:150">单价</th>
+                <th data-options="field:'quantity',width:100">数量</th>
+                <th data-options="field:'totalPrice',width:100">总金额</th>
+                <th data-options="field:'totalPrice',width:100">折扣单价</th>
+                <th data-options="field:'totalPrice',width:100">折扣金额</th>
+                <th data-options="field:'totalPrice',width:100">返现金额</th>
+                <th data-options="field:'comfirm',width:80">是否返现</th>
+                <th data-options="field:'comfirmDate',width:100">返现时间</th>
+                <th data-options="field:'orderId',width:100">订单编号</th>
             </tr>
             </thead>
         </table>
@@ -100,23 +107,26 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true"
                    onclick="query()">查询</a>
             </div>
-            <form action="dealers/list" method="post" id="queryForm">
+            <form action="order/list" method="post" id="queryForm">
                 <input type="hidden" name="id" value=""/>
                 <table>
                     <tr>
-                        <td>名称:</td>
-                        <td><input type="text" id="name"></td>
-                        <td>描述:</td>
-                        <td><input type="text" id="description"></td>
-                        <td>是否启用:</td>
+                        <td>沙龙账号:</td>
+                        <td><input type="text" id="userPhone"></td>
+                        <td>产品名称:</td>
+                        <td><input type="text" id="itemName"></td>
+                        <td>是否返现:</td>
                         <td>
-                            <select id="enabled">
+                            <select id="comfirm">
                                 <option value=""></option>
                                 <option value="0">禁用</option>
                                 <option value="1">启用</option>
                             </select>
                         </td>
                     </tr>
+                    <tr>
+                        <td>订单编号:</td>
+                        <td><input type="text" id="orderId"></td>
                 </table>
             </form>
         </div>
