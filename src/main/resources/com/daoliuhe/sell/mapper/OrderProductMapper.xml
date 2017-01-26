@@ -31,20 +31,36 @@
 
   <sql id="queryData">
     select
-    <include refid="Base_Column_List" />
-    from order_product
+      op.ID,
+      op.ORDER_ID,
+      op.ORDER_TOTAL_PRICE,
+      op.PAY_TIME,
+      op.USER_PHONE,
+      op.DEALERS_ID,
+      op.COMFIRM,
+      op.COMFIRM_DATE,
+      op.RESC,
+      op.ITEM_ID,
+      op.ITEM_NAME,
+      op.PRICE,
+      op.QUANTITY,
+      op.TOTAL_PRICE,
+      op.PRICE*p.discount as discountPrice,
+      op.PRICE*p.discount*op.QUANTITY as discountTotalPrice,
+      op.TOTAL_PRICE - op.PRICE*p.discount*op.QUANTITY as rebate
+    from order_product op LEFT JOIN product p on op.ITEM_ID = p.PRODUCT_ID
     <where>
       <if test="comfirm != null and comfirm != ''">
-        and COMFIRM = #{comfirm,jdbcType=VARCHAR}
+        and op.COMFIRM = #{comfirm,jdbcType=VARCHAR}
       </if>
       <if test="userPhone != null and userPhone != ''">
-        and USER_PHONE = #{userPhone,jdbcType=VARCHAR}
+        and op.USER_PHONE = #{userPhone,jdbcType=VARCHAR}
       </if>
       <if test="orderId != null and orderId != ''">
-        and ORDER_ID = #{orderId,jdbcType=VARCHAR}
+        and op.ORDER_ID = #{orderId,jdbcType=VARCHAR}
       </if>
     </where>
-    order by ID asc
+    order by op.ID asc
   </sql>
 
   <select id="getPageData" resultMap="BaseResultMap" parameterType="OrderProduct">

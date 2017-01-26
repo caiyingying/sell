@@ -22,12 +22,13 @@
 <body>
 <script type="text/javascript">
     //选中菜单
-    $(function(){
+    $(function () {
         var node = $('#navTree').tree('find', 'order');
         $('#navTree').tree('select', node.target);
     });
 
-    function syncOrder(){
+    //同步订单
+    function syncOrder() {
         $.ajax({
             type: 'post',
             url: 'order/sync',
@@ -40,6 +41,30 @@
                 }
             }
         });
+    }
+
+    //订单返现
+    function orderBack() {
+        var checked = $('#dg').datagrid('getChecked');
+        var l = checked.length;
+        if (l == 0) {
+            $.messager.alert('警告', '请选择至少一条数据!', 'warning');
+        } else {
+            $(function () {
+                $.messager.defaults = {ok: "是", cancel: "否"};
+                $.messager.confirm("操作提示", "您确定要执行返现操作吗？", function (data) {
+                    if (data) {
+                        //alert("是");
+                    } else {
+                        //alert("否");
+                    }
+                });
+            });
+            //$('#queryForm').attr('action', 'user/edit');
+            //$('#queryForm input[name=id]').val(checked[0].id);
+            //$('#queryForm').submit();
+            //location.href = '<%=basePath%>user/edit?id=' + checked[0].id;
+        }
     }
 
     function query() {
@@ -56,9 +81,9 @@
     function fEnabled(value, row, index) {
         var val = "";
         if (value == 0) {
-            val = "禁用";
+            val = "否";
         } else if (value == 1) {
-            val = "启用";
+            val = "是";
         }
         return val;
     }
@@ -118,6 +143,8 @@
             <div style="margin-bottom:5px">
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" plain="true"
                    onclick="syncOrder()">同步订单</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true"
+                   onclick="orderBack()">订单返现</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true"
                    onclick="query()">查询</a>
             </div>
@@ -133,8 +160,8 @@
                         <td>
                             <select id="comfirm">
                                 <option value=""></option>
-                                <option value="0">禁用</option>
-                                <option value="1">启用</option>
+                                <option value="0">否</option>
+                                <option value="1">是</option>
                             </select>
                         </td>
                     </tr>
