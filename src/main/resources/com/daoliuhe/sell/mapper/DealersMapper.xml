@@ -56,6 +56,13 @@
     select IFNULL(max(t.`CODE`),0) maxCode from dealers t
   </select>
 
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from dealers
+    where PHONE = #{phone,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dealers
     where ID = #{id,jdbcType=INTEGER}

@@ -61,4 +61,12 @@ public interface DealersService {
      * @return
      */
     Map<String, Object> saveRelationUser(DealersUser dealersUser);
+
+    /**
+     * 验证分销商手机号的唯一性
+     * @param phone 手机号
+     * @param id 分销商id
+     * @return 是否有效
+     */
+    boolean verifyPhone(String phone, String id);
 }

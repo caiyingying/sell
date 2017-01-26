@@ -182,11 +182,24 @@
         var validate = $('#form1').validate({
             rules: {
                 name: "required",
+                phone: {
+                    number:true,
+                    maxlength:11,
+                    required:true,
+                    remote: {
+                        url: "dealers/vPhone",     //后台处理程序
+                        type: "post",               //数据发送方式
+                        dataType: "json",           //接受数据格式
+                        data: {                     //要传递的数据
+                            id: '${dealers.id}'
+                        }
+                    }},
                 enabled: "required"
             },
             messages: {
                 name: "必填字段!",
-                enabled: "必填字段"
+                phone: {number:"无效的电话号码!",maxlength:"最多11位!", required:"必填字段!", remote:"手机号码已经存在!"},
+                enabled: "必填字段!"
             },
             highlight: function (element) {
 // 				$(element).parent('td').find('label').before('<br>');

@@ -100,4 +100,11 @@ public class DealersController {
         logger.info("deleteForUser(userId:{},dealersIds:{})", userIds, dealersId);
         return dealersService.deleteForUser(userIds, dealersId);
     }
+
+    @RequestMapping("/vPhone")
+    @ResponseBody
+    public Object verifyPhone(String phone, String id) {
+        logger.info("verifyPhone,phone:{},id:{}",phone,id);
+        return dealersService.verifyPhone(phone, id);
+    }
 }

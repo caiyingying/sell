@@ -4,6 +4,7 @@ import com.daoliuhe.sell.mapper.DealersMapper;
 import com.daoliuhe.sell.mapper.DealersUserMapper;
 import com.daoliuhe.sell.model.Dealers;
 import com.daoliuhe.sell.model.DealersUser;
+import com.daoliuhe.sell.model.User;
 import com.daoliuhe.sell.model.UserRole;
 import com.daoliuhe.sell.service.DealersService;
 import com.daoliuhe.sell.util.BCrypt;
@@ -165,5 +166,26 @@ public class DealersServiceImpl implements DealersService {
         json.put("success", success);
         json.put("reason", reason);
         return json;
+    }
+
+    @Override
+    public boolean verifyPhone(String phone, String id) {
+        logger.info("verifyPhone,phone:{}, id:{}", phone, id);
+        boolean ret;
+        Dealers dealers = dealersMapper.selectByPhone(phone);
+        if (StringUtils.hasText(id)) {
+            if (null == dealers) {
+                ret = true;
+            } else {
+                if (id.equals(String.valueOf(dealers.getId()))) {
+                    ret = true;
+                } else {
+                    ret = false;
+                }
+            }
+        } else {
+            ret = null == dealers;
+        }
+        return ret;
     }
 }

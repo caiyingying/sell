@@ -37,4 +37,11 @@ public interface DealersMapper {
      * @return
      */
     int getMaxCode();
+
+    /**
+     * 根据手机号查询分销商
+     * @param phone
+     * @return
+     */
+    Dealers selectByPhone(String phone);
 }
