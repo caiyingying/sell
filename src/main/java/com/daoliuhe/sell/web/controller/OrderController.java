@@ -6,12 +6,16 @@ import com.daoliuhe.sell.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 订单统计
@@ -47,5 +51,13 @@ public class OrderController {
     public Object syncOrders() {
         logger.info("syncOrders");
         return orderService.doSync();
+    }
+
+    @RequestMapping("/doRebate")
+    @ResponseBody
+    public Object doRebate(String ids) {
+        logger.info("doRebate, ids:{}",ids);
+        String[] id = StringUtils.split(ids,",");
+        return orderService.doRebate(Arrays.asList(id));
     }
 }

@@ -2,6 +2,7 @@ package com.daoliuhe.sell.service;
 
 import com.daoliuhe.sell.model.OrderProduct;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,9 +15,17 @@ public interface OrderService {
     Map<String, Object> doSync();
 
     /**
+     * 订单返现
+     * @return
+     */
+    Map<String, Object> doRebate(List<String> ids);
+
+    /**
      * 分页查询
      * @param orderProduct
      * @return
      */
     Map<String, Object> getPageData(OrderProduct orderProduct);
+
+
 }

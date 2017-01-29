@@ -9,6 +9,7 @@ import com.daoliuhe.sell.mapper.OrderProductMapper;
 import com.daoliuhe.sell.model.OrderProduct;
 import com.daoliuhe.sell.service.OrderService;
 import com.daoliuhe.sell.util.Config;
+import com.daoliuhe.sell.util.Constants;
 import com.daoliuhe.sell.util.JsonUtils;
 import com.daoliuhe.sell.weChat.WeiDianTokenHandler;
 import org.slf4j.Logger;
@@ -110,6 +111,27 @@ public class OrderServiceImpl implements OrderService {
 
         json.put("success", success);
         json.put("reason", reason);
+        return json;
+    }
+
+    @Override
+    public Map<String, Object> doRebate(List<String> ids) {
+        logger.info("doRebate, ids:{}", ids.toArray());
+        Map<String, Object> json = new HashMap<String, Object>();
+        boolean success = true;
+        String reason = "";
+        try {
+            for (String id : ids) {
+                OrderProduct orderProduct = new OrderProduct();
+                orderProduct.setId(Integer.parseInt(id));
+                orderProduct.setComfirm(Constants.ENABLE);
+                orderProduct.setComfirmDate(new Date());
+                orderProductMapper.updateByPrimaryKeySelective(orderProduct);
+            }
+        } catch (Exception e) {
+            success = false;
+            logger.info("Exception, e:{}", e.getMessage());
+        }
         return json;
     }
 

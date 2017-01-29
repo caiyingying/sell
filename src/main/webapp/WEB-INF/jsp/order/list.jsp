@@ -25,6 +25,29 @@
     $(function () {
         var node = $('#navTree').tree('find', 'order');
         $('#navTree').tree('select', node.target);
+
+        $('#dg').datagrid({
+            onLoadSuccess: function (data) {//加载完毕后获取所有的checkbox遍历
+                if (data.rows.length > 0) {
+                    //循环判断操作为新增的不能选择
+                    for (var i = 0; i < data.rows.length; i++) {
+                        //根据comfirm让某些行不可选,如果已经返现的，则不可以在进行返现操作
+                        if (data.rows[i].comfirm == 1) {
+                            $("input[type='checkbox']")[i + 1].disabled = true;
+                        }
+                    }
+                }
+            },
+            onClickRow: function (rowIndex, rowData) {
+                //加载完毕后获取所有的checkbox遍历
+                $("input[type='checkbox']").each(function (index, el) {
+                    //如果当前的复选框不可选，则不让其选中
+                    if (el.disabled == true) {
+                        $('#dg').datagrid('unselectRow', index - 1);
+                    }
+                })
+            }
+        });
     });
 
     //同步订单
@@ -51,10 +74,36 @@
             $.messager.alert('警告', '请选择至少一条数据!', 'warning');
         } else {
             $(function () {
+                var totalPrice = 0;
+                var totalRebate = 0;
+                var ids = "";
+                var param = {};
+                for (i = 0; i < checked.length; i++) {
+                    totalPrice = totalPrice + checked[i].totalPrice;
+                    totalRebate = totalRebate + checked[i].rebate;
+                    ids = ids + checked[i].id + ",";
+                }
+                param['ids'] = ids;
                 $.messager.defaults = {ok: "是", cancel: "否"};
-                $.messager.confirm("操作提示", "您确定要执行返现操作吗？", function (data) {
+                $.messager.confirm("操作提示", "原金额：" + totalPrice + " 返现金额：" + totalRebate + " 您确定要执行返现操作吗？", function (data) {
                     if (data) {
-                        //alert("是");
+                        //alter("是");
+                        $.ajax({
+                            type: "post",  //提交方式
+                            dataType: "json", //数据类型
+                            data: param,
+                            async: false,
+                            url: "order/doRebate", //请求url
+                            success: function (data) { //提交成功的回调函数
+                                if (data) {
+                                    $.messager.alert('警告', '返现操作成功!', 'warning');
+                                    $('#dg').datagrid('reload');
+                                } else {
+                                    $.messager.alert('警告', '返现操作失败!', 'warning');
+                                    $('#dg').datagrid('reload');
+                                }
+                            }
+                        });
                     } else {
                         //alert("否");
                     }
@@ -88,7 +137,8 @@
         return val;
     }
 
-    function formatDatebox(value) {
+    /**
+     function formatDatebox(value) {
         if (value == null || value == '') {
             return '';
         }
@@ -100,6 +150,15 @@
         }
 
         return dt.format("yyyy-MM-dd"); //扩展的Date的format方法(上述插件实现)
+    }
+     */
+
+    function formatDatebox(value, row, index) {
+        if(value == 0 || value == "" || value == null){
+            return "";
+        }
+        var unixTimestamp = new Date(value);
+        return unixTimestamp.toLocaleString();
     }
 
 </script>
