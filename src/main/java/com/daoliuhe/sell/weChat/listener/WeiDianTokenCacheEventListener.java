@@ -5,33 +5,40 @@ import net.sf.ehcache.CacheException;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.event.CacheEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 微店的access_token
  */
 public class WeiDianTokenCacheEventListener implements CacheEventListener {
 
+	private static final Logger logger = LoggerFactory.getLogger(WeiDianTokenCacheEventListener.class);
+
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		logger.info("dispose");
 
 	}
 
 	@Override
 	public void notifyElementEvicted(Ehcache arg0, Element arg1) {
-		// TODO Auto-generated method stub
+		logger.info("notifyElementEvicted");
 
 	}
 
 	@Override
 	public void notifyElementExpired(Ehcache arg0, Element arg1) {
-		// TODO Auto-generated method stub
-
+		logger.info("notifyElementExpired");
+		//提示过期，重新获取token
+		WeiDianTokenHandler tokenHandler = new WeiDianTokenHandler();
+		tokenHandler.initToken();
 	}
 
 	@Override
 	public void notifyElementPut(Ehcache arg0, Element arg1)
 			throws CacheException {
+		logger.info("notifyElementPut");
 		//提示过期，重新获取token
 		WeiDianTokenHandler tokenHandler = new WeiDianTokenHandler();
 		tokenHandler.initToken();
@@ -41,20 +48,22 @@ public class WeiDianTokenCacheEventListener implements CacheEventListener {
 	@Override
 	public void notifyElementRemoved(Ehcache arg0, Element arg1)
 			throws CacheException {
-		// TODO Auto-generated method stub
+		logger.info("notifyElementRemoved");
+		WeiDianTokenHandler tokenHandler = new WeiDianTokenHandler();
+		tokenHandler.initToken();
 
 	}
 
 	@Override
 	public void notifyElementUpdated(Ehcache arg0, Element arg1)
 			throws CacheException {
-		// TODO Auto-generated method stub
+		logger.info("notifyElementUpdated");
 
 	}
 
 	@Override
 	public void notifyRemoveAll(Ehcache arg0) {
-		// TODO Auto-generated method stub
+		logger.info("notifyRemoveAll");
 
 	}
 

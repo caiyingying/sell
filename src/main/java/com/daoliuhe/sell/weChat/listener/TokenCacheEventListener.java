@@ -5,31 +5,38 @@ import net.sf.ehcache.CacheException;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.event.CacheEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TokenCacheEventListener implements CacheEventListener {
 
+	private static final Logger logger = LoggerFactory.getLogger(TokenCacheEventListener.class);
+
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		logger.info("dispose()");
 
 	}
 
 	@Override
 	public void notifyElementEvicted(Ehcache arg0, Element arg1) {
-		// TODO Auto-generated method stub
+		logger.info("notifyElementEvicted()");
 
 	}
 
 	@Override
 	public void notifyElementExpired(Ehcache arg0, Element arg1) {
-		// TODO Auto-generated method stub
+		logger.info("notifyElementExpired");
+		//提示过期，重新获取token
+		TokenHandler tokenHandler = new TokenHandler();
+		tokenHandler.initToken();
 
 	}
 
 	@Override
 	public void notifyElementPut(Ehcache arg0, Element arg1)
 			throws CacheException {
-		// TODO Auto-generated method stub
+		logger.info("notifyElementPut");
 		//提示过期，重新获取token
 		TokenHandler tokenHandler = new TokenHandler();
 		tokenHandler.initToken();
@@ -39,20 +46,21 @@ public class TokenCacheEventListener implements CacheEventListener {
 	@Override
 	public void notifyElementRemoved(Ehcache arg0, Element arg1)
 			throws CacheException {
-		// TODO Auto-generated method stub
-
+		logger.info("notifyElementRemoved");
+		TokenHandler tokenHandler = new TokenHandler();
+		tokenHandler.initToken();
 	}
 
 	@Override
 	public void notifyElementUpdated(Ehcache arg0, Element arg1)
 			throws CacheException {
-		// TODO Auto-generated method stub
+		logger.info("notifyElementUpdated");
 
 	}
 
 	@Override
 	public void notifyRemoveAll(Ehcache arg0) {
-		// TODO Auto-generated method stub
+		logger.info("notifyRemoveAll");
 
 	}
 

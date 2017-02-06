@@ -19,6 +19,8 @@ public class TokenHandler {
 	private static String appid = null;
 	//用户凭证
 	private static String secret = null;
+
+	private CacheManager manager;
 	
 	//静态代码块，加载配置文件
 	static{
@@ -32,7 +34,7 @@ public class TokenHandler {
 	 */
 	@PostConstruct
 	public void initToken(){
-		CacheManager manager = CacheManager.create();
+		manager = CacheManager.create();
 		Cache cache = manager.getCache("tokenCache");
 		String grant_type = "client_credential";
 		//从微信服务器获取token
@@ -47,7 +49,7 @@ public class TokenHandler {
 	 * @return
 	 */
 	public String getToke(){
-		CacheManager manager = CacheManager.create();
+		//CacheManager manager = CacheManager.create();
         Cache cache = manager.getCache("tokenCache");
         Element element = cache.get(WeChatConstants.accessToken);
         String accessToken = element.getObjectValue().toString();
