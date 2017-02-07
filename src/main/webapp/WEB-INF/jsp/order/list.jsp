@@ -46,6 +46,22 @@
                         $('#dg').datagrid('unselectRow', index - 1);
                     }
                 })
+            },
+            onSelect: function (index, row){
+                var checked = $('#dg').datagrid('getChecked');
+                var l = checked.length;
+                if (l == 0) {
+
+                } else {
+                    var totalPrice = 0;
+                    var totalRebate = 0;
+                    for (i = 0; i < checked.length; i++) {
+                        totalPrice = totalPrice + checked[i].totalPrice;
+                        totalRebate = totalRebate + checked[i].rebate;
+                    }
+                    $("#totalPriceSpan").html(totalPrice);
+                    $("#totalRebateSpan").html(totalRebate);
+                }
             }
         });
     });
@@ -183,7 +199,7 @@
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th data-options="field:'id',hidden:'true'"/>
-                <th data-options="field:'userPhone',width:100">沙龙账号</th>
+                <th data-options="field:'userPhone',width:100">分销商</th>
                 <th data-options="field:'itemName',width:100">产品名称</th>
                 <th data-options="field:'price',width:50">单价</th>
                 <th data-options="field:'quantity',width:50">数量</th>
@@ -223,10 +239,14 @@
                                 <option value="1">是</option>
                             </select>
                         </td>
-                    </tr>
-                    <tr>
                         <td>订单编号:</td>
                         <td><input type="text" id="orderId"></td>
+                    </tr>
+                    <tr>
+                        <td>原金额:</td>
+                        <td><span id="totalPriceSpan"></span></td>
+                        <td>返现金额:</td>
+                        <td><span id="totalRebateSpan"></span></td>
                 </table>
             </form>
         </div>
