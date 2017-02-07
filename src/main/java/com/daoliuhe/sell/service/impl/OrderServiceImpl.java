@@ -60,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String todayStr = sdf.format(today);
         if (null == syncTime || StringUtils.isEmpty(syncTime.getSyncDate())) {
-            beginDate = todayStr;
+            beginDate = "2017-01-01";
             endDate = todayStr;
         } else {
             beginDate = syncTime.getSyncDate();
@@ -131,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
         if (null == syncTime) {
             SyncTime initTime = new SyncTime();
             initTime.setName(Constants.ORDER_SYNC_TIME);
-            initTime.setSyncDate("2017-01-01");
+            initTime.setSyncDate(endDate);
             syncTimeMapper.insert(initTime);
         } else {
             //保存同步日期，获取前一天，保持数据冗余，预防数据遗漏
