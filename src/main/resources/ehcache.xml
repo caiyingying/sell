@@ -103,12 +103,13 @@ even after a JVM restart.  -->
            eternal="false"
            overflowToDisk="false"
            diskPersistent="false"
-           timeToIdleSeconds="70"
-           timeToLiveSeconds="70"
-           diskExpiryThreadIntervalSeconds="10"
+           timeToIdleSeconds="7000"
+           timeToLiveSeconds="7000"
+           diskExpiryThreadIntervalSeconds="120"
            memoryStoreEvictionPolicy="LFU">
-
+        <!--
         <cacheEventListenerFactory class="com.daoliuhe.sell.weChat.listener.TokenCacheEventListenerFactory"/>
+        -->
     </cache>
 
     <cache name="weiDianTokenCache"
@@ -120,8 +121,9 @@ even after a JVM restart.  -->
            timeToLiveSeconds="7000"
            diskExpiryThreadIntervalSeconds="120"
            memoryStoreEvictionPolicy="LFU">
-
+        <!--
         <cacheEventListenerFactory class="com.daoliuhe.sell.weChat.listener.WeiDianTokenCacheEventListenerFactory"/>
+        -->
     </cache>
 
 </ehcache>

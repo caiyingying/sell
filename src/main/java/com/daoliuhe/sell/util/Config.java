@@ -42,8 +42,12 @@ public class Config {
     public static final String OAUTH2_REFRESH_TOKEN_URL_TEMPLATE =
             "https://api.vdian.com/oauth2/refresh_token?grant_type=refresh_token&appkey=%s&refresh_token=%s";
 
+    //微店
     public static String APPKEY = "";
     public static String SECRET = "";
+    //微信
+    public static String APP_ID = "";
+    public static String APP_SECRET = "";
 
     public static int HTTP_POOL_MAX_TOTAL = 1000;
     public static int HTTP_MAX_PER_ROUTE = 400;
@@ -59,6 +63,9 @@ public class Config {
 
             APPKEY = empty2Default(prop.getProperty("appkey"), APPKEY);
             SECRET = empty2Default(prop.getProperty("secret"), SECRET);
+
+            APP_ID = empty2Default(prop.getProperty("appID"), APP_ID);
+            APP_SECRET = empty2Default(prop.getProperty("appsecret"), APP_SECRET);
 
             HTTP_POOL_MAX_TOTAL = empty2Default(prop.getProperty("http_pool_max_total"), HTTP_POOL_MAX_TOTAL);
             HTTP_MAX_PER_ROUTE = empty2Default(prop.getProperty("http_max_per_route"), HTTP_MAX_PER_ROUTE);
