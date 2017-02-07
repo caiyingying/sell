@@ -17,10 +17,12 @@
     <result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
     <result column="TOTAL_PRICE" property="totalPrice" jdbcType="DOUBLE" />
     <result column="REBATE" property="rebate" jdbcType="DOUBLE" />
+    <result column="SKU_ID" property="skuId" jdbcType="VARCHAR" />
+    <result column="SKU_TITLE" property="skuTitle" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     ID, ORDER_ID, ORDER_TOTAL_PRICE, PAY_TIME, USER_PHONE, DEALERS_ID, COMFIRM, COMFIRM_DATE, 
-    RESC, ITEM_ID, ITEM_NAME, PRICE, QUANTITY, TOTAL_PRICE, REBATE
+    RESC, ITEM_ID, ITEM_NAME, PRICE, QUANTITY, TOTAL_PRICE, REBATE, SKU_ID, SKU_TITLE
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -47,8 +49,12 @@
       op.TOTAL_PRICE,
       op.PRICE*p.discount as discountPrice,
       op.PRICE*p.discount*op.QUANTITY as discountTotalPrice,
-      op.TOTAL_PRICE - op.PRICE*p.discount*op.QUANTITY as rebate
-    from order_product op LEFT JOIN product p on op.ITEM_ID = p.PRODUCT_ID
+      op.TOTAL_PRICE - op.PRICE*p.discount*op.QUANTITY as rebate,
+      op.SKU_ID,
+      op.SKU_TITLE
+    from order_product op
+    LEFT JOIN product p
+    on op.ITEM_ID = p.PRODUCT_ID and op.SKU_ID = p.SKU_ID
     <where>
       <if test="comfirm != null and comfirm != ''">
         and op.COMFIRM = #{comfirm,jdbcType=VARCHAR}
@@ -58,6 +64,12 @@
       </if>
       <if test="orderId != null and orderId != ''">
         and op.ORDER_ID = #{orderId,jdbcType=VARCHAR}
+      </if>
+      <if test="payTimeBegin != null and payTimeBegin != ''">
+        <![CDATA[ and op.PAY_TIME >= #{payTimeBegin,jdbcType=VARCHAR} ]]>
+      </if>
+      <if test="payTimeEnd != null and payTimeEnd != ''">
+        <![CDATA[ and op.PAY_TIME <= #{payTimeEnd,jdbcType=VARCHAR} ]]>
       </if>
     </where>
     order by op.ID asc
@@ -85,13 +97,14 @@
       PAY_TIME, USER_PHONE, DEALERS_ID, 
       COMFIRM, COMFIRM_DATE, RESC, 
       ITEM_ID, ITEM_NAME, PRICE, 
-      QUANTITY, TOTAL_PRICE, REBATE
+      QUANTITY, TOTAL_PRICE, REBATE, SKU_ID, SKU_TITLE
       )
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{orderTotalPrice,jdbcType=DOUBLE},
       #{payTime,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{dealersId,jdbcType=INTEGER}, 
       #{comfirm,jdbcType=VARCHAR}, #{comfirmDate,jdbcType=TIMESTAMP}, #{resc,jdbcType=VARCHAR}, 
       #{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
-      #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DOUBLE}, #{rebate,jdbcType=DOUBLE}
+      #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DOUBLE}, #{rebate,jdbcType=DOUBLE},
+      #{skuId,jdbcType=VARCHAR}, #{skuTitle,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.daoliuhe.sell.model.OrderProduct" >
@@ -142,6 +155,12 @@
       <if test="rebate != null" >
         REBATE,
       </if>
+      <if test="skuId != null" >
+        SKU_ID,
+      </if>
+      <if test="skuTitle != null" >
+        SKU_TITLE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -188,6 +207,12 @@
       </if>
       <if test="rebate != null" >
         #{rebate,jdbcType=DOUBLE},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTitle != null" >
+        #{skuTitle,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -236,6 +261,12 @@
       <if test="rebate != null" >
         REBATE = #{rebate,jdbcType=DOUBLE},
       </if>
+      <if test="skuId != null" >
+        SKU_ID = #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTitle != null" >
+        SKU_TITLE = #{skuTitle,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -254,7 +285,9 @@
       PRICE = #{price,jdbcType=DOUBLE},
       QUANTITY = #{quantity,jdbcType=INTEGER},
       TOTAL_PRICE = #{totalPrice,jdbcType=DOUBLE},
-      REBATE = #{rebate,jdbcType=DOUBLE}
+      REBATE = #{rebate,jdbcType=DOUBLE},
+      SKU_ID = #{skuId,jdbcType=VARCHAR},
+      SKU_TITLE = #{skuTitle,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

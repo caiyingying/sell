@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.daoliuhe.sell.mapper.SyncTimeMapper">
+    <resultMap id="BaseResultMap" type="com.daoliuhe.sell.model.SyncTime">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sync_date" property="syncDate" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, name, sync_date
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sync_time
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sync_time
+        where name = #{name,jdbcType=VARCHAR}
+    </select>
+
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sync_time
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.daoliuhe.sell.model.SyncTime">
+    insert into sync_time (ID, name, sync_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{syncDate,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.daoliuhe.sell.model.SyncTime">
+        insert into sync_time
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="syncDate != null">
+                sync_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="syncDate != null">
+                #{syncDate,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.daoliuhe.sell.model.SyncTime">
+        update sync_time
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="syncDate != null">
+                sync_date = #{syncDate,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.daoliuhe.sell.model.SyncTime">
+    update sync_time
+    set name = #{name,jdbcType=VARCHAR},
+      sync_date = #{syncDate,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+    <update id="updateTimeByName" parameterType="com.daoliuhe.sell.model.SyncTime">
+        update sync_time
+        set sync_date = #{syncDate,jdbcType=VARCHAR}
+        where name = #{name,jdbcType=VARCHAR}
+    </update>
+</mapper>

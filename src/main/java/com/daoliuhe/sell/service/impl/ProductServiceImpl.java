@@ -3,6 +3,7 @@ package com.daoliuhe.sell.service.impl;
 import com.daoliuhe.sell.Weidian.DefaultWeidianClient;
 import com.daoliuhe.sell.Weidian.http.Param;
 import com.daoliuhe.sell.bean.weidian.entity.Item;
+import com.daoliuhe.sell.bean.weidian.entity.Sku;
 import com.daoliuhe.sell.bean.weidian.response.Status;
 import com.daoliuhe.sell.bean.weidian.response.product.VdianItemListGetResponse;
 import com.daoliuhe.sell.mapper.ProductMapper;
@@ -117,20 +118,40 @@ public class ProductServiceImpl implements ProductService {
                                 reason = "没有查询到商品.";
                             } else {
                                 for (Item item : items) {
-                                    Product product = new Product();
-                                    product.setProductId(item.getItemId());
-                                    product.setProductName(item.getItemName());
-                                    product.setProductPrice(Double.parseDouble(item.getPrice()));
-                                    int count = productMapper.getPageCount(product);
-                                    //存在就更新，不存在就添加
-                                    if (count == 0) {
-                                        productMapper.insertSelective(product);
+                                    Sku[] skus = item.getSkus();
+                                    if (skus.length == 0) {
+                                        Product product = new Product();
+                                        product.setProductId(item.getItemId());
+                                        product.setSkuId("0");
+                                        int count = productMapper.getPageCount(product);
+                                        product.setSkuTitle("");
+                                        product.setProductName(item.getItemName());
+                                        product.setProductPrice(Double.parseDouble(item.getPrice()));
+                                        //存在就更新，不存在就添加
+                                        if (count == 0) {
+                                            productMapper.insertSelective(product);
+                                        } else {
+                                            productMapper.updateByProductIdSelective(product);
+                                        }
                                     } else {
-                                        productMapper.updateByProductIdSelective(product);
+                                        for (Sku sku : skus) {
+                                            Product product = new Product();
+                                            product.setProductId(item.getItemId());
+                                            product.setSkuId(sku.getId());
+                                            int count = productMapper.getPageCount(product);
+                                            product.setSkuTitle(sku.getTitle());
+                                            product.setProductName(item.getItemName());
+                                            product.setProductPrice(Double.parseDouble(item.getPrice()));
+                                            //存在就更新，不存在就添加
+                                            if (count == 0) {
+                                                productMapper.insertSelective(product);
+                                            } else {
+                                                productMapper.updateByProductIdSelective(product);
+                                            }
+                                        }
                                     }
                                 }
                             }
-
                         } else {
                             success = false;
                             reason = "没有查询到商品.";

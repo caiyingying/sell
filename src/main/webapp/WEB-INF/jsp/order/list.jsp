@@ -47,11 +47,28 @@
                     }
                 })
             },
-            onSelect: function (index, row){
+            onSelect: function (index, row) {
                 var checked = $('#dg').datagrid('getChecked');
                 var l = checked.length;
                 if (l == 0) {
 
+                } else {
+                    var totalPrice = 0;
+                    var totalRebate = 0;
+                    for (i = 0; i < checked.length; i++) {
+                        totalPrice = totalPrice + checked[i].totalPrice;
+                        totalRebate = totalRebate + checked[i].rebate;
+                    }
+                    $("#totalPriceSpan").html(totalPrice);
+                    $("#totalRebateSpan").html(totalRebate);
+                }
+            },
+            onUnselect: function (index, row) {
+                var checked = $('#dg').datagrid('getChecked');
+                var l = checked.length;
+                if (l == 0) {
+                    $("#totalPriceSpan").html("");
+                    $("#totalRebateSpan").html("");
                 } else {
                     var totalPrice = 0;
                     var totalRebate = 0;
@@ -101,7 +118,7 @@
                 }
                 param['ids'] = ids;
                 $.messager.defaults = {ok: "是", cancel: "否"};
-                $.messager.confirm("操作提示", "原金额：" + totalPrice + " 返现金额：" + totalRebate + " 您确定要执行返现操作吗？", function (data) {
+                $.messager.confirm("操作提示", "总金额汇总：" + totalPrice + " 返现金额汇总：" + totalRebate + " 您确定要执行返现操作吗？", function (data) {
                     if (data) {
                         //alter("是");
                         $.ajax({
@@ -138,7 +155,9 @@
                 userPhone: $('#userPhone').val(),
                 itemName: $('#itemName').val(),
                 comfirm: $('#comfirm').val(),
-                orderId: $('#orderId').val()
+                orderId: $('#orderId').val(),
+                payTimeBegin: $('#payTimeBegin').datebox('getValue'),
+                payTimeEnd: $('#payTimeEnd').datebox('getValue')
             }
         });
     }
@@ -170,7 +189,7 @@
      */
 
     function formatDatebox(value, row, index) {
-        if(value == 0 || value == "" || value == null){
+        if (value == 0 || value == "" || value == null) {
             return "";
         }
         var unixTimestamp = new Date(value);
@@ -201,15 +220,17 @@
                 <th data-options="field:'id',hidden:'true'"/>
                 <th data-options="field:'userPhone',width:100">分销商</th>
                 <th data-options="field:'itemName',width:100">产品名称</th>
+                <th data-options="field:'skuTitle',width:80">产品型号</th>
                 <th data-options="field:'price',width:50">单价</th>
                 <th data-options="field:'quantity',width:50">数量</th>
                 <th data-options="field:'totalPrice',width:60">总金额</th>
                 <th data-options="field:'discountPrice',width:80">折扣单价</th>
                 <th data-options="field:'discountTotalPrice',width:80">折扣金额</th>
                 <th data-options="field:'rebate',width:80">返现金额</th>
-                <th data-options="field:'comfirm',width:80,formatter: fEnabled">是否返现</th>
+                <th data-options="field:'comfirm',width:60,formatter: fEnabled">是否返现</th>
                 <th data-options="field:'comfirmDate',width:100,formatter: formatDatebox">返现时间</th>
                 <th data-options="field:'orderId'">订单编号</th>
+                <th data-options="field:'payTime'">付款时间</th>
             </tr>
             </thead>
         </table>
@@ -227,9 +248,9 @@
                 <input type="hidden" name="id" value=""/>
                 <table>
                     <tr>
-                        <td>沙龙账号:</td>
+                        <td>分销商:</td>
                         <td><input type="text" id="userPhone"></td>
-                        <td>产品名称:</td>
+                        <td>产品:</td>
                         <td><input type="text" id="itemName"></td>
                         <td>是否返现:</td>
                         <td>
@@ -243,10 +264,17 @@
                         <td><input type="text" id="orderId"></td>
                     </tr>
                     <tr>
-                        <td>原金额:</td>
+                        <td>付款日期:</td>
+                        <td><input id="payTimeBegin" type="text" class="easyui-datebox"></td>
+                        <td>至</td>
+                        <td><input id="payTimeEnd" type="text" class="easyui-datebox"></td>
+                    </tr>
+                    <tr>
+                        <td>总金额汇总:</td>
                         <td><span id="totalPriceSpan"></span></td>
-                        <td>返现金额:</td>
+                        <td>返现金额汇总:</td>
                         <td><span id="totalRebateSpan"></span></td>
+                    </tr>
                 </table>
             </form>
         </div>

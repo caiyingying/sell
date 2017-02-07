@@ -46,5 +46,10 @@ public class Constants {
 	 * 文件下载状态 -1 下载出错 (1:开始下载，2：下载完成， -1：下载出错)
 	 */
 	public final static String LOAD_FILE_STATUS_ERROR = "-1";
+
+	/**
+	 * 订单同步时间
+	 */
+	public final static String ORDER_SYNC_TIME = "order_sync_time";
 	
 }

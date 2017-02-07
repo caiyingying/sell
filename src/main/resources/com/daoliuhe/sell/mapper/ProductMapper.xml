@@ -5,11 +5,13 @@
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
     <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="SKU_ID" property="skuId" jdbcType="VARCHAR" />
+    <result column="SKU_TITLE" property="skuTitle" jdbcType="VARCHAR" />
     <result column="PRODUCT_PRICE" property="productPrice" jdbcType="DOUBLE" />
     <result column="DISCOUNT" property="discount" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, DISCOUNT
+    ID, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, DISCOUNT, SKU_ID, SKU_TITLE
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,6 +30,9 @@
       </if>
       <if test="productId != null and productId != ''">
         and PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
+      <if test="skuId != null and skuId != ''">
+        and SKU_ID = #{skuId,jdbcType=VARCHAR}
       </if>
     </where>
     order by ID asc
@@ -51,9 +56,9 @@
   </delete>
   <insert id="insert" parameterType="com.daoliuhe.sell.model.Product" >
     insert into product (ID, PRODUCT_ID, PRODUCT_NAME, 
-      PRODUCT_PRICE, DISCOUNT)
+      PRODUCT_PRICE, DISCOUNT, SKU_ID, SKU_TITLE)
     values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
-      #{productPrice,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE})
+      #{productPrice,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE}, #{skuId,jdbcType=VARCHAR},#{skuTitle,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.daoliuhe.sell.model.Product" >
     insert into product
@@ -73,6 +78,12 @@
       <if test="discount != null" >
         DISCOUNT,
       </if>
+      <if test="skuId != null" >
+        SKU_ID,
+      </if>
+      <if test="skuTitle != null" >
+        SKU_TITLE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -89,6 +100,12 @@
       </if>
       <if test="discount != null" >
         #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTitle != null" >
+        #{skuTitle,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -107,6 +124,12 @@
       <if test="discount != null" >
         DISCOUNT = #{discount,jdbcType=DOUBLE},
       </if>
+      <if test="skuId != null" >
+        SKU_ID = #{skuId,jdbcType=DOUBLE},
+      </if>
+      <if test="skuTitle != null" >
+        SKU_TITLE = #{skuTitle,jdbcType=DOUBLE},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -115,7 +138,9 @@
     set PRODUCT_ID = #{productId,jdbcType=VARCHAR},
       PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
       PRODUCT_PRICE = #{productPrice,jdbcType=DOUBLE},
-      DISCOUNT = #{discount,jdbcType=DOUBLE}
+      DISCOUNT = #{discount,jdbcType=DOUBLE},
+      SKU_ID = #{skuId,jdbcType=VARCHAR},
+      SKU_TITLE = #{skuTitle,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 
@@ -130,6 +155,12 @@
       </if>
       <if test="discount != null" >
         DISCOUNT = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="skuId != null" >
+        SKU_ID = #{skuId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTitle != null" >
+        SKU_TITLE = #{skuTitle,jdbcType=VARCHAR},
       </if>
     </set>
     where PRODUCT_ID = #{productId,jdbcType=INTEGER}

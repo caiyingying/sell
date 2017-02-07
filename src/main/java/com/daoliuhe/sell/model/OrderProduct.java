@@ -2,7 +2,7 @@ package com.daoliuhe.sell.model;
 
 import java.util.Date;
 
-public class OrderProduct extends BasePage{
+public class OrderProduct extends BasePage {
     private Integer id;
 
     private String orderId;
@@ -10,6 +10,10 @@ public class OrderProduct extends BasePage{
     private Double orderTotalPrice;
 
     private String payTime;
+
+    private String payTimeBegin;
+
+    private String payTimeEnd;
 
     private String userPhone;
 
@@ -36,6 +40,10 @@ public class OrderProduct extends BasePage{
     private Double discountTotalPrice;
 
     private Double rebate;
+
+    private String skuId;
+
+    private String skuTitle;
 
     public Integer getId() {
         return id;
@@ -172,4 +180,39 @@ public class OrderProduct extends BasePage{
     public void setDiscountTotalPrice(Double discountTotalPrice) {
         this.discountTotalPrice = discountTotalPrice;
     }
+
+    public String getPayTimeBegin() {
+        return payTimeBegin;
+    }
+
+    public void setPayTimeBegin(String payTimeBegin) {
+        this.payTimeBegin = payTimeBegin;
+    }
+
+    public String getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(String skuId) {
+        this.skuId = skuId;
+    }
+
+    public String getSkuTitle() {
+        return skuTitle;
+    }
+
+    public void setSkuTitle(String skuTitle) {
+        this.skuTitle = skuTitle;
+    }
+
+    public String getPayTimeEnd() {
+
+        return payTimeEnd;
+    }
+
+    public void setPayTimeEnd(String payTimeEnd) {
+        this.payTimeEnd = payTimeEnd;
+    }
+
+
 }

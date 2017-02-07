@@ -6,16 +6,21 @@ import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderGetResponse;
 import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderIdsGetResponse;
 import com.daoliuhe.sell.exception.OpenException;
 import com.daoliuhe.sell.mapper.OrderProductMapper;
+import com.daoliuhe.sell.mapper.SyncTimeMapper;
 import com.daoliuhe.sell.model.OrderProduct;
+import com.daoliuhe.sell.model.SyncTime;
 import com.daoliuhe.sell.service.OrderService;
 import com.daoliuhe.sell.util.Config;
 import com.daoliuhe.sell.util.Constants;
 import com.daoliuhe.sell.util.JsonUtils;
+import com.daoliuhe.sell.util.Utils;
 import com.daoliuhe.sell.weChat.WeiDianTokenHandler;
+import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,26 +42,37 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderProductMapper orderProductMapper;
 
+    @Autowired
+    SyncTimeMapper syncTimeMapper;
+
     @Override
     public Map<String, Object> doSync() {
         Map<String, Object> json = new HashMap<String, Object>();
         boolean success = true;
         String reason = "";
-        //查询最近两天的订单，如果数据库中不存在，则查询详情，过滤其中完成的订单保存订单
+        //根据最后的查询时间查询订单，如果数据库中不存在，则查询详情，过滤其中完成的订单保存订单
+        SyncTime syncTime = syncTimeMapper.selectByName(Constants.ORDER_SYNC_TIME);
+        String beginDate = "";
+        String endDate = "";
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE));
+        Date today = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String todayStr = sdf.format(today);
+        if (null == syncTime || StringUtils.isEmpty(syncTime.getSyncDate())) {
+            beginDate = todayStr;
+            endDate = todayStr;
+        } else {
+            beginDate = syncTime.getSyncDate();
+            endDate = todayStr;
+        }
         //拆分订单到产品和订单数据
         List<String> orders = new ArrayList<String>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - 1);
-        Date yesterday = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String yesterdayStr = sdf.format(yesterday);
-        List<String> yesterDayOrders = getVDianOrderIds(yesterdayStr, "0", 1, "1");
-        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 1);
-        Date today = calendar.getTime();
-        String todayStr = sdf.format(today);
-        List<String> todayOrders = getVDianOrderIds(todayStr, "0", 1, "1");
-        orders.addAll(yesterDayOrders);
-        orders.addAll(todayOrders);
+        List<String> syncTimes = Utils.getInterval(beginDate, endDate);
+        for (String time : syncTimes) {
+            List<String> dayOrders = getVDianOrderIds(time, "0", 1, "1");
+            orders.addAll(dayOrders);
+        }
         if (orders.isEmpty()) {
             success = false;
             reason = "没有查询到订单.";
@@ -75,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
                             VdianOrderGetResponse.VdianOrderGetResult result = orderGetResponse.getResult();
                             if ("finish".equalsIgnoreCase(result.getStatus())) {
                                 String payTime = result.getPayTime();
-                                String userPhoe = result.getUserPhone();
+                                String userPhone = result.getUserPhone();
                                 String orderTotalPrice = result.getPrice();
                                 VdianOrderGetResponse.OrderItem[] items = result.getItems();
                                 for (VdianOrderGetResponse.OrderItem item : items) {
@@ -88,13 +104,16 @@ public class OrderServiceImpl implements OrderService {
                                     OrderProduct orderProduct = new OrderProduct();
                                     orderProduct.setOrderId(orderId);
                                     orderProduct.setPayTime(payTime);
-                                    orderProduct.setUserPhone(userPhoe);
+                                    orderProduct.setUserPhone(userPhone);
                                     orderProduct.setOrderTotalPrice(Double.parseDouble(orderTotalPrice));
                                     orderProduct.setItemId(itemId);
                                     orderProduct.setItemName(itemName);
                                     orderProduct.setPrice(Double.parseDouble(price));
                                     orderProduct.setQuantity(Integer.parseInt(quantity));
                                     orderProduct.setTotalPrice(Double.parseDouble(totalPrice));
+                                    //型号
+                                    orderProduct.setSkuId(item.getSkuId());
+                                    orderProduct.setSkuTitle(item.getSkuTitle());
                                     //插入数据库
                                     orderProductMapper.insertSelective(orderProduct);
                                 }
@@ -109,6 +128,15 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
+        if (null == syncTime) {
+            SyncTime initTime = new SyncTime();
+            initTime.setName(Constants.ORDER_SYNC_TIME);
+            initTime.setSyncDate("2017-01-01");
+            syncTimeMapper.insert(initTime);
+        } else {
+            //保存同步日期，获取前一天，保持数据冗余，预防数据遗漏
+            syncTime.setSyncDate(Utils.getBeforeDateStr(endDate));
+        }
         json.put("success", success);
         json.put("reason", reason);
         return json;

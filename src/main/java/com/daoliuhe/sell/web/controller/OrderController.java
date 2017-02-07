@@ -42,7 +42,14 @@ public class OrderController {
     @RequestMapping("/data")
     @ResponseBody
     public Object data(OrderProduct orderProduct) {
-        logger.info("data,orderProduct:{}",orderProduct);
+        logger.info("data,orderProduct:{}", orderProduct);
+        if (!StringUtils.isEmpty(orderProduct.getPayTimeBegin())) {
+            orderProduct.setPayTimeBegin(orderProduct.getPayTimeBegin() + " 00:00:00");
+        }
+        if (!StringUtils.isEmpty(orderProduct.getPayTimeEnd())) {
+            orderProduct.setPayTimeEnd(orderProduct.getPayTimeEnd() + " 23:59:59");
+        }
+
         return orderService.getPageData(orderProduct);
     }
 
@@ -56,8 +63,8 @@ public class OrderController {
     @RequestMapping("/doRebate")
     @ResponseBody
     public Object doRebate(String ids) {
-        logger.info("doRebate, ids:{}",ids);
-        String[] id = StringUtils.split(ids,",");
+        logger.info("doRebate, ids:{}", ids);
+        String[] id = StringUtils.split(ids, ",");
         return orderService.doRebate(Arrays.asList(id));
     }
 }

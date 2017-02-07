@@ -11,6 +11,10 @@ public class Product extends BasePage{
 
     private Double discount;
 
+    private String skuId;
+
+    private String skuTitle;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +53,21 @@ public class Product extends BasePage{
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public String getSkuId() {
+        return skuId;
+    }
+
+    public void setSkuId(String skuId) {
+        this.skuId = skuId;
+    }
+
+    public String getSkuTitle() {
+        return skuTitle;
+    }
+
+    public void setSkuTitle(String skuTitle) {
+        this.skuTitle = skuTitle;
     }
 }
