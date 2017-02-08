@@ -17,13 +17,27 @@
     <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("div[name='item']").mousedown(function () {
-                $(this).toggleClass('divSelect');
-            });
 
-            $("div[name='item']").mouseup(function () {
-                $(this).toggleClass('divSelect');
+            $("div[name='item']").each(function(i){
+                var it = i[0];
+                it.ontouchstart = function() {
+                    // 背景变色
+                    this.style.backgroundColor = "#f2f2f2";
+                };
+
+                it.ontouchend = function() {
+                    // 背景变色
+                    this.style.backgroundColor = "#ffffff";
+                };
             });
+            /*
+            $("div[name='item']").ontouchstart(function () {
+                $(this).addClass('divSelect');
+            });
+            $("div[name='item']").ontouchend(function () {
+                $(this).removeClass('divSelect');
+            });
+            */
         });
     </script>
     <style type="text/css">
@@ -104,7 +118,7 @@
         <div id="tabContent" class="tab-content">
             <!--头部-->
             <div class="tab-pane active" id="hair">
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
@@ -116,7 +130,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
@@ -128,7 +142,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
@@ -141,7 +155,7 @@
 
             <!--身体-->
             <div class="tab-pane" id="body">
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
@@ -153,7 +167,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
@@ -165,7 +179,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
@@ -178,7 +192,7 @@
 
             <!--居家-->
             <div class="tab-pane" id="living">
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
@@ -190,7 +204,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
@@ -202,7 +216,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12" name="item">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
