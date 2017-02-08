@@ -16,6 +16,15 @@
     <script type="text/javascript" src="static/js/jquery.min-1.11.3.js"></script>
     <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("div[name='item']").mousedown(function () {
+                $(this).toggleClass('divSelect');
+            });
+
+            $("div[name='item']").mouseup(function () {
+                $(this).toggleClass('divSelect');
+            });
+        });
     </script>
     <style type="text/css">
         a{
@@ -30,6 +39,10 @@
             width:100%;
             background:#f2f2f2;
             overflow:hidden;
+        }
+
+        .divSelect{
+            background:#f2f2f2;
         }
     </style>
 </head>
@@ -91,7 +104,7 @@
         <div id="tabContent" class="tab-content">
             <!--头部-->
             <div class="tab-pane active" id="hair">
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
@@ -103,7 +116,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
@@ -115,7 +128,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
@@ -128,7 +141,7 @@
 
             <!--身体-->
             <div class="tab-pane" id="body">
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
@@ -140,7 +153,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
@@ -152,7 +165,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
@@ -165,7 +178,7 @@
 
             <!--居家-->
             <div class="tab-pane" id="living">
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
@@ -177,7 +190,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
@@ -189,7 +202,7 @@
 
                 <div class="splitLine"></div>
 
-                <div class="col-xs-12">
+                <div class="col-xs-12" name="item">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
