@@ -10,12 +10,8 @@ import com.daoliuhe.sell.mapper.ProductMapper;
 import com.daoliuhe.sell.model.Product;
 import com.daoliuhe.sell.service.ProductService;
 import com.daoliuhe.sell.util.Config;
-import com.daoliuhe.sell.util.JsonPluginsUtil;
 import com.daoliuhe.sell.util.JsonUtils;
-import com.daoliuhe.sell.weChat.HttpKit;
 import com.daoliuhe.sell.weChat.WeiDianTokenHandler;
-import net.sf.json.util.JSONUtils;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +50,15 @@ public class ProductServiceImpl implements ProductService {
         }
         map.put("rows", productMapper.getPageData(product));
         return map;
+    }
+
+    @Override
+    public List<Product> getListData(Product product) {
+        logger.info("getListData,product:{}", product);
+        int total = productMapper.getPageCount(product);
+        product.setPage(1);
+        product.setRows(total);
+        return productMapper.getPageData(product);
     }
 
     @Override

@@ -41,6 +41,13 @@ public class ProductController {
         return productService.getPageData(product);
     }
 
+    @RequestMapping("/selectData")
+    @ResponseBody
+    public Object selectData(Product product) {
+        logger.info("data,product:{}",product);
+        return productService.getListData(product);
+    }
+
     @RequestMapping("/edit")
     public ModelAndView edit(Product product) throws UnsupportedEncodingException {
         logger.info("edit,product:{}",product);

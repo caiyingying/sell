@@ -2,8 +2,8 @@ package com.daoliuhe.sell.service;
 
 import com.daoliuhe.sell.model.Product;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by CYY on 2016/12/25.
@@ -15,6 +15,13 @@ public interface ProductService {
      * @return
      */
     Map<String, Object> getPageData(Product product);
+
+    /**
+     * 查询所有的产品，作为列表项
+     * @param product 产线参数
+     * @return 产品集合
+     */
+    List<Product> getListData(Product product);
 
     /**
      * 根据id查询产品

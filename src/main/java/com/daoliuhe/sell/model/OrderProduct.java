@@ -45,6 +45,9 @@ public class OrderProduct extends BasePage {
 
     private String skuTitle;
 
+    //分销商名称
+    private String dealerName;
+
     public Integer getId() {
         return id;
     }
@@ -214,5 +217,11 @@ public class OrderProduct extends BasePage {
         this.payTimeEnd = payTimeEnd;
     }
 
+    public String getDealerName() {
+        return dealerName;
+    }
 
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
+    }
 }

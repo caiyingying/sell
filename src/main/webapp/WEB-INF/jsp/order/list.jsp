@@ -152,8 +152,8 @@
     function query() {
         $('#dg').datagrid({
             queryParams: {
-                userPhone: $('#userPhone').val(),
-                itemName: $('#itemName').val(),
+                userPhone: $('#userPhone').combobox("getValue"),
+                itemId: $('#itemId').combobox("getValue"),
                 comfirm: $('#comfirm').val(),
                 orderId: $('#orderId').val(),
                 payTimeBegin: $('#payTimeBegin').datebox('getValue'),
@@ -218,7 +218,7 @@
             <tr>
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th data-options="field:'id',hidden:'true'"/>
-                <th data-options="field:'userPhone',width:100">分销商</th>
+                <th data-options="field:'dealerName',width:100">分销商</th>
                 <th data-options="field:'itemName',width:100">产品名称</th>
                 <th data-options="field:'skuTitle',width:80">产品型号</th>
                 <th data-options="field:'price',width:50">单价</th>
@@ -249,9 +249,22 @@
                 <table>
                     <tr>
                         <td>分销商:</td>
-                        <td><input type="text" id="userPhone"></td>
+                        <td><input class="easyui-combobox" id="userPhone" data-options="
+                            url:'dealers/selectData',
+                            method:'post',
+                            valueField:'phone',
+                            textField:'name',
+                            panelHeight:'auto'
+                            ">
                         <td>产品:</td>
-                        <td><input type="text" id="itemName"></td>
+                        <td>
+                            <input class="easyui-combobox" id="itemId" data-options="
+                            url:'product/selectData',
+                            method:'post',
+                            valueField:'productId',
+                            textField:'productName',
+                            panelHeight:'auto'
+                            ">
                         <td>是否返现:</td>
                         <td>
                             <select id="comfirm">

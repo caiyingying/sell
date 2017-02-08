@@ -51,10 +51,13 @@
       op.PRICE*p.discount*op.QUANTITY as discountTotalPrice,
       op.TOTAL_PRICE - op.PRICE*p.discount*op.QUANTITY as rebate,
       op.SKU_ID,
-      op.SKU_TITLE
+      op.SKU_TITLE,
+      d.name as dealerName
     from order_product op
     LEFT JOIN product p
     on op.ITEM_ID = p.PRODUCT_ID and op.SKU_ID = p.SKU_ID
+    LEFT JOIN dealers d
+    on op.USER_PHONE = d.PHONE
     <where>
       <if test="comfirm != null and comfirm != ''">
         and op.COMFIRM = #{comfirm,jdbcType=VARCHAR}

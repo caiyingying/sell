@@ -2,11 +2,9 @@ package com.daoliuhe.sell.service;
 
 import com.daoliuhe.sell.model.Dealers;
 import com.daoliuhe.sell.model.DealersUser;
-import com.daoliuhe.sell.model.User;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 /**
  * Created by CYY on 2016/12/25.
@@ -18,6 +16,13 @@ public interface DealersService {
      * @return
      */
     Map<String, Object> getPageData(Dealers dealers);
+
+    /**
+     * 查询列表
+     * @param dealers
+     * @return
+     */
+    List<Dealers> getListData(Dealers dealers);
 
     /**
      * 查询分销商管理的权限用户

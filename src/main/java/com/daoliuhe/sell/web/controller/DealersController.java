@@ -45,6 +45,13 @@ public class DealersController {
         return dealersService.getPageData(dealers);
     }
 
+    @RequestMapping("/selectData")
+    @ResponseBody
+    public Object selectData(Dealers dealers) {
+        logger.info("selectData,dealers:{}", dealers);
+        return dealersService.getListData(dealers);
+    }
+
     @RequestMapping("/userData")
     @ResponseBody
     public Object roleData(DealersUser entity) {

@@ -4,10 +4,7 @@ import com.daoliuhe.sell.mapper.DealersMapper;
 import com.daoliuhe.sell.mapper.DealersUserMapper;
 import com.daoliuhe.sell.model.Dealers;
 import com.daoliuhe.sell.model.DealersUser;
-import com.daoliuhe.sell.model.User;
-import com.daoliuhe.sell.model.UserRole;
 import com.daoliuhe.sell.service.DealersService;
-import com.daoliuhe.sell.util.BCrypt;
 import com.daoliuhe.sell.util.WeChatConstants;
 import com.daoliuhe.sell.weChat.HttpKit;
 import com.daoliuhe.sell.weChat.TokenHandler;
@@ -54,6 +51,15 @@ public class DealersServiceImpl implements DealersService {
         }
         map.put("rows", dealersMapper.getPageData(dealers));
         return map;
+    }
+
+    @Override
+    public List<Dealers> getListData(Dealers dealers) {
+        logger.info("getListData,dealers:{}", dealers);
+        int total = dealersMapper.getPageCount(dealers);
+        dealers.setPage(1);
+        dealers.setRows(total);
+        return dealersMapper.getPageData(dealers);
     }
 
     @Override
