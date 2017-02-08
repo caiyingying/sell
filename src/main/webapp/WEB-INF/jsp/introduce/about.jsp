@@ -17,10 +17,25 @@
     <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     </script>
+    <style type="text/css">
+        a{
+            color: #000000;
+        }
+        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+            color: #0eb83a;
+        }
+
+        div.splitLine {
+            height:1px;
+            width:100%;
+            background:#f2f2f2;
+            overflow:hidden;
+        }
+    </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="col-md-12">
+<div class="container-fluid" style="padding: 0px;">
+    <div class="col-md-12" style="padding: 0px;">
         <div class="span12">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -54,20 +69,20 @@
         </div>
     </div>
 
-    <div class="col-md-12">
-        <ul id="myTab" class="nav nav-tabs" style="border: 0;">
-            <li class="col-xs-4 active base">
-                <a href="#hair" data-toggle="tab" style="text-align: center; font-size: 40px; border:0;">
+    <div class="col-md-12" style="padding: 0px;">
+        <ul id="myTab" class="nav nav-tabs" style="border: 0; background-color: #f2f2f2">
+            <li class="col-xs-4 active base" style="background-color: #f2f2f2">
+                <a href="#hair" data-toggle="tab" style="text-align: center; font-size: 40px; border:0; background-color: #f2f2f2">
                     头发
                 </a>
             </li>
-            <li class="col-xs-4 base">
-                <a href="#body" data-toggle="tab" style="text-align: center; font-size: 40px; border:0;">
+            <li class="col-xs-4 base" style="background-color: #f2f2f2">
+                <a href="#body" data-toggle="tab" style="text-align: center; font-size: 40px; border:0; background-color: #f2f2f2">
                     身体
                 </a>
             </li>
-            <li class="col-xs-4 base">
-                <a href="#living" data-toggle="tab" style="text-align: center; font-size: 40px; border:0;">
+            <li class="col-xs-4 base" style="background-color: #f2f2f2">
+                <a href="#living" data-toggle="tab" style="text-align: center; font-size: 40px; border:0; background-color: #f2f2f2">
                     居家
                 </a>
             </li>
@@ -86,6 +101,8 @@
                     </div>
                 </div>
 
+                <div class="splitLine"></div>
+
                 <div class="col-xs-12">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
@@ -95,6 +112,8 @@
                         <p>...</p>
                     </div>
                 </div>
+
+                <div class="splitLine"></div>
 
                 <div class="col-xs-12">
                     <div class="col-xs-4 thumbnail" style="border:0;">
@@ -118,15 +137,9 @@
                         <p>...</p>
                     </div>
                 </div>
-                <div class="col-xs-12">
-                    <div class="col-xs-4 thumbnail" style="border:0;">
-                        <img src="static/images/index2.jpg" alt="holder.js/300x300">
-                    </div>
-                    <div class="col-xs-8 caption">
-                        <h3>Thumbnail label</h3>
-                        <p>...</p>
-                    </div>
-                </div>
+
+                <div class="splitLine"></div>
+
                 <div class="col-xs-12">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
@@ -137,6 +150,17 @@
                     </div>
                 </div>
 
+                <div class="splitLine"></div>
+
+                <div class="col-xs-12">
+                    <div class="col-xs-4 thumbnail" style="border:0;">
+                        <img src="static/images/index2.jpg" alt="holder.js/300x300">
+                    </div>
+                    <div class="col-xs-8 caption">
+                        <h3>Thumbnail label</h3>
+                        <p>...</p>
+                    </div>
+                </div>
             </div>
 
             <!--居家-->
@@ -150,6 +174,9 @@
                         <p>...</p>
                     </div>
                 </div>
+
+                <div class="splitLine"></div>
+
                 <div class="col-xs-12">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
@@ -159,6 +186,9 @@
                         <p>...</p>
                     </div>
                 </div>
+
+                <div class="splitLine"></div>
+
                 <div class="col-xs-12">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
