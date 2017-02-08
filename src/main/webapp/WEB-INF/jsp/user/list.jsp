@@ -39,6 +39,14 @@
                 return false;
             }
         });
+
+        $('#dg').datagrid({
+            onDblClickRow: function (index,row) {//双击编辑
+                $('#queryForm').attr('action', 'user/edit');
+                $('#queryForm input[name=id]').val(row.id);
+                $('#queryForm').submit();
+                }
+            });
     });
 
     function query() {

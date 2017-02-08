@@ -25,6 +25,14 @@
     $(function(){
         var node = $('#navTree').tree('find', 'product');
         $('#navTree').tree('select', node.target);
+
+        $('#dg').datagrid({
+            onDblClickRow: function (index,row) {//双击编辑
+                $('#queryForm').attr('action', 'product/edit');
+                $('#queryForm input[name=id]').val(row.id);
+                $('#queryForm').submit();
+            }
+        });
     });
 
     function query() {
