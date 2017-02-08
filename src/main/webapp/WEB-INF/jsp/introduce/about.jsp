@@ -131,8 +131,8 @@
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
 
@@ -143,8 +143,8 @@
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
 
@@ -155,8 +155,8 @@
                         <img src="static/images/index1.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
             </div>
@@ -168,8 +168,8 @@
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
 
@@ -180,8 +180,8 @@
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
 
@@ -192,8 +192,8 @@
                         <img src="static/images/index2.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
             </div>
@@ -205,8 +205,8 @@
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
 
@@ -217,8 +217,8 @@
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
 
@@ -229,8 +229,8 @@
                         <img src="static/images/index3.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
-                        <h3>品牌理念</h3>
-                        <p>理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
+                        <h3 style="font-size: 40px;">品牌理念</h3>
+                        <p style="font-size: 34px;font-color: #f2f2f2;">理念是一个美好的愿景，对于用户、员工、环境及社会都【好】的事业...</p>
                     </div>
                 </div>
             </div>
