@@ -110,13 +110,18 @@
                 var totalPrice = 0;
                 var totalRebate = 0;
                 var ids = "";
-                var param = {};
+                var params = new Array();
                 for (i = 0; i < checked.length; i++) {
+                    var param = {};
                     totalPrice = totalPrice + checked[i].totalPrice;
                     totalRebate = totalRebate + checked[i].rebate;
-                    ids = ids + checked[i].id + ",";
+                    //返现是保存的参数
+                    param['id'] = checked[i].id;
+                    param['discountPrice'] = checked[i].discountPrice;
+                    param['discountTotalPrice'] = checked[i].discountTotalPrice;
+                    param['rebate'] = checked[i].rebate;
+                    params.push(param);
                 }
-                param['ids'] = ids;
                 $.messager.defaults = {ok: "是", cancel: "否"};
                 $.messager.confirm("操作提示", "总金额汇总：" + totalPrice + " 返现金额汇总：" + totalRebate + " 您确定要执行返现操作吗？", function (data) {
                     if (data) {
@@ -124,7 +129,7 @@
                         $.ajax({
                             type: "post",  //提交方式
                             dataType: "json", //数据类型
-                            data: param,
+                            data: params,
                             async: false,
                             url: "order/doRebate", //请求url
                             success: function (data) { //提交成功的回调函数

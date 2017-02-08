@@ -18,7 +18,7 @@ public interface OrderService {
      * 订单返现
      * @return
      */
-    Map<String, Object> doRebate(List<String> ids);
+    Map<String, Object> doRebate(List<OrderProduct> orderProducts);
 
     /**
      * 分页查询

@@ -62,9 +62,8 @@ public class OrderController {
 
     @RequestMapping("/doRebate")
     @ResponseBody
-    public Object doRebate(String ids) {
-        logger.info("doRebate, ids:{}", ids);
-        String[] id = StringUtils.split(ids, ",");
-        return orderService.doRebate(Arrays.asList(id));
+    public Object doRebate(List<OrderProduct> orderProducts) {
+        logger.info("doRebate, orderProducts:{}", orderProducts);
+        return orderService.doRebate(orderProducts);
     }
 }

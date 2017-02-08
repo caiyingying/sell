@@ -143,15 +143,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Map<String, Object> doRebate(List<String> ids) {
-        logger.info("doRebate, ids:{}", ids.toArray());
+    public Map<String, Object> doRebate(List<OrderProduct> orderProducts) {
+        logger.info("doRebate, orderProducts:{}", orderProducts.toArray());
         Map<String, Object> json = new HashMap<String, Object>();
         boolean success = true;
         String reason = "";
         try {
-            for (String id : ids) {
-                OrderProduct orderProduct = new OrderProduct();
-                orderProduct.setId(Integer.parseInt(id));
+            for (OrderProduct orderProduct : orderProducts) {
                 orderProduct.setComfirm(Constants.ENABLE);
                 orderProduct.setComfirmDate(new Date());
                 orderProductMapper.updateByPrimaryKeySelective(orderProduct);

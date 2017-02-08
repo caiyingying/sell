@@ -16,13 +16,15 @@
     <result column="PRICE" property="price" jdbcType="DOUBLE" />
     <result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
     <result column="TOTAL_PRICE" property="totalPrice" jdbcType="DOUBLE" />
+    <result column="DISCOUNT_PRICE" property="discountPrice" jdbcType="DOUBLE" />
+    <result column="DISCOUNT_TOTAL_PRICE" property="discountTotalPrice" jdbcType="DOUBLE" />
     <result column="REBATE" property="rebate" jdbcType="DOUBLE" />
     <result column="SKU_ID" property="skuId" jdbcType="VARCHAR" />
     <result column="SKU_TITLE" property="skuTitle" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     ID, ORDER_ID, ORDER_TOTAL_PRICE, PAY_TIME, USER_PHONE, DEALERS_ID, COMFIRM, COMFIRM_DATE, 
-    RESC, ITEM_ID, ITEM_NAME, PRICE, QUANTITY, TOTAL_PRICE, REBATE, SKU_ID, SKU_TITLE
+    RESC, ITEM_ID, ITEM_NAME, PRICE, QUANTITY, TOTAL_PRICE, DISCOUNT_PRICE, DISCOUNT_TOTAL_PRICE, REBATE, SKU_ID, SKU_TITLE
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -47,9 +49,9 @@
       op.PRICE,
       op.QUANTITY,
       op.TOTAL_PRICE,
-      op.PRICE*p.discount as discountPrice,
-      op.PRICE*p.discount*op.QUANTITY as discountTotalPrice,
-      op.TOTAL_PRICE - op.PRICE*p.discount*op.QUANTITY as rebate,
+      case when comfirm = '0' then op.PRICE*p.discount else op.DISCOUNT_PRICE end as DISCOUNT_PRICE,
+      case when comfirm = '0' then op.PRICE*p.discount*op.QUANTITY else op.DISCOUNT_TOTAL_PRICE end as DISCOUNT_TOTAL_PRICE,
+      case when comfirm = '0' then op.TOTAL_PRICE - op.PRICE*p.discount*op.QUANTITY else op.REBATE end  as REBATE,
       op.SKU_ID,
       op.SKU_TITLE,
       d.name as dealerName
@@ -100,13 +102,14 @@
       PAY_TIME, USER_PHONE, DEALERS_ID, 
       COMFIRM, COMFIRM_DATE, RESC, 
       ITEM_ID, ITEM_NAME, PRICE, 
-      QUANTITY, TOTAL_PRICE, REBATE, SKU_ID, SKU_TITLE
+      QUANTITY, TOTAL_PRICE, DISCOUNT_PRICE, DISCOUNT_TOTAL_PRICE, REBATE, SKU_ID, SKU_TITLE
       )
     values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{orderTotalPrice,jdbcType=DOUBLE},
       #{payTime,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{dealersId,jdbcType=INTEGER}, 
       #{comfirm,jdbcType=VARCHAR}, #{comfirmDate,jdbcType=TIMESTAMP}, #{resc,jdbcType=VARCHAR}, 
       #{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
-      #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DOUBLE}, #{rebate,jdbcType=DOUBLE},
+      #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DOUBLE},#{discountPrice,jdbcType=DOUBLE},
+      #{discountTotalPrice,jdbcType=DOUBLE},#{rebate,jdbcType=DOUBLE},
       #{skuId,jdbcType=VARCHAR}, #{skuTitle,jdbcType=VARCHAR}
       )
   </insert>
@@ -154,6 +157,12 @@
       </if>
       <if test="totalPrice != null" >
         TOTAL_PRICE,
+      </if>
+      <if test="discountPrice != null" >
+        DISCOUNT_PRICE,
+      </if>
+      <if test="discountTotalPrice != null" >
+        DISCOUNT_TOTAL_PRICE,
       </if>
       <if test="rebate != null" >
         REBATE,
@@ -208,6 +217,12 @@
       <if test="totalPrice != null" >
         #{totalPrice,jdbcType=DOUBLE},
       </if>
+      <if test="discountPrice != null" >
+        #{discountPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="discountTotalPrice != null" >
+        #{discountTotalPrice,jdbcType=DOUBLE},
+      </if>
       <if test="rebate != null" >
         #{rebate,jdbcType=DOUBLE},
       </if>
@@ -261,6 +276,12 @@
       <if test="totalPrice != null" >
         TOTAL_PRICE = #{totalPrice,jdbcType=DOUBLE},
       </if>
+      <if test="discountPrice != null" >
+        DISCOUNT_PRICE = #{discountPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="discountTotalPrice != null" >
+        DISCOUNT_TOTAL_PRICE = #{discountTotalPrice,jdbcType=DOUBLE},
+      </if>
       <if test="rebate != null" >
         REBATE = #{rebate,jdbcType=DOUBLE},
       </if>
@@ -288,6 +309,8 @@
       PRICE = #{price,jdbcType=DOUBLE},
       QUANTITY = #{quantity,jdbcType=INTEGER},
       TOTAL_PRICE = #{totalPrice,jdbcType=DOUBLE},
+      DISCOUNT_PRICE = #{discountPrice,jdbcType=DOUBLE},
+      DISCOUNT_TOTAL_PRICE = #{discountTotalPrice,jdbcType=DOUBLE},
       REBATE = #{rebate,jdbcType=DOUBLE},
       SKU_ID = #{skuId,jdbcType=VARCHAR},
       SKU_TITLE = #{skuTitle,jdbcType=VARCHAR}
