@@ -93,7 +93,8 @@ CREATE TABLE customer
     BUSINESS_ID INT(10) 
 );
 
-
+--产品表
+DROP TABLE IF EXISTS product;
 CREATE TABLE product
 (
     ID INT(10) ZEROFILL AUTO_INCREMENT PRIMARY KEY,
@@ -106,6 +107,7 @@ CREATE TABLE product
 );
 
 --订单表
+DROP TABLE IF EXISTS order_product;
 CREATE TABLE order_product
 (
     ID INT(10) ZEROFILL AUTO_INCREMENT PRIMARY KEY,
@@ -128,12 +130,13 @@ CREATE TABLE order_product
 );
 
 --同步时间表
+DROP TABLE IF EXISTS sync_time;
 CREATE TABLE sync_time
 (
     ID INT(10) ZEROFILL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(20),
     sync_date VARCHAR(20)
-)
+);
 
 --订单产品表，暂时不用
 CREATE TABLE orders_product
