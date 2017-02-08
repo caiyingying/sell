@@ -164,7 +164,7 @@
         </tr>
     </table>
 </div>
-<script type="application/javascript">
+<script type="text/javascript">
     //选中菜单
     $(function(){
         var node = $('#navTree').tree('find', 'dealers');
