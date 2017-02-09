@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,7 +63,7 @@ public class OrderController {
 
     @RequestMapping("/doRebate")
     @ResponseBody
-    public Object doRebate(List<OrderProduct> orderProducts) {
+    public Object doRebate(@RequestBody List<OrderProduct> orderProducts) {
         logger.info("doRebate, orderProducts:{}", orderProducts);
         return orderService.doRebate(orderProducts);
     }

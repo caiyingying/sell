@@ -127,11 +127,12 @@
                     if (data) {
                         //alter("是");
                         $.ajax({
+                            url: "order/doRebate", //请求url
                             type: "post",  //提交方式
                             dataType: "json", //数据类型
-                            data: params,
+                            data: JSON.stringify(params),
                             async: false,
-                            url: "order/doRebate", //请求url
+                            contentType : 'application/json;charset=utf-8', //设置请求头信息
                             success: function (data) { //提交成功的回调函数
                                 if (data) {
                                     $.messager.alert('警告', '返现操作成功!', 'warning');
@@ -140,6 +141,9 @@
                                     $.messager.alert('警告', '返现操作失败!', 'warning');
                                     $('#dg').datagrid('reload');
                                 }
+                            },
+                            error: function (err){
+                                $.messager.alert('警告', '返现操作失败!', 'warning');
                             }
                         });
                     } else {
@@ -233,7 +237,7 @@
                 <th data-options="field:'discountTotalPrice',width:80">折扣金额</th>
                 <th data-options="field:'rebate',width:80">返现金额</th>
                 <th data-options="field:'comfirm',width:60,formatter: fEnabled">是否返现</th>
-                <th data-options="field:'comfirmDate',width:100,formatter: formatDatebox">返现时间</th>
+                <th data-options="field:'comfirmDateStr',width:100">返现时间</th>
                 <th data-options="field:'orderId'">订单编号</th>
                 <th data-options="field:'payTime'">付款时间</th>
             </tr>

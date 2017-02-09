@@ -18,6 +18,8 @@ public class Utils {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    private static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:ss:dd");
+
     /**
      * 验证
      *
@@ -161,10 +163,11 @@ public class Utils {
 
     /**
      * 获取前一天
+     *
      * @param dateStr
      * @return
      */
-    public static String getBeforeDateStr(String dateStr){
+    public static String getBeforeDateStr(String dateStr) {
         String ret = null;
         try {
             Calendar calendar = Calendar.getInstance();
@@ -178,7 +181,21 @@ public class Utils {
         return ret;
     }
 
-    public static void main(String[] args){
+    /**
+     * 日期格式化
+     *
+     * @param date
+     * @return
+     */
+    public static String dateFormat(Date date) {
+        String ret = "";
+        if (null != date) {
+            ret = sdf1.format(date);
+        }
+        return ret;
+    }
+
+    public static void main(String[] args) {
         System.out.println(getInterval("2017-01-01", "2017-01-01"));
         System.out.println(getInterval("2017-01-01", "2017-01-02"));
         System.out.println(getInterval("2017-01-01", "2017-01-04"));

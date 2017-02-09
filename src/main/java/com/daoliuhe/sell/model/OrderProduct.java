@@ -1,5 +1,7 @@
 package com.daoliuhe.sell.model;
 
+import com.daoliuhe.sell.util.Utils;
+
 import java.util.Date;
 
 public class OrderProduct extends BasePage {
@@ -22,6 +24,8 @@ public class OrderProduct extends BasePage {
     private String comfirm;
 
     private Date comfirmDate;
+
+    private String comfirmDateStr;
 
     private String resc;
 
@@ -110,6 +114,9 @@ public class OrderProduct extends BasePage {
 
     public void setComfirmDate(Date comfirmDate) {
         this.comfirmDate = comfirmDate;
+        if (null != comfirmDate) {
+            this.comfirmDateStr = Utils.dateFormat(comfirmDate);
+        }
     }
 
     public String getResc() {
@@ -225,5 +232,11 @@ public class OrderProduct extends BasePage {
         this.dealerName = dealerName;
     }
 
+    public String getComfirmDateStr() {
+        return comfirmDateStr;
+    }
 
+    public void setComfirmDateStr(String comfirmDateStr) {
+        this.comfirmDateStr = comfirmDateStr;
+    }
 }
