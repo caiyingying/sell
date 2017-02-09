@@ -34,6 +34,7 @@
                         //根据comfirm让某些行不可选,如果已经返现的，则不可以在进行返现操作
                         if (data.rows[i].comfirm == 1) {
                             $("input[type='checkbox']")[i + 1].disabled = true;
+                            $("input[type='checkbox']")[i + 1].hidden = true;
                         }
                     }
                 }
@@ -42,7 +43,7 @@
                 //加载完毕后获取所有的checkbox遍历
                 $("input[type='checkbox']").each(function (index, el) {
                     //如果当前的复选框不可选，则不让其选中
-                    if (el.disabled == true) {
+                    if (el.disabled == true || el.hidden == true) {
                         $('#dg').datagrid('unselectRow', index - 1);
                     }
                 })
@@ -79,6 +80,51 @@
                     $("#totalPriceSpan").html(totalPrice.toFixed(2));
                     $("#totalRebateSpan").html(totalRebate.toFixed(2));
                 }
+            },
+            onSelectAll: function (rows){
+                //加载完毕后获取所有的checkbox遍历
+                $("input[type='checkbox']").each(function (index, el) {
+                    //如果当前的复选框不可选，则不让其选中
+                    if (el.disabled == true || el.hidden == true) {
+                        $('#dg').datagrid('unselectRow', index - 1);
+                    }
+                });
+
+                var totalPrice = 0;
+                var totalRebate = 0;
+                for (r = 0; r < rows.length; r++) {
+                    if(rows[r].totalPrice != "" && rows[r].totalPrice != null && rows[r].comfirm == "0"){
+                        totalPrice = totalPrice + rows[r].totalPrice;
+                    }
+                    if(rows[r].rebate != "" && rows[r].rebate != null && rows[r].comfirm == "0"){
+                        totalRebate = totalRebate + rows[r].rebate;
+                    }
+                }
+                $("#totalPriceSpan").html(totalPrice.toFixed(2));
+                $("#totalRebateSpan").html(totalRebate.toFixed(2));
+
+                //计算返现值
+                /*
+                var checked = $('#dg').datagrid('getChecked');
+                var l = checked.length;
+                if (l == 0) {
+                    $("#totalPriceSpan").html("");
+                    $("#totalRebateSpan").html("");
+                } else {
+                    var totalPrice = 0;
+                    var totalRebate = 0;
+                    for (i = 0; i < checked.length; i++) {
+                        totalPrice = totalPrice + checked[i].totalPrice;
+                        totalRebate = totalRebate + checked[i].rebate;
+                    }
+                    $("#totalPriceSpan").html(totalPrice.toFixed(2));
+                    $("#totalRebateSpan").html(totalRebate.toFixed(2));
+                }
+                */
+            },
+            onUnselectAll: function (rows){
+                $("#totalPriceSpan").html("");
+                $("#totalRebateSpan").html("");
             }
         });
     });
@@ -112,6 +158,8 @@
                 var ids = "";
                 var params = new Array();
                 for (i = 0; i < checked.length; i++) {
+                    //排除已经返现的列
+                    if(checked[i].comfirm == "1") continue;
                     var param = {};
                     totalPrice = totalPrice + checked[i].totalPrice;
                     totalRebate = totalRebate + checked[i].rebate;
@@ -177,6 +225,14 @@
             val = "否";
         } else if (value == 1) {
             val = "是";
+        }
+        return val;
+    }
+    //控制是否有选中框
+    function fnCheck(value, row, index) {
+        var val = true;
+        if (row.comfirm == 1) {
+            val = false;
         }
         return val;
     }
