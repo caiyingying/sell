@@ -76,8 +76,8 @@
                         totalPrice = totalPrice + checked[i].totalPrice;
                         totalRebate = totalRebate + checked[i].rebate;
                     }
-                    $("#totalPriceSpan").html(totalPrice);
-                    $("#totalRebateSpan").html(totalRebate);
+                    $("#totalPriceSpan").html(totalPrice.toFixed(2));
+                    $("#totalRebateSpan").html(totalRebate.toFixed(2));
                 }
             }
         });
@@ -123,7 +123,7 @@
                     params.push(param);
                 }
                 $.messager.defaults = {ok: "是", cancel: "否"};
-                $.messager.confirm("操作提示", "总金额汇总：" + totalPrice + " 返现金额汇总：" + totalRebate + " 您确定要执行返现操作吗？", function (data) {
+                $.messager.confirm("操作提示", "总金额汇总：" + totalPrice.toFixed(2) + " 返现金额汇总：" + totalRebate.toFixed(2) + " 您确定要执行返现操作吗？", function (data) {
                     if (data) {
                         //alter("是");
                         $.ajax({
