@@ -12,10 +12,17 @@ public class IntroduceController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IntroduceController.class);
 
-	@RequestMapping
+	@RequestMapping("/about")
 	public ModelAndView about() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("introduce/about");
+		return mav;
+	}
+
+	@RequestMapping("/story")
+	public ModelAndView story() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("introduce/story");
 		return mav;
 	}
 }

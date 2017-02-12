@@ -34,3 +34,8 @@
 3、返现时候选中多条记录，只返现了第一条 --完成
 4、返现时间的格式化 --完成
 5、返现的时候保存当时的返现折扣等 --完成
+
+最新资讯
+http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzIwNDc0NzAwOA==&from=1#wechat_webview_type=1&wechat_redirect
+联系我们
+http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000006&idx=1&sn=8f09a2eb96fe2d94f025eab07a2e0b86&chksm=173a3969204db07fb69de2bce8e030c784f8796fb7fd7fa07b49abe2daf4ed99e6063c210400&scene=18#wechat_redirect
