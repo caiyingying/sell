@@ -21,18 +21,20 @@ ul.easyui-tree li {
 		<div title="我的工作台">
 			<ul class="easyui-tree" id="navTree">
 				<shiro:hasPermission name="user:nav">
-				<li id="user">用户管理</li>
+					<li id="user">用户管理</li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="dealers:nav">
 					<li id="dealers">分销商管理</li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="customer:nav">
-				<li id="customer">客户管理</li>
+					<li id="customer">客户管理</li>
 				</shiro:hasPermission>
 				<shiro:hasPermission name="product:nav">
-				<li id="product">产品管理</li>
+					<li id="product">产品管理</li>
 				</shiro:hasPermission>
-				<li id="order">订单统计</li>
+				<shiro:hasPermission name="order:nav">
+					<li id="order">订单统计</li>
+				</shiro:hasPermission>
 			</ul>
 		</div>
 	</div>
