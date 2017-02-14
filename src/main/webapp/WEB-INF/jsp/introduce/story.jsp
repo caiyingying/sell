@@ -130,7 +130,7 @@
             <div class="tab-pane active" id="hair">
                 <div class="col-xs-12" name="item" style="margin-top: 20px;" link_url="http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000007&idx=1&sn=896cb2f9bd6754b166b40a1031ade9a9&chksm=173a3968204db07e251da8dfe0c921bb5b2253c75ecba0251314d54284e7af8b1d5b138570b6#rd">
                     <div class="col-xs-4 thumbnail" style="border:0;">
-                        <img src="static/images/logo11.jpg" alt="holder.js/300x300">
+                        <img src="static/images/22.jpg" alt="holder.js/300x300">
                     </div>
                     <div class="col-xs-8 caption">
                         <h3 style="font-size: 40px;">品牌理念</h3>
