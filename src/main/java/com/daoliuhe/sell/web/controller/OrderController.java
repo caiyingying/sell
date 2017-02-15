@@ -40,6 +40,15 @@ public class OrderController {
         return mav;
     }
 
+    @RequestMapping("/orderList")
+    public ModelAndView orderList(OrderProduct orderProduct) throws UnsupportedEncodingException {
+        logger.info("list,orderProduct:{}", orderProduct);
+        ModelAndView mav = new ModelAndView("order/orderList");
+        mav.addAllObjects(orderService.getPageData(orderProduct));
+        mav.addObject("entity", orderProduct);
+        return mav;
+    }
+
     @RequestMapping("/data")
     @ResponseBody
     public Object data(OrderProduct orderProduct) {

@@ -35,6 +35,7 @@ ul.easyui-tree li {
 				<shiro:hasPermission name="order:nav">
 					<li id="order">订单统计</li>
 				</shiro:hasPermission>
+				<li id="orderList">订单查询</li>
 			</ul>
 		</div>
 	</div>
@@ -53,7 +54,9 @@ ul.easyui-tree li {
                 $("#navForm").attr("action","product/list").submit();
             }else if("order" == node.id){
                 $("#navForm").attr("action","order/list").submit();
-            }
+            } else if ("orderList" == node.id){
+				$("#navForm").attr("action","order/orderList").submit();
+			}
 			//$("#navForm").attr("action","project/list").submit();
 		}
 	});
