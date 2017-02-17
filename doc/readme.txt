@@ -39,3 +39,14 @@
 http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzIwNDc0NzAwOA==&from=1#wechat_webview_type=1&wechat_redirect
 联系我们
 http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000006&idx=1&sn=8f09a2eb96fe2d94f025eab07a2e0b86&chksm=173a3969204db07fb69de2bce8e030c784f8796fb7fd7fa07b49abe2daf4ed99e6063c210400&scene=18#wechat_redirect
+
+
+
+var reg = /^1[3|4|5|7|8][0-9]{9}$/; //验证规则
+var phoneNum = '15507621999';//手机号码
+var flag = reg.test(phoneNum); //true
+var reg = /^1[0-9]{10}$/;
+
+1、扫码时候创建分销商和openId的关系，不设置生效时间和失效时间
+2、绑定手机号码的时候，设置生效时间为当前，同时设置存在生效时间的关系中的失效时间为当前。(存在失效时间即为失效，不存在即为生效)
+3、同步订单的时候，去客户分销商关系中查询分销商和客户的关系，保存分销商。

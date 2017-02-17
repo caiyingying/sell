@@ -6,10 +6,13 @@
         <result column="WECHAT" property="wechat" jdbcType="VARCHAR"/>
         <result column="NICK" property="nick" jdbcType="VARCHAR"/>
         <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
         <result column="BUSINESS_ID" property="businessId" jdbcType="INTEGER"/>
+        <result column="ENABLE_DATE" property="enableDate" jdbcType="TIMESTAMP" />
+        <result column="DISABLE_DATE" property="disableDate" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List">
-    ID, WECHAT, NICK, BUSINESS_ID
+    ID, WECHAT, NICK, BUSINESS_ID, PHONE, ENABLE_DATE, DISABLE_DATE
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -62,10 +65,24 @@
 
 
     <insert id="insert" parameterType="com.daoliuhe.sell.model.Customer">
-    insert into customer (ID, WECHAT, NICK, 
-      BUSINESS_ID)
-    values (#{id,jdbcType=INTEGER}, #{wechat,jdbcType=VARCHAR}, #{nick,jdbcType=VARCHAR}, 
-      #{businessId,jdbcType=INTEGER})
+    insert into customer (
+      ID,
+      WECHAT,
+      NICK,
+      BUSINESS_ID,
+      PHONE,
+      ENABLE_DATE,
+      DISABLE_DATE
+      )
+    values (
+      #{id,jdbcType=INTEGER},
+      #{wechat,jdbcType=VARCHAR},
+      #{nick,jdbcType=VARCHAR},
+      #{businessId,jdbcType=INTEGER},
+      #{phone,jdbcType=VARCHAR},
+      #{enableDate,jdbcType=TIMESTAMP},
+      #{disableDate,jdbcType=TIMESTAMP}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.daoliuhe.sell.model.Customer">
         insert into customer
@@ -82,6 +99,15 @@
             <if test="businessId != null">
                 BUSINESS_ID,
             </if>
+            <if test="phone != null">
+                PHONE,
+            </if>
+            <if test="enableDate != null">
+                ENABLE_DATE,
+            </if>
+            <if test="disableDate != null">
+                DISABLE_DATE,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -96,6 +122,15 @@
             <if test="businessId != null">
                 #{businessId,jdbcType=INTEGER},
             </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="enableDate != null">
+                #{enableDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disableDate != null">
+                #{disableDate,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.daoliuhe.sell.model.Customer">
@@ -107,8 +142,17 @@
             <if test="nick != null">
                 NICK = #{nick,jdbcType=VARCHAR},
             </if>
+            <if test="phone != null">
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
             <if test="businessId != null">
                 BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+            </if>
+            <if test="enableDate != null">
+                ENABLE_DATE = #{enableDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="disableDate != null">
+                DISABLE_DATE = #{disableDate,jdbcType=TIMESTAMP},
             </if>
         </set>
         where ID = #{id,jdbcType=INTEGER}
@@ -117,7 +161,10 @@
     update customer
     set WECHAT = #{wechat,jdbcType=VARCHAR},
       NICK = #{nick,jdbcType=VARCHAR},
-      BUSINESS_ID = #{businessId,jdbcType=INTEGER}
+      BUSINESS_ID = #{businessId,jdbcType=INTEGER},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      ENABLE_DATE = #{enableDate,jdbcType=TIMESTAMP},
+      DISABLE_DATE = #{disableDate,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
