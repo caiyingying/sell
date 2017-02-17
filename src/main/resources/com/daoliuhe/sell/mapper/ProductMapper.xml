@@ -156,13 +156,12 @@
       <if test="discount != null" >
         DISCOUNT = #{discount,jdbcType=DOUBLE},
       </if>
-      <if test="skuId != null" >
-        SKU_ID = #{skuId,jdbcType=VARCHAR},
-      </if>
       <if test="skuTitle != null" >
         SKU_TITLE = #{skuTitle,jdbcType=VARCHAR},
       </if>
     </set>
-    where PRODUCT_ID = #{productId,jdbcType=INTEGER}
+    where
+    PRODUCT_ID = #{productId,jdbcType=INTEGER}
+    and SKU_ID = #{skuId,jdbcType=VARCHAR}
   </update>
 </mapper>
