@@ -98,7 +98,7 @@
                 <th data-options="field:'id',hidden:'true'"/>
                 <th data-options="field:'productId',width:100">产品ID</th>
                 <th data-options="field:'skuId',width:100">SKU</th>
-                <th data-options="field:'productName',width:200">产品名称</th>
+                <th data-options="field:'productName',width:250">产品名称</th>
                 <th data-options="field:'skuTitle',width:100">产品型号</th>
                 <th data-options="field:'productPrice',width:100">产品价格</th>
                 <th data-options="field:'discount',width:100">折扣</th>
