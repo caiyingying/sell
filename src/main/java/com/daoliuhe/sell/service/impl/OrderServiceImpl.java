@@ -5,8 +5,10 @@ import com.daoliuhe.sell.Weidian.http.Param;
 import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderGetResponse;
 import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderIdsGetResponse;
 import com.daoliuhe.sell.exception.OpenException;
+import com.daoliuhe.sell.mapper.CustomerMapper;
 import com.daoliuhe.sell.mapper.OrderProductMapper;
 import com.daoliuhe.sell.mapper.SyncTimeMapper;
+import com.daoliuhe.sell.model.Customer;
 import com.daoliuhe.sell.model.OrderProduct;
 import com.daoliuhe.sell.model.SyncTime;
 import com.daoliuhe.sell.service.OrderService;
@@ -44,6 +46,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     SyncTimeMapper syncTimeMapper;
+
+    @Autowired
+    CustomerMapper customerMapper;
 
     @Override
     public Map<String, Object> doSync() {
@@ -92,6 +97,18 @@ public class OrderServiceImpl implements OrderService {
                             if ("finish".equalsIgnoreCase(result.getStatus())) {
                                 String payTime = result.getPayTime();
                                 String userPhone = result.getUserPhone();
+                                //找到分销商
+                                int dealersId = 0;
+                                Date payDate = Utils.pareDate(payTime);
+                                if (null != payDate) {
+                                    Customer customer = new Customer();
+                                    customer.setEnableDate(payDate);
+                                    customer.setPhone(userPhone);
+                                    Customer ret = customerMapper.getDealersByTime(customer);
+                                    if (null != ret && ret.getBusinessId() > 0) {
+                                        dealersId = ret.getBusinessId();
+                                    }
+                                }
                                 String orderTotalPrice = result.getPrice();
                                 VdianOrderGetResponse.OrderItem[] items = result.getItems();
                                 for (VdianOrderGetResponse.OrderItem item : items) {
@@ -114,6 +131,10 @@ public class OrderServiceImpl implements OrderService {
                                     //型号
                                     orderProduct.setSkuId(item.getSkuId());
                                     orderProduct.setSkuTitle(item.getSkuTitle());
+                                    //找到分销商
+                                    if(dealersId > 0){
+                                        orderProduct.setDealersId(dealersId);
+                                    }
                                     //插入数据库
                                     orderProductMapper.insertSelective(orderProduct);
                                 }

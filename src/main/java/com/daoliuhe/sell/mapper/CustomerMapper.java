@@ -3,6 +3,7 @@ package com.daoliuhe.sell.mapper;
 import com.daoliuhe.sell.model.Customer;
 import com.daoliuhe.sell.model.User;
 
+import java.util.Date;
 import java.util.List;
 
 public interface CustomerMapper {
@@ -46,4 +47,11 @@ public interface CustomerMapper {
      * @param customer
      */
     void updateEnableCustomer(Customer customer);
+
+    /**
+     * 根据付款时间获取当时的分销商
+     * @param customer
+     * @return
+     */
+    Customer getDealersByTime(Customer customer);
 }

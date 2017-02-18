@@ -56,6 +56,17 @@
         ) t
     </select>
 
+
+    <select id="getDealersByTime" resultMap="BaseResultMap" parameterType="Customer">
+        SELECT * FROM (
+        SELECT t.id, t.PHONE, t.BUSINESS_ID, t.ENABLE_DATE, IFNULL(t.DISABLE_DATE, now()) as DISABLE_DATE FROM customer t
+        ) c
+        where
+        c.PHONE = #{phone,jdbcType=VARCHAR}
+        <![CDATA[ and c.DISABLE_DATE > #{enableDate,jdbcType=TIMESTAMP} ]]>
+        <![CDATA[ and c.ENABLE_DATE <= #{enableDate,jdbcType=TIMESTAMP} ]]>
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from customer
     where ID = #{id,jdbcType=INTEGER}

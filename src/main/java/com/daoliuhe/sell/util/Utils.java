@@ -18,7 +18,7 @@ public class Utils {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    private static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:ss:dd");
+    private static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 验证
@@ -195,10 +195,23 @@ public class Utils {
         return ret;
     }
 
+    /**
+     * 解析字符串
+     * @param dateStr
+     * @return
+     */
+    public static Date pareDate(String dateStr){
+        Date ret = null;
+        try {
+            ret = sdf1.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
     public static void main(String[] args) {
-        System.out.println(getInterval("2017-01-01", "2017-01-01"));
-        System.out.println(getInterval("2017-01-01", "2017-01-02"));
-        System.out.println(getInterval("2017-01-01", "2017-01-04"));
+        System.out.println(pareDate("2017-01-29 10:43:58"));
     }
 
 }

@@ -59,7 +59,7 @@
     LEFT JOIN product p
     on op.ITEM_ID = p.PRODUCT_ID and op.SKU_ID = p.SKU_ID
     LEFT JOIN dealers d
-    on op.USER_PHONE = d.PHONE
+    on op.DEALERS_ID = d.id
     <where>
       <if test="comfirm != null and comfirm != ''">
         and op.COMFIRM = #{comfirm,jdbcType=VARCHAR}
@@ -98,7 +98,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.daoliuhe.sell.model.OrderProduct" >
-    insert into order_product (ID, ORDER_ID, ORDER_TOTAL_PRICE, 
+    insert into order_product (ID, ORDER_ID, ORDER_TOTAL_PRICE,
       PAY_TIME, USER_PHONE, DEALERS_ID, 
       COMFIRM, COMFIRM_DATE, RESC, 
       ITEM_ID, ITEM_NAME, PRICE, 
