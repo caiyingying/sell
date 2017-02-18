@@ -13,6 +13,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
     <script type="text/javascript" src="static/js/jquery.min-1.11.3.js"></script>
+    <script type="text/javascript">
+        function closeWindow() {
+            WeixinJSBridge.invoke('closeWindow',{},function(res){
+                //alert(res.err_msg);
+            });
+        }
+    </script>
     <style type="text/css">
         div {
             font-size: 40px;
@@ -32,7 +39,7 @@
             <label>绑定成功</label>
         </div>
         <div style="margin-top: 20px;">
-            <input type="button" value="完成" onclick="window.close();" style="width: 500px; height: 80px; "/>
+            <input type="button" value="完成" onclick="closeWindow();" style="width: 500px; height: 80px; "/>
         </div>
 </div>
 </body>
