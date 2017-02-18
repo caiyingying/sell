@@ -16,4 +16,10 @@ public interface CustomerService {
      * @return
      */
     Map<String, Object> getPageData(Customer customer);
+
+    /***
+     * 更新客户关系
+     * @param customer
+     */
+    void updateCustomerRel(Customer customer);
 }

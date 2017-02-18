@@ -58,7 +58,10 @@
                 <th data-options="field:'ck',checkbox:true"></th>
                 <th data-options="field:'id',hidden:'true'"/>
                 <th data-options="field:'nick',width:100">微信昵称</th>
-                <th data-options="field:'businessName',width:150">分销商</th>
+                <th data-options="field:'phone',width:100">手机号码</th>
+                <th data-options="field:'businessName',width:200">分销商</th>
+                <th data-options="field:'enableDateStr',width:150">生效时间</th>
+                <th data-options="field:'disableDateStr',width:150">失效时间</th>
             </tr>
             </thead>
         </table>

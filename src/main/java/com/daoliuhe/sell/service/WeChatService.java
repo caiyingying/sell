@@ -23,6 +23,6 @@ public interface WeChatService {
      * 事件消息分发
      * @param xmlMsg
      */
-    void dispose(String xmlMsg);
+    Map<String, String> dispose(String xmlMsg);
 
 }

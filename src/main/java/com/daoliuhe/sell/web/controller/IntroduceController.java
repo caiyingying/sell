@@ -1,8 +1,10 @@
 package com.daoliuhe.sell.web.controller;
 
 import com.daoliuhe.sell.model.Customer;
+import com.daoliuhe.sell.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +16,9 @@ import java.io.UnsupportedEncodingException;
 public class IntroduceController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IntroduceController.class);
+
+	@Autowired
+	CustomerService customerService;
 
 	@RequestMapping("/about")
 	public ModelAndView about() {
@@ -39,7 +44,8 @@ public class IntroduceController {
 	public ModelAndView register(Customer customer) throws UnsupportedEncodingException {
 		logger.info("list,customer:{}",customer);
 		ModelAndView mav = new ModelAndView("introduce/register");
-		//TODO
+		String nick = customer.getNick();
+		customer.setNick(new String(nick.getBytes("iso8859-1"),"utf-8"));
 		mav.addObject("entity", customer);
 		return mav;
 	}
@@ -53,9 +59,8 @@ public class IntroduceController {
 	@RequestMapping("/doRegister")
 	public ModelAndView doRegister(Customer customer) throws UnsupportedEncodingException {
 		logger.info("list,customer:{}",customer);
-		ModelAndView mav = new ModelAndView("introduce/register");
-		//TODO
-		mav.addObject("entity", customer);
+		ModelAndView mav = new ModelAndView("introduce/success");
+		customerService.updateCustomerRel(customer);
 		return mav;
 	}
 }

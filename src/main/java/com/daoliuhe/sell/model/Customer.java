@@ -1,5 +1,7 @@
 package com.daoliuhe.sell.model;
 
+import com.daoliuhe.sell.util.Utils;
+
 import java.util.Date;
 
 public class Customer extends BasePage {
@@ -33,14 +35,24 @@ public class Customer extends BasePage {
     private String phone;
 
     /**
-     * 启用时间
+     * 生效时间
      */
     private Date enableDate;
 
     /**
-     * 禁用时间
+     * 生效时间字符串
+     */
+    private String enableDateStr;
+
+    /**
+     * 失效时间
      */
     private Date disableDate;
+
+    /**
+     * 失效时间字符串
+     */
+    private String disableDateStr;
 
     public Integer getId() {
         return id;
@@ -72,6 +84,9 @@ public class Customer extends BasePage {
 
     public void setEnableDate(Date enableDate) {
         this.enableDate = enableDate;
+        if (null != enableDate) {
+            this.enableDateStr = Utils.dateFormat(enableDate);
+        }
     }
 
     public Date getDisableDate() {
@@ -80,6 +95,9 @@ public class Customer extends BasePage {
 
     public void setDisableDate(Date disableDate) {
         this.disableDate = disableDate;
+        if (null != disableDate) {
+            this.disableDateStr = Utils.dateFormat(disableDate);
+        }
     }
 
     public String getNick() {
@@ -106,5 +124,33 @@ public class Customer extends BasePage {
         this.businessId = businessId;
     }
 
+    public String getEnableDateStr() {
+        return enableDateStr;
+    }
 
+    public void setEnableDateStr(String enableDateStr) {
+        this.enableDateStr = enableDateStr;
+    }
+
+    public String getDisableDateStr() {
+        return disableDateStr;
+    }
+
+    public void setDisableDateStr(String disableDateStr) {
+        this.disableDateStr = disableDateStr;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", wechat='" + wechat + '\'' +
+                ", nick='" + nick + '\'' +
+                ", businessId=" + businessId +
+                ", businessName='" + businessName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", enableDate=" + enableDate +
+                ", disableDate=" + disableDate +
+                '}';
+    }
 }

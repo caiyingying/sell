@@ -18,7 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by CYY on 2016/12/25.
@@ -54,7 +57,7 @@ public class WeChatController {
         String token = PropertyHandler.getToken();
         // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
         if (Utils.checkSignature(token, signature, timestamp, nonce)) {
-            out.print(echostr);
+            out.write(echostr);
         } else {
             logger.warn("不是微信服务器发来的请求,请小心!");
         }
@@ -76,34 +79,57 @@ public class WeChatController {
         // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/xml");
+        //path
+        String path = request.getContextPath();
+        String basePath = request.getScheme() + "://" + request.getServerName() + path + "/";
+        String url = basePath + "introduce/register";
 
         // 调用核心业务类接收消息、处理消息
         ServletInputStream in = request.getInputStream();
         String xmlMsg = Utils.inputStream2String(in);
         logger.info("输入消息:[" + xmlMsg + "]");
-        weChatService.dispose(xmlMsg);
-        /*
-        String accessToken = tokenHandler.getToke();
-        logger.info("accessToken:{}", accessToken);
-
-        String respMessage = "";
-        StringBuffer message = new StringBuffer();
-        Calendar calendar = Calendar.getInstance();
-        long endTime = calendar.getTimeInMillis();
-        message.append("<xml>")
-                .append("<ToUserName><![CDATA[o3swquEwkgq-SPvMUB-ctFUYUsR8]]></ToUserName>")
-                //.append("<ToUserName><![CDATA[o3swquAupwYguV-d8qPf_yW7BQ_g]]></ToUserName>")
-                .append("<FromUserName><![CDATA[gh_b7da08268238]]></FromUserName>")
-                .append("<CreateTime>" + endTime + "</CreateTime>")
-                .append("<MsgType><![CDATA[text]]></MsgType>")
-                .append("<Content><![CDATA[你好]]></Content>")
-                .append("</xml>");
-        respMessage = message.toString();
-        logger.info(respMessage);
-        // 响应消息
-        PrintWriter out = response.getWriter();
-        out.print(respMessage);
-        out.close();
-        */
+        //返回消息
+        Map<String, String> retMap = weChatService.dispose(xmlMsg);
+        if (!retMap.isEmpty()) {
+            String respMessage = "";
+            StringBuffer message = new StringBuffer();
+            Calendar calendar = Calendar.getInstance();
+            long createTime = calendar.getTimeInMillis();
+            String nickName = URLEncoder.encode(retMap.get("nickname"), "utf-8");
+            url = url + "?nick="+ nickName +"&wechat="+retMap.get("FromUserName");
+            message.append("<xml>")
+                   .append("<ToUserName><![CDATA[").append(retMap.get("FromUserName")).append("]]></ToUserName>")
+                   //.append("<ToUserName><![CDATA[ogyY-xEmS4jJXR9jmN5xhmhTQ7SM]]></ToUserName>")
+                    .append("<FromUserName><![CDATA[").append(retMap.get("ToUserName")).append("]]></FromUserName>")
+                    //.append("<FromUserName><![CDATA[gh_98afb6887712]]></FromUserName>")
+                    .append("<CreateTime>" + createTime + "</CreateTime>")
+                    .append("<MsgType><![CDATA[text]]></MsgType>")
+                    //.append("<Content><![CDATA[您好]]></Content>")
+                    .append("<Content><![CDATA[杭州优达生物科技欢迎您，请进行<a href=\"").append(url).append("\">绑定手机操作</a>]]></Content>")
+                    .append("</xml>");
+            respMessage = message.toString();
+            logger.info(respMessage);
+            // 响应消息
+            response.getWriter().write(respMessage);
+        } else {
+            String respMessage = "success";
+            /**
+            StringBuffer message = new StringBuffer();
+            Calendar calendar = Calendar.getInstance();
+            long createTime = calendar.getTimeInMillis();
+            message.append("<xml>")
+                   // .append("<ToUserName><![CDATA[").append(retMap.get("FromUserName")).append("]]></ToUserName>")
+                   // .append("<FromUserName><![CDATA[").append(retMap.get("ToUserName")).append("]]></FromUserName>")
+                    .append("<ToUserName><![CDATA[ogyY-xEmS4jJXR9jmN5xhmhTQ7SM]]></ToUserName>")
+                    .append("<FromUserName><![CDATA[gh_98afb6887712]]></FromUserName>")
+                    .append("<CreateTime>" + createTime + "</CreateTime>")
+                    .append("<MsgType><![CDATA[text]]></MsgType>")
+                    .append("<Content><![CDATA[您好,建设中。。。<a href=\"").append(url).append("\">绑定手机</a>操作]]></Content>")
+                    .append("</xml>");
+             respMessage = message.toString();
+             */
+            response.getWriter().write(respMessage);
+        }
     }
 }

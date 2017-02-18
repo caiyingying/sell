@@ -34,4 +34,16 @@ public interface CustomerMapper {
      * @return
      */
     int getPageCount(Customer customer);
+
+    /**
+     * 设置失效，有生效时间的才设置失效时间
+     * @param customer
+     */
+    void updateDisableCustomer(Customer customer);
+
+    /**
+     * 设置生效，不存在生效时间和失效时间的才设置
+     * @param customer
+     */
+    void updateEnableCustomer(Customer customer);
 }

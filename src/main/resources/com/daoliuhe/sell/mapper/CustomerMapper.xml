@@ -27,6 +27,9 @@
         c.WECHAT,
         c.NICK,
         c.BUSINESS_ID,
+        c.PHONE,
+        c.ENABLE_DATE,
+        c.DISABLE_DATE,
         d.NAME as BUSINESS_NAME
         from customer c, dealers d
         <where>
@@ -61,6 +64,9 @@
     <delete id="deleteByWechat" parameterType="java.lang.String">
     delete from customer
     where wechat = #{wechat,jdbcType=VARCHAR}
+    and PHONE is null
+    and ENABLE_DATE is null
+    and DISABLE_DATE is null
   </delete>
 
 
@@ -167,4 +173,21 @@
       DISABLE_DATE = #{disableDate,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+    <update id="updateDisableCustomer" parameterType="com.daoliuhe.sell.model.Customer">
+      update customer
+          set DISABLE_DATE = now()
+      where WECHAT = #{wechat,jdbcType=VARCHAR}
+          and ENABLE_DATE is not null
+    </update>
+
+    <update id="updateEnableCustomer" parameterType="com.daoliuhe.sell.model.Customer">
+      update customer
+          set ENABLE_DATE = now(),
+              PHONE = #{phone,jdbcType=VARCHAR}
+      where WECHAT = #{wechat,jdbcType=VARCHAR}
+          and ENABLE_DATE is null
+          and DISABLE_DATE is null
+    </update>
+
 </mapper>

@@ -45,4 +45,14 @@ public class CustomerServiceImpl implements CustomerService {
         map.put("rows", customerMapper.getPageData(customer));
         return map;
     }
+
+    @Override
+    public void updateCustomerRel(Customer customer) {
+        logger.info("updateCustomerRel,customer:{}", customer);
+        // 绑定手机号码的时候，设置生效时间为当前，同时设置存在生效时间的关系中的失效时间为当前。(存在失效时间即为失效，不存在即为生效)
+        //设置之前关系的失效时间
+        customerMapper.updateDisableCustomer(customer);
+        //设置当前关系的生效时间
+        customerMapper.updateEnableCustomer(customer);
+    }
 }
