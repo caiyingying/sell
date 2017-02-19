@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -21,6 +22,7 @@
     <script type="text/javascript" src="static/js/jquery.qrcode.min.js"></script>
 </head>
 <body>
+<shiro:hasPermission name="dealers:nav">
 <div class="easyui-layout" data-options="fit:true">
     <%@ include file="/WEB-INF/jsp/common/titleNav.jsp" %>
     <%@ include file="/WEB-INF/jsp/common/sidebarNav.jsp" %>
@@ -309,5 +311,9 @@
         return val;
     }
 </script>
+</shiro:hasPermission>
+<shiro:lacksPermission name="dealers:nav">
+    您没有权限访问，请联系管理员。
+</shiro:lacksPermission>
 </body>
 </html>

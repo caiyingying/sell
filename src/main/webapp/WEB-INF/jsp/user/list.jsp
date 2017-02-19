@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
     String path = request.getContextPath();
@@ -21,6 +22,7 @@
     <script type="text/javascript" src="static/plugin/jquery-validate/jquery.validate.min-1.14.js"></script>
 </head>
 <body>
+<shiro:hasPermission name="user:nav">
 <script type="text/javascript">
     //选中菜单
     $(function () {
@@ -241,5 +243,9 @@
     <a href="javascript:void(0)" class="easyui-linkbutton"
        onclick="javascript:$('#dlg_password').dialog('close')">取消</a>
 </div>
+</shiro:hasPermission>
+<shiro:lacksPermission name="user:nav">
+    您没有权限访问，请联系管理员。
+</shiro:lacksPermission>
 </body>
 </html>
