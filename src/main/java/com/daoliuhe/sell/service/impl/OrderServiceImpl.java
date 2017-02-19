@@ -6,11 +6,10 @@ import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderGetResponse;
 import com.daoliuhe.sell.bean.weidian.response.order.VdianOrderIdsGetResponse;
 import com.daoliuhe.sell.exception.OpenException;
 import com.daoliuhe.sell.mapper.CustomerMapper;
+import com.daoliuhe.sell.mapper.DealersUserMapper;
 import com.daoliuhe.sell.mapper.OrderProductMapper;
 import com.daoliuhe.sell.mapper.SyncTimeMapper;
-import com.daoliuhe.sell.model.Customer;
-import com.daoliuhe.sell.model.OrderProduct;
-import com.daoliuhe.sell.model.SyncTime;
+import com.daoliuhe.sell.model.*;
 import com.daoliuhe.sell.service.OrderService;
 import com.daoliuhe.sell.util.Config;
 import com.daoliuhe.sell.util.Constants;
@@ -18,6 +17,8 @@ import com.daoliuhe.sell.util.JsonUtils;
 import com.daoliuhe.sell.util.Utils;
 import com.daoliuhe.sell.weChat.WeiDianTokenHandler;
 import org.apache.poi.util.StringUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     CustomerMapper customerMapper;
+
+    @Autowired
+    DealersUserMapper dealersUserMapper;
 
     @Override
     public Map<String, Object> doSync() {
@@ -195,6 +199,39 @@ public class OrderServiceImpl implements OrderService {
             orderProduct.setPage(maxPage);
         }
         map.put("rows", orderProductMapper.getPageData(orderProduct));
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> getAuthPageData(OrderProduct orderProduct) {
+        logger.info("getPageData,orderProduct:{}", orderProduct);
+        Map<String, Object> map = new HashMap<String, Object>();
+        Session session = SecurityUtils.getSubject().getSession();
+        User curUser = (User) session.getAttribute(Constants.USERINFO);
+        if(null != curUser && curUser.getId() > 0){
+            DealersUser dealersUser = new DealersUser();
+            dealersUser.setUserId(curUser.getId());
+            List<DealersUser> dealersUsers = dealersUserMapper.select(dealersUser);
+            if(dealersUsers.isEmpty()){
+                logger.info("用户{},没有分销商的权限",curUser.toString());
+            } else {
+                List<Integer> dealersIds = new ArrayList<Integer>();
+                for(DealersUser user : dealersUsers){
+                    dealersIds.add(user.getDealersId());
+                }
+                //设置权限分销商
+                orderProduct.setDealersIdList(dealersIds);
+                int total = orderProductMapper.getPageCount(orderProduct);
+                map.put("total", total);
+                int curPage = orderProduct.getPage();
+                int rows = orderProduct.getRows();
+                int maxPage = (total + rows - 1) / rows;
+                if (curPage > maxPage && maxPage > 0) {
+                    orderProduct.setPage(maxPage);
+                }
+                map.put("rows", orderProductMapper.getPageData(orderProduct));
+            }
+        }
         return map;
     }
 

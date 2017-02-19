@@ -118,7 +118,7 @@
         <table class="easyui-datagrid" id="dg"
                data-options="
 		method:'post',
-		url:'order/data',
+		url:'order/orderData',
 		noheader:true,
 		fit:true,
 		rownumbers:true,
@@ -154,7 +154,7 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true"
                    onclick="query()">查询</a>
             </div>
-            <form action="order/list" method="post" id="queryForm">
+            <form action="order/orderList" method="post" id="queryForm">
                 <input type="hidden" name="id" value=""/>
                 <table>
                     <tr>

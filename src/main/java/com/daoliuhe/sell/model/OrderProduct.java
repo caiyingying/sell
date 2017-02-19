@@ -3,6 +3,7 @@ package com.daoliuhe.sell.model;
 import com.daoliuhe.sell.util.Utils;
 
 import java.util.Date;
+import java.util.List;
 
 public class OrderProduct extends BasePage {
     private Integer id;
@@ -20,6 +21,8 @@ public class OrderProduct extends BasePage {
     private String userPhone;
 
     private Integer dealersId;
+
+    private List<Integer> dealersIdList;
 
     private String comfirm;
 
@@ -238,5 +241,13 @@ public class OrderProduct extends BasePage {
 
     public void setComfirmDateStr(String comfirmDateStr) {
         this.comfirmDateStr = comfirmDateStr;
+    }
+
+    public List<Integer> getDealersIdList() {
+        return dealersIdList;
+    }
+
+    public void setDealersIdList(List<Integer> dealersIdList) {
+        this.dealersIdList = dealersIdList;
     }
 }

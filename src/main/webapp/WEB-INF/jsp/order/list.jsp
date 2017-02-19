@@ -209,7 +209,7 @@
     function query() {
         $('#dg').datagrid({
             queryParams: {
-                userPhone: $('#userPhone').combobox("getValue"),
+                dealersId: $('#dealersId').combobox("getValue"),
                 itemId: $('#itemId').combobox("getValue"),
                 comfirm: $('#comfirm').val(),
                 orderId: $('#orderId').val(),
@@ -314,10 +314,10 @@
                 <table>
                     <tr>
                         <td>分销商:</td>
-                        <td><input class="easyui-combobox" id="userPhone" data-options="
+                        <td><input class="easyui-combobox" id="dealersId" data-options="
                             url:'dealers/selectData',
                             method:'post',
-                            valueField:'phone',
+                            valueField:'id',
                             textField:'name',
                             panelHeight:'auto'
                             ">

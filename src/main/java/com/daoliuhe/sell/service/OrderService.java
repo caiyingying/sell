@@ -27,5 +27,12 @@ public interface OrderService {
      */
     Map<String, Object> getPageData(OrderProduct orderProduct);
 
+    /**
+     * 分页查询，查询有权限的订单
+     * @param orderProduct
+     * @return
+     */
+    Map<String, Object> getAuthPageData(OrderProduct orderProduct);
+
 
 }

@@ -44,7 +44,8 @@ public class OrderController {
     public ModelAndView orderList(OrderProduct orderProduct) throws UnsupportedEncodingException {
         logger.info("list,orderProduct:{}", orderProduct);
         ModelAndView mav = new ModelAndView("order/orderList");
-        mav.addAllObjects(orderService.getPageData(orderProduct));
+        //查询有权限的订单
+        mav.addAllObjects(orderService.getAuthPageData(orderProduct));
         mav.addObject("entity", orderProduct);
         return mav;
     }
@@ -61,6 +62,19 @@ public class OrderController {
         }
 
         return orderService.getPageData(orderProduct);
+    }
+
+    @RequestMapping("/orderData")
+    @ResponseBody
+    public Object authData(OrderProduct orderProduct) {
+        logger.info("data,orderProduct:{}", orderProduct);
+        if (!StringUtils.isEmpty(orderProduct.getPayTimeBegin())) {
+            orderProduct.setPayTimeBegin(orderProduct.getPayTimeBegin() + " 00:00:00");
+        }
+        if (!StringUtils.isEmpty(orderProduct.getPayTimeEnd())) {
+            orderProduct.setPayTimeEnd(orderProduct.getPayTimeEnd() + " 23:59:59");
+        }
+        return orderService.getAuthPageData(orderProduct);
     }
 
     @RequestMapping("/sync")
