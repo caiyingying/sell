@@ -52,3 +52,47 @@ var reg = /^1[0-9]{10}$/;
 3、同步订单的时候，去客户分销商关系中查询分销商和客户的关系，保存分销商。
 4、订单查询，只能查询我关联的分销商
 5、同步时页面的锁定
+
+
+{
+     "button":[
+     {
+          "type":"view",
+          "name":"品牌故事",
+          "url":"http://hzydsw.com/sell/introduce/story"
+      },
+      {
+           "name":"萤火虫",
+            "sub_button":
+            [
+                {
+                  "type":"view",
+                  "name":"产品介绍",
+                  "url":"http://hzydsw.com/sell/introduce/about"
+                },
+                {
+                  "type":"view",
+                  "name":"最新资讯",
+                  "url":"http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MzIwNDc0NzAwOA==&from=1#wechat_webview_type=1&wechat_redirect"
+                }
+            ]
+      },
+      {
+         "name":"销售中心",
+          "sub_button":
+          [
+              {
+                "type":"view",
+                "name":"进入商城",
+                "url":"https://weidian.com/?userid=1151491752&wfr=c"
+              },
+              {
+                "type":"view",
+                "name":"联系我们",
+                "url":"http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000006&idx=1&sn=8f09a2eb96fe2d94f025eab07a2e0b86&chksm=173a3969204db07fb69de2bce8e030c784f8796fb7fd7fa07b49abe2daf4ed99e6063c210400&scene=18#wechat_redirect"
+              }
+          ]
+      }
+	  ]
+}
+
