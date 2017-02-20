@@ -147,7 +147,7 @@ public class ProductServiceImpl implements ProductService {
                                             int count = productMapper.getPageCount(product);
                                             product.setSkuTitle(sku.getTitle());
                                             product.setProductName(item.getItemName());
-                                            product.setProductPrice(Double.parseDouble(item.getPrice()));
+                                            product.setProductPrice(Double.parseDouble(sku.getPrice()));
                                             //存在就更新，不存在就添加
                                             if (count == 0) {
                                                 productMapper.insertSelective(product);
