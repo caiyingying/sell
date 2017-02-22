@@ -33,7 +33,8 @@
         $('#dg').datagrid({
             queryParams: {
                 nick: $('#nick').val(),
-                businessName: $('#businessName').val()
+                businessId: $('#businessId').combobox("getValue")
+                //businessName: $('#businessName').val()
             }
         });
     }
@@ -80,7 +81,14 @@
                         <td>昵称:</td>
                         <td><input type="text" id="nick"/></td>
                         <td>分销商:</td>
-                        <td><input type="text" id="businessName"/></td>
+                        <td><input class="easyui-combobox" id="businessId" data-options="
+                            url:'dealers/selectData',
+                            method:'post',
+                            valueField:'code',
+                            textField:'name',
+                            panelHeight:'auto'
+                            ">
+                        </td>
                     </tr>
                 </table>
             </form>

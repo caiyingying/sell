@@ -40,6 +40,9 @@
             <if test="businessName != null and businessName != ''">
                 and d.BUSINESS_NAME LIKE concat('%',#{businessName,jdbcType=VARCHAR},'%')
             </if>
+            <if test="businessId != null and businessId != ''">
+                and c.BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+            </if>
         </where>
         order by nick asc
     </sql>
