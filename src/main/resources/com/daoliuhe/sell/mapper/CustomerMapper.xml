@@ -193,6 +193,7 @@
           set DISABLE_DATE = now()
       where WECHAT = #{wechat,jdbcType=VARCHAR}
           and ENABLE_DATE is not null
+          and DISABLE_DATE is null
     </update>
 
     <update id="updateEnableCustomer" parameterType="com.daoliuhe.sell.model.Customer">
