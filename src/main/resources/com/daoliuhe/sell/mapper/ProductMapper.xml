@@ -11,7 +11,14 @@
     <result column="DISCOUNT" property="discount" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, DISCOUNT, SKU_ID, SKU_TITLE
+    ID,
+    PRODUCT_ID,
+    PRODUCT_NAME,
+    PRODUCT_PRICE,
+    DISCOUNT,
+    SKU_ID,
+    SKU_TITLE,
+    concat(PRODUCT_NAME ,"(",SKU_TITLE, ")") as fullName
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

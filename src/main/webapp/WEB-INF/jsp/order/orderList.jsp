@@ -84,7 +84,7 @@
     function query() {
         $('#dg').datagrid({
             queryParams: {
-                itemId: $('#itemId').combobox("getValue"),
+                skuId: $('#skuId').combobox("getValue"),
                 comfirm: $('#comfirm').val(),
                 orderId: $('#orderId').val(),
                 payTimeBegin: $('#payTimeBegin').datebox('getValue'),
@@ -160,21 +160,13 @@
                     <tr>
                         <td>产品:</td>
                         <td>
-                            <input class="easyui-combobox" id="itemId" data-options="
+                            <input class="easyui-combobox" id="skuId" data-options="
                             url:'product/selectData',
                             method:'post',
-                            valueField:'productId',
-                            textField:'productName',
+                            valueField:'skuId',
+                            textField:'fullName',
                             panelHeight:'auto'
                             ">
-                        <td>是否返现:</td>
-                        <td>
-                            <select id="comfirm">
-                                <option value=""></option>
-                                <option value="0">否</option>
-                                <option value="1">是</option>
-                            </select>
-                        </td>
                         <td>订单编号:</td>
                         <td><input type="text" id="orderId"></td>
                     </tr>
@@ -183,6 +175,14 @@
                         <td><input id="payTimeBegin" type="text" class="easyui-datebox"></td>
                         <td>至</td>
                         <td><input id="payTimeEnd" type="text" class="easyui-datebox"></td>
+                        <td>是否返现:</td>
+                        <td>
+                            <select id="comfirm">
+                                <option value=""></option>
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>总金额汇总:</td>

@@ -15,6 +15,11 @@ public class Product extends BasePage{
 
     private String skuTitle;
 
+    /**
+     * 完整的名称，productName(skuTitle)
+     */
+    private String fullName;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +74,13 @@ public class Product extends BasePage{
 
     public void setSkuTitle(String skuTitle) {
         this.skuTitle = skuTitle;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

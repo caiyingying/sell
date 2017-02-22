@@ -73,6 +73,12 @@
       <if test="dealersId != null and dealersId != ''">
         and op.DEALERS_ID = #{dealersId,jdbcType=VARCHAR}
       </if>
+      <if test="itemId != null and itemId != ''">
+        and op.ITEM_ID = #{itemId,jdbcType=VARCHAR}
+      </if>
+      <if test="skuId != null and skuId != ''">
+        and op.SKU_ID = #{skuId,jdbcType=VARCHAR}
+      </if>
       <if test="dealersIdList != null and !dealersIdList.isEmpty()">
         AND
         <foreach collection="dealersIdList" open="(" separator="or" close=")" item="item" index="index">
