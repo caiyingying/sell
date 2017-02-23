@@ -78,7 +78,7 @@
                 <input type="hidden" name="id" value=""/>
                 <table>
                     <tr>
-                        <td>昵称:</td>
+                        <td>微信昵称:</td>
                         <td><input type="text" id="nick"/></td>
                         <td>分销商:</td>
                         <td><input class="easyui-combobox" id="businessId" data-options="
