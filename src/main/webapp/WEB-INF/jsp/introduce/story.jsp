@@ -128,7 +128,7 @@
         <div id="tabContent" class="tab-content">
             <!--品牌文化-->
             <div class="tab-pane active" id="hair">
-                <div class="col-xs-12" name="item" style="margin-top: 20px;" link_url="http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000007&idx=1&sn=896cb2f9bd6754b166b40a1031ade9a9&chksm=173a3968204db07e251da8dfe0c921bb5b2253c75ecba0251314d54284e7af8b1d5b138570b6#rd">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;" link_url="http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000007&idx=1&sn=896cb2f9bd6754b166b40a1031ade9a9&chksm=173a3968204db07e251da8dfe0c921bb5b2253c75ecba0251314d54284e7af8b1d5b138570b6#wechat_redirect">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/22.jpg" alt="holder.js/300x300">
                     </div>
@@ -142,7 +142,7 @@
 
             <!--视频讲解-->
             <div class="tab-pane" id="body">
-                <div class="col-xs-12" name="item" style="margin-top: 20px;" link_url="http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000008&idx=1&sn=70c3063c586ae38e54c96aa0169bd10c&chksm=173a3967204db071e6a361694a7b481d9c715bf76fe9b839a6fec23beb00564eb6d790c69490#rd">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;" link_url="http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000008&idx=1&sn=70c3063c586ae38e54c96aa0169bd10c&chksm=173a3967204db071e6a361694a7b481d9c715bf76fe9b839a6fec23beb00564eb6d790c69490#wechat_redirect">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/logo21.jpg" alt="holder.js/300x300">
                     </div>
@@ -155,7 +155,7 @@
 
             <!--健康知识-->
             <div class="tab-pane" id="living">
-                <div class="col-xs-12" name="item" style="margin-top: 20px;" link_url="http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000009&idx=1&sn=bc655ea09c2fe0d2ccd603e0e3ff9360&chksm=173a3966204db070d4fd2114381e017a0d5344edbb3a59e69b803575845d5782286b262f7e93#rd">
+                <div class="col-xs-12" name="item" style="margin-top: 20px;" link_url="http://mp.weixin.qq.com/s?__biz=MzIwNDc0NzAwOA==&mid=100000009&idx=1&sn=bc655ea09c2fe0d2ccd603e0e3ff9360&chksm=173a3966204db070d4fd2114381e017a0d5344edbb3a59e69b803575845d5782286b262f7e93#wechat_redirect">
                     <div class="col-xs-4 thumbnail" style="border:0;">
                         <img src="static/images/logo31.jpg" alt="holder.js/300x300">
                     </div>
