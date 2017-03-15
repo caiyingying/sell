@@ -63,4 +63,12 @@ public class IntroduceController {
 		customerService.updateCustomerRel(customer);
 		return mav;
 	}
+
+	@RequestMapping("/route")
+	public ModelAndView route() throws UnsupportedEncodingException {
+		logger.info("route");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:https://weidian.com/?userid=1151491752&wfr=c");
+		return mav;
+	}
 }
