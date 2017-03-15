@@ -54,7 +54,7 @@ public class DefaultWeidianClient extends AbstractWeidianClient {
   @Override
   public String executeGetForString(String url) throws OpenException {
     try {
-      LOGGER.debug("url:{}", url);
+      LOGGER.debug("executeGetForString url:{}", url);
       return this.get(url);
     } catch (Exception e) {
       LOGGER.error(e.getMessage(), e);
@@ -89,7 +89,7 @@ public class DefaultWeidianClient extends AbstractWeidianClient {
   @Override
   public String executePostForString(String url, Param publicParam, Param bizParam) throws OpenException {
     try {
-      LOGGER.debug("url:{}", url);
+      LOGGER.debug("executePostForString url:{}", url);
       return this.post(url, publicParam, bizParam);
     } catch (Exception e) {
       LOGGER.error(e.getMessage(), e);
@@ -101,7 +101,7 @@ public class DefaultWeidianClient extends AbstractWeidianClient {
   public <T extends AbstractResponse> T multipart(AbstractRequest<T> request) throws OpenException {
     try {
       String url = String.format(Config.MEDIA_UPLOAD_URL_TEMPLATE, request.getAccessToken());
-      LOGGER.debug("url:{}", url);
+      LOGGER.debug("multipart url:{}", url);
       String response = this.getHttpService().multipart(url, request.getMultipartName(), request.getMultipartContent());
       LOGGER.debug("response:{}", response);
       return this.parse(response, request.getResponseClass());

@@ -9,7 +9,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <title>优达生物科技</title>
+    <title>萤火虫Deslucioles</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=8"/>
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
