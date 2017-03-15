@@ -60,7 +60,7 @@ public class HttpKit {
         HttpGet httpget = new HttpGet(url);
 
         CloseableHttpResponse response = null;
-        ;
+
         try {
             response = httpclient.execute(httpget);
 
@@ -113,7 +113,7 @@ public class HttpKit {
         HttpGet httpget = new HttpGet(url);
 
         CloseableHttpResponse response = null;
-        ;
+
         try {
             response = httpclient.execute(httpget);
 
@@ -165,7 +165,7 @@ public class HttpKit {
         HttpGet httpget = new HttpGet(url);
 
         CloseableHttpResponse response = null;
-        ;
+
         try {
             response = httpclient.execute(httpget);
 
