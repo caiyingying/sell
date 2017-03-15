@@ -279,7 +279,7 @@ public class OrderServiceImpl implements OrderService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("getVDianOrderIds,message:{}", e.getMessage());
+            logger.error("getVDianOrderIds,message:{}, StackTrace:{}", e.getMessage(), e.getStackTrace());
         }
         return orders;
     }
