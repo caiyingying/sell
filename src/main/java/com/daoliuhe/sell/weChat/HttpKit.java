@@ -105,10 +105,10 @@ public class HttpKit {
         StringBuffer urlBuffer = new StringBuffer();
 
         urlBuffer.append(WeChatConstants.web_access_token_url)
-                .append("&appid=").append(appid)
+                .append("appid=").append(appid)
                 .append("&secret=").append(secret)
-                .append("code=").append(code)
-                .append("grant_type=").append(grant_type);
+                .append("&code=").append(code)
+                .append("&grant_type=").append(grant_type);
 
         String url = urlBuffer.toString();
 
@@ -385,7 +385,7 @@ public class HttpKit {
     }
 
     public static void main(String[] args) {
-        System.out.println(getAccessToken("client_credential", "wx7b255430c452b80f", "ce56c3b2bdfe9eecbcc9ce8a29ea5db5"));
+        String openid = HttpKit.getOpenIdByCode("wx0f7085cb5de9b50f", "e8c71ffb8141a9d77c7da1c069a6e7fa", "001mtyWz0JE9Ui1AJMXz0NVsWz0mtyWN", "authorization_code");
     }
 
 }
