@@ -88,6 +88,61 @@ public class HttpKit {
         return retStr;
     }
 
+    /***
+     * 通过code换取网页授权access_token
+     * 获取code后，请求以下链接获取access_token：  https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+     * @param appid 公众号的唯一标识
+     * @param secret 公众号的appsecret
+     * @param code 填写第一步获取的code参数
+     * @param grant_type 填写为authorization_code
+     * @return { "access_token":"ACCESS_TOKEN","expires_in":7200,"refresh_token":"REFRESH_TOKEN","openid":"OPENID","scope":"SCOPE" }
+     */
+    public static String getOpenIdByCode(String appid, String secret, String code, String grant_type) {
+        String retStr = "";
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        StringBuffer urlBuffer = new StringBuffer();
+
+        urlBuffer.append(WeChatConstants.web_access_token_url)
+                .append("&appid=").append(appid)
+                .append("&secret=").append(secret)
+                .append("code=").append(code)
+                .append("grant_type=").append(grant_type);
+
+        String url = urlBuffer.toString();
+
+        HttpGet httpget = new HttpGet(url);
+
+        CloseableHttpResponse response = null;
+
+        try {
+            response = httpclient.execute(httpget);
+
+            HttpEntity entity = response.getEntity();
+            String charset = "UTF-8";
+            String responseStr = EntityUtils.toString(entity, charset);
+
+            JSONObject jsonObj = JSONObject.fromObject(responseStr);
+
+            retStr = jsonObj.getString("openid");
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != response) {
+                try {
+                    response.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        return retStr;
+    }
+
     /**
      * 获取微店的access_token
      * @param grant_type

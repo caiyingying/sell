@@ -8,6 +8,11 @@ public class WeChatConstants {
     public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?";
 
     /**
+     * 网页授权的access_token
+     */
+    public final static String web_access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?";
+
+    /**
      * 获取微店的access_token
      */
     public final static String wei_dian_access_token_url = "https://api.vdian.com/token?";
