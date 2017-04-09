@@ -65,8 +65,8 @@ public class IntroduceController {
 	}
 
 	@RequestMapping("/route")
-	public ModelAndView route(String openid) throws UnsupportedEncodingException {
-		logger.info("route, openid:{}",openid);
+	public ModelAndView route(String code, String state) throws UnsupportedEncodingException {
+		logger.info("route, code:{}, state",code, state);
 		ModelAndView mav = new ModelAndView();
 		//TODO 根据用户的opendId，获取跳转的微店地址
 		mav.setViewName("redirect:https://weidian.com/?userid=1151491752&wfr=c");
