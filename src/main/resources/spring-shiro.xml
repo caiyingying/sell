@@ -54,6 +54,7 @@
 	            /weiDianPush/** = anon
 	            /introduce/** = anon
 				/favicon.ico = anon
+				/MP_verify_jYHXdTeBf66vvlK1.txt = anon
 	            /** = authc
 	        </value>
 	    </property>

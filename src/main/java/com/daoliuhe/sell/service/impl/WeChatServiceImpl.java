@@ -103,7 +103,7 @@ public class WeChatServiceImpl implements WeChatService {
                      Ticket	二维码的ticket，可用来换取二维码图片
                      */
                     //\code = code.replace("scene_", "").trim();
-
+                    //TODO 扫描事件保存用户和分销商的关系
                 } else if ("merchant_order".equalsIgnoreCase(event)) {//订单付款通知
                     //根据订单获取详情
                     String orderId = msMap.get("OrderId");//订单Id
